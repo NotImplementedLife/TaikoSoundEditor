@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace TaikoSoundEditor
 
         static readonly string[] HEADER_GLOBAL = new string[] 
         {
-            "TITLE", "SUBTITLE", "BPM", "WAVE", "OFFSET", "DEMOSTART","GENRE",
+            "TITLE", "TITLEJA", "SUBTITLE", "BPM", "WAVE", "OFFSET", "DEMOSTART","GENRE",
         };
 
         static readonly string[] HEADER_COURSE = new string[]
@@ -274,6 +275,8 @@ namespace TaikoSoundEditor
                 {
                     if (parsed.Name == "TITLE")
                         headers.Title = parsed.Value;
+                    if (parsed.Name == "TITLEJA")
+                        headers.TitleJa = parsed.Value;
                     if (parsed.Name == "SUBTITLE")
                         headers.Subtitle = parsed.Value;
                     if (parsed.Name == "BPM")
@@ -377,6 +380,7 @@ namespace TaikoSoundEditor
         {
             public string Title { get; set; } = "";
             public string Subtitle { get; set; } = "";
+            public string TitleJa { get; set; } = "";
             public float Bpm { get; set; } = 120;
             public string Wave { get; set; } = "";
             public float Offset { get; set; } = 0;

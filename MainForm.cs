@@ -81,12 +81,39 @@ namespace TaikoSoundEditor
         });        
 
         private void OkButton_Click(object sender, EventArgs e) => RunGuard(() =>        
-        {            
-            MusicAttributes = Json.Deserialize<MusicAttributes>(GZ.DecompressString(MusicAttributePath));
-            MusicOrders = Json.Deserialize<MusicOrders>(GZ.DecompressString(MusicOrderPath));
-            MusicInfos = Json.Deserialize<MusicInfos>(GZ.DecompressString(MusicInfoPath));
-            WordList = Json.Deserialize<WordList>(GZ.DecompressString(WordListPath));
-
+        {
+            try
+            {
+                MusicAttributes = Json.Deserialize<MusicAttributes>(GZ.DecompressString(MusicAttributePath));
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"Failed to parse\n{MusicAttributePath}\nReason:\n{ex.InnerException}");
+            }
+            try
+            {
+                MusicOrders = Json.Deserialize<MusicOrders>(GZ.DecompressString(MusicOrderPath));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to parse\n{MusicOrderPath}\nReason:\n{ex.InnerException}");
+            }
+            try
+            {
+                MusicInfos = Json.Deserialize<MusicInfos>(GZ.DecompressString(MusicInfoPath));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to parse\n{MusicInfoPath}\nReason:\n{ex.InnerException}");
+            }
+            try
+            {
+                WordList = Json.Deserialize<WordList>(GZ.DecompressString(WordListPath));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to parse\n{WordListPath}\nReason:\n{ex.InnerException}");
+            }
 
             LoadedMusicBox.DataSource = MusicInfos.Items;
             TabControl.SelectedIndex = 1;
@@ -98,14 +125,14 @@ namespace TaikoSoundEditor
 
         public static void RunGuard(Action action) 
         {
-            try
+            //try
             {
                 action();
             }
-            catch (Exception ex)
+            /*catch (Exception ex)
             {
-                Error(ex);
-            }
+                Error(ex);                
+            }*/
         }
 
         public static void Error(Exception e)
@@ -228,7 +255,7 @@ namespace TaikoSoundEditor
 
             ns.Word = new Word { Key = $"song_{songName}", JapaneseText = tja.Headers.Title };
             ns.WordSub = new Word { Key = $"song_sub_{songName}", JapaneseText = tja.Headers.Subtitle };
-            ns.WordDetail = new Word { Key = $"song_detail_{songName}", JapaneseText = "[song details...]" };
+            ns.WordDetail = new Word { Key = $"song_detail_{songName}", JapaneseText = tja.Headers.TitleJa };
 
             mi.EasyOnpuNum = tja.Courses[0].Converted.Notes.Length;
             mi.NormalOnpuNum = tja.Courses[1].Converted.Notes.Length;
@@ -327,7 +354,7 @@ namespace TaikoSoundEditor
 
             var ma = new MusicAttributes();
             ma.Items.AddRange(MusicAttributes.Items);
-            ma.Items.AddRange(AddedMusic.Select(_ => _.MusicAttribute));
+            ma.Items.AddRange(AddedMusic.Select(_ => _.MusicAttribute));            
 
             var mo = new MusicOrders();
             mo.Items.AddRange(MusicOrders.Items);
@@ -341,6 +368,8 @@ namespace TaikoSoundEditor
             var jma = Json.Serialize(ma);
             var jmo = Json.Serialize(mo);
             var jwl = Json.Serialize(wl);
+
+            jma = jma.Replace("\"new\": true,", "\"new\":true,");
 
             File.WriteAllText(Path.Combine(path,"musicinfo"), jmi);
             File.WriteAllText(Path.Combine(path,"music_attribute"), jma);
