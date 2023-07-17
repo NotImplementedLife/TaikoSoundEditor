@@ -22,6 +22,9 @@ namespace TaikoSoundEditor
             using var ms = new MemoryStream();
 
             var header = Resources.song_ABCDEF_nus3bank.ToArray();
+
+
+            Write32(header, 0x4, (uint)idsp.Length);
             for(int i=0;i<6;i++)
             {
                 header[0xAA + i] = (byte)songId[i];

@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 namespace TaikoSoundEditor
 {
@@ -11,7 +13,11 @@ namespace TaikoSoundEditor
 
         public static string Serialize<T>(T item)
         {
-            return JsonSerializer.Serialize(item, new JsonSerializerOptions { WriteIndented = true });
+            return JsonSerializer.Serialize(item, new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                WriteIndented = true
+            });
         }
 
     }

@@ -644,6 +644,8 @@
             // 
             // FeedbackBox
             // 
+            this.FeedbackBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.FeedbackBox.Location = new System.Drawing.Point(6, 134);
             this.FeedbackBox.Multiline = true;
             this.FeedbackBox.Name = "FeedbackBox";
@@ -652,6 +654,7 @@
             // 
             // CreateBackButton
             // 
+            this.CreateBackButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CreateBackButton.Location = new System.Drawing.Point(205, 102);
             this.CreateBackButton.Name = "CreateBackButton";
             this.CreateBackButton.Size = new System.Drawing.Size(75, 23);
@@ -662,6 +665,7 @@
             // 
             // CreateOkButton
             // 
+            this.CreateOkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CreateOkButton.Location = new System.Drawing.Point(286, 102);
             this.CreateOkButton.Name = "CreateOkButton";
             this.CreateOkButton.Size = new System.Drawing.Size(75, 23);
