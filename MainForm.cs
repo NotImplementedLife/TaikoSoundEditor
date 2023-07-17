@@ -349,16 +349,27 @@ namespace TaikoSoundEditor
         private void ExportDatatable(string path)
         {
             var mi = new MusicInfos();
-            mi.Items.AddRange(MusicInfos.Items);
-            mi.Items.AddRange(AddedMusic.Select(_ => _.MusicInfo));
+            mi.Items.AddRange(MusicInfos.Items);                                                
 
             var ma = new MusicAttributes();
             ma.Items.AddRange(MusicAttributes.Items);
             ma.Items.AddRange(AddedMusic.Select(_ => _.MusicAttribute));            
 
             var mo = new MusicOrders();
-            mo.Items.AddRange(MusicOrders.Items);
-            mo.Items.AddRange(AddedMusic.Select(_ => _.MusicOrder));
+
+            var mbyg = MusicOrders.Items.GroupBy(_ => _.GenreNo).Select(_ => (_.Key, List: _.ToList())).ToDictionary(_ => _.Key, _ => _.List);
+
+            foreach (var m in AddedMusic.Select(_ => _.MusicOrder))
+            {
+                if (!mbyg.ContainsKey(m.GenreNo))
+                    mbyg[m.GenreNo] = new List<MusicOrder>();
+                mbyg[m.GenreNo] = mbyg[m.GenreNo].Prepend(m).ToList();
+            }
+
+            foreach(var key in mbyg.Keys.OrderBy(_=>_))
+            {
+                mo.Items.AddRange(mbyg[key]);
+            }            
 
             var wl = new WordList();
             wl.Items.AddRange(WordList.Items);

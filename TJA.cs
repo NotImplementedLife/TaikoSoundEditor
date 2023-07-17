@@ -278,7 +278,7 @@ namespace TaikoSoundEditor
                     if (parsed.Name == "TITLEJA")
                         headers.TitleJa = parsed.Value;
                     if (parsed.Name == "SUBTITLE")
-                        headers.Subtitle = parsed.Value;
+                        headers.Subtitle = parsed.Value.StartsWith("--") ? parsed.Value.Substring(2) : parsed.Value;
                     if (parsed.Name == "BPM")
                         headers.Bpm = float.Parse(parsed.Value);
                     if (parsed.Name == "WAVE")
