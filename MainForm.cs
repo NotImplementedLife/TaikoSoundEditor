@@ -221,15 +221,35 @@ namespace TaikoSoundEditor
             File.WriteAllText("tja.txt", tja.ToString());
 
 
-            var seconds = Math.Ceiling(tja.Headers.Offset + 3);
+            var seconds = (int)Math.Ceiling(tja.Headers.Offset + 3);
             if (seconds < 0) seconds = 0;
             
 
-
             FeedbackBox.AppendText("Converting to wav\r\n");
-            WAV.ConvertToWav(audioFilePath, $@".-tmp\{songName}.wav");
+            WAV.ConvertToWav(audioFilePath, $@".-tmp\{songName}.wav", seconds);
+
+            tja.Headers.Offset -= seconds;
+            tja.Headers.DemoStart += seconds;
+
+            var text = File.ReadAllLines(tjaPath);
+
+            text = text.Select(l =>
+            {
+                if (l.StartsWith("OFFSET:"))
+                    return $"OFFSET:{tja.Headers.Offset:n3}";
+                if (l.StartsWith("DEMOSTART:"))
+                    return $"DEMOSTART:{tja.Headers.DemoStart:n3}";
+                return l;
+            }).ToArray();
+
+
+            var newTja = @$".-tmp\{Path.GetFileName(tjaPath)}";
+            File.WriteAllLines(newTja, text);
+
+
             FeedbackBox.AppendText("Running tja2fumen\r\n");
-            var tja_binaries = TJA.RunTja2Fumen(tjaPath);
+
+            var tja_binaries = TJA.RunTja2Fumen(newTja);
 
             FeedbackBox.AppendText("Creating sound data\r\n");
             NewSongData ns = new NewSongData();
@@ -314,6 +334,17 @@ namespace TaikoSoundEditor
             }
 
             mi.SongFileName = $"sound/song_{songName}";
+
+            mi.RendaTimeEasy = 0;
+            mi.RendaTimeHard = 0;
+            mi.RendaTimeMania = 0;
+            mi.RendaTimeNormal = 0;
+            mi.RendaTimeUra = 0;
+            mi.FuusenTotalEasy = 0;
+            mi.FuusenTotalHard = 0;
+            mi.FuusenTotalMania = 0;
+            mi.FuusenTotalNormal = 0;
+            mi.FuusenTotalUra = 0;
 
             Dictionary<string, int> genres = new Dictionary<string, int>
             {
