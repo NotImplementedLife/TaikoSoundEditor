@@ -257,10 +257,10 @@ namespace TaikoSoundEditor
             ns.WordSub = new Word { Key = $"song_sub_{songName}", JapaneseText = tja.Headers.Subtitle };
             ns.WordDetail = new Word { Key = $"song_detail_{songName}", JapaneseText = tja.Headers.TitleJa };
 
-            mi.EasyOnpuNum = tja.Courses[0].Converted.Notes.Length;
-            mi.NormalOnpuNum = tja.Courses[1].Converted.Notes.Length;
-            mi.HardOnpuNum = tja.Courses[2].Converted.Notes.Length;
-            mi.ManiaOnpuNum = tja.Courses[3].Converted.Notes.Length;
+            mi.EasyOnpuNum = tja.Courses[0].NotesCount;
+            mi.NormalOnpuNum = tja.Courses[1].NotesCount;
+            mi.HardOnpuNum = tja.Courses[2].NotesCount;
+            mi.ManiaOnpuNum = tja.Courses[3].NotesCount;
 
             mi.StarEasy = tja.Courses[0].Headers.Level; 
             mi.StarNormal = tja.Courses[1].Headers.Level; 
@@ -270,7 +270,7 @@ namespace TaikoSoundEditor
             if (tja.Courses.ContainsKey(4)) 
             {
                 FeedbackBox.AppendText("URA course detected\r\n");
-                mi.UraOnpuNum = tja.Courses[4].Converted.Notes.Length;
+                mi.UraOnpuNum = tja.Courses[4].NotesCount;
                 mi.StarUra = tja.Courses[4].Headers.Level;
                 ma.CanPlayUra = true;                
 
@@ -294,6 +294,8 @@ namespace TaikoSoundEditor
 
             if (ma.CanPlayUra)
             {
+                mi.ShinutiScoreUra = 1002320;
+                mi.ShinutiScoreUraDuet = 1002320;
                 mi.ShinutiUra = (mi.ShinutiScoreUra / mi.UraOnpuNum) / 10 * 10;
                 mi.ShinutiUraDuet = (mi.ShinutiScoreUraDuet / mi.UraOnpuNum) / 10 * 10;
             }
@@ -349,7 +351,8 @@ namespace TaikoSoundEditor
         private void ExportDatatable(string path)
         {
             var mi = new MusicInfos();
-            mi.Items.AddRange(MusicInfos.Items);                                                
+            mi.Items.AddRange(MusicInfos.Items);
+            mi.Items.AddRange(AddedMusic.Select(_ => _.MusicInfo));
 
             var ma = new MusicAttributes();
             ma.Items.AddRange(MusicAttributes.Items);
@@ -381,6 +384,7 @@ namespace TaikoSoundEditor
             var jwl = Json.Serialize(wl);
 
             jma = jma.Replace("\"new\": true,", "\"new\":true,");
+            jma = jma.Replace("\"new\": false,", "\"new\":false,");
 
             File.WriteAllText(Path.Combine(path,"musicinfo"), jmi);
             File.WriteAllText(Path.Combine(path,"music_attribute"), jma);

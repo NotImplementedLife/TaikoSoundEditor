@@ -338,7 +338,19 @@ namespace TaikoSoundEditor
             public override string ToString()
                 => $"C({CourseN},{Headers},{string.Join("|",Measures)})";
 
-            public ConvertedCourse Converted => ConvertToTimes(this);
+            public ConvertedCourse Converted => ConvertToTimed(this);
+
+            private static readonly List<string> typeNote = new List<string> { "don", "kat", "donBig", "katBig" };
+
+            public int NotesCount
+            {
+                get
+                {
+                    Debug.WriteLine(string.Join("", Measures.Select(_ => _.MeasureData)));
+                    return string.Join("", Measures.Select(_ => _.MeasureData)).Where(c => "1234".Contains(c)).Count();
+                }
+                //get => Converted.Notes.Where(n => typeNote.Contains(n.Type)).Count();            
+            }
         }
 
         public class Measure
@@ -449,14 +461,17 @@ namespace TaikoSoundEditor
 
         public override string ToString() => $"{Headers}\n{string.Join("\n", Courses)}";
 
+        
 
-        public static ConvertedCourse ConvertToTimes(Course course)
+        public static ConvertedCourse ConvertToTimed(Course course)
         {
             List<TimedEvent> events=new List<TimedEvent>();
             List<Note> notes = new List<Note>();
             float beat = 0;
             int balloon=0;
             bool imo = false;
+
+            //Debug.WriteLine("-----------------------------------------");
 
             for (int m = 0; m < course.Measures.Count; m++)
             {
@@ -471,9 +486,10 @@ namespace TaikoSoundEditor
                     else if (evt.Name == "gogoStart" || evt.Name == "gogoEnd")
                         events.Add(new TimedEvent(evt.Name, 0, beat + eBeat));                    
                 }
-
+                
                 for(int d=0;d<measure.MeasureData.Length;d++)
                 {
+                    //Debug.WriteLine(measure.MeasureData[d]);
                     var ch = measure.MeasureData[d];
                     var nBeat = length / measure.MeasureData.Length * d;
 
