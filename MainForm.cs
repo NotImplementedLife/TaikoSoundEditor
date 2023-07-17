@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks.Dataflow;
 using TaikoSoundEditor.Data;
 
@@ -125,14 +126,14 @@ namespace TaikoSoundEditor
 
         public static void RunGuard(Action action) 
         {
-            //try
+            try
             {
                 action();
             }
-            /*catch (Exception ex)
+            catch (Exception ex)
             {
                 Error(ex);                
-            }*/
+            }
         }
 
         public static void Error(Exception e)
@@ -214,6 +215,17 @@ namespace TaikoSoundEditor
 
             FeedbackBox.AppendText("Creating temp dir\r\n");
             CreateTmpDir();
+
+            FeedbackBox.AppendText("Parsing TJA\r\n");
+            var tja = new TJA(File.ReadAllLines(tjaPath));
+            File.WriteAllText("tja.txt", tja.ToString());
+
+
+            var seconds = Math.Ceiling(tja.Headers.Offset + 3);
+            if (seconds < 0) seconds = 0;
+            
+
+
             FeedbackBox.AppendText("Converting to wav\r\n");
             WAV.ConvertToWav(audioFilePath, $@".-tmp\{songName}.wav");
             FeedbackBox.AppendText("Running tja2fumen\r\n");
@@ -247,11 +259,7 @@ namespace TaikoSoundEditor
             ma.Id = songName;
             ma.UniqueId = id;
             ma.New = true;
-            ns.MusicAttribute = ma;
-
-            FeedbackBox.AppendText("Parsing TJA\r\n");
-            var tja = new TJA(File.ReadAllLines(tjaPath));
-            File.WriteAllText("tja.txt", tja.ToString());
+            ns.MusicAttribute = ma;            
 
             ns.Word = new Word { Key = $"song_{songName}", JapaneseText = tja.Headers.Title };
             ns.WordSub = new Word { Key = $"song_sub_{songName}", JapaneseText = tja.Headers.Subtitle };
@@ -348,6 +356,15 @@ namespace TaikoSoundEditor
                 Directory.CreateDirectory(".-tmp");
         }
 
+        private string JsonFix(string json)
+        {
+            return json
+                .Replace("\r\n      ", "\r\n\t\t")
+                .Replace("{\r\n  \"items\": [", "{\"items\":[")
+                .Replace("    }", "\t}")
+                .Replace("  ]\r\n}", "\t]\r\n}");
+        }
+
         private void ExportDatatable(string path)
         {
             var mi = new MusicInfos();
@@ -378,10 +395,10 @@ namespace TaikoSoundEditor
             wl.Items.AddRange(WordList.Items);
             wl.Items.AddRange(AddedMusic.Select(_ => new List<Word>() { _.Word, _.WordSub, _.WordDetail }).SelectMany(_ => _));
 
-            var jmi = Json.Serialize(mi);
-            var jma = Json.Serialize(ma);
-            var jmo = Json.Serialize(mo);
-            var jwl = Json.Serialize(wl);
+            var jmi = JsonFix(Json.Serialize(mi));
+            var jma = JsonFix(Json.Serialize(ma));
+            var jmo = JsonFix(Json.Serialize(mo));
+            var jwl = JsonFix(Json.Serialize(wl));
 
             jma = jma.Replace("\"new\": true,", "\"new\":true,");
             jma = jma.Replace("\"new\": false,", "\"new\":false,");
