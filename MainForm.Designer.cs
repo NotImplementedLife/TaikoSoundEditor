@@ -83,6 +83,7 @@
             this.TJASelector = new TaikoSoundEditor.PathSelector();
             this.AudioFileSelector = new TaikoSoundEditor.PathSelector();
             this.label10 = new System.Windows.Forms.Label();
+            this.AddSilenceBox = new System.Windows.Forms.CheckBox();
             this.TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -626,6 +627,7 @@
             // 
             this.groupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox10.Controls.Add(this.AddSilenceBox);
             this.groupBox10.Controls.Add(this.FeedbackBox);
             this.groupBox10.Controls.Add(this.CreateBackButton);
             this.groupBox10.Controls.Add(this.CreateOkButton);
@@ -646,7 +648,7 @@
             // 
             this.FeedbackBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FeedbackBox.Location = new System.Drawing.Point(6, 134);
+            this.FeedbackBox.Location = new System.Drawing.Point(6, 154);
             this.FeedbackBox.Multiline = true;
             this.FeedbackBox.Name = "FeedbackBox";
             this.FeedbackBox.Size = new System.Drawing.Size(356, 75);
@@ -655,7 +657,7 @@
             // CreateBackButton
             // 
             this.CreateBackButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CreateBackButton.Location = new System.Drawing.Point(205, 102);
+            this.CreateBackButton.Location = new System.Drawing.Point(205, 122);
             this.CreateBackButton.Name = "CreateBackButton";
             this.CreateBackButton.Size = new System.Drawing.Size(75, 23);
             this.CreateBackButton.TabIndex = 17;
@@ -666,7 +668,7 @@
             // CreateOkButton
             // 
             this.CreateOkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CreateOkButton.Location = new System.Drawing.Point(286, 102);
+            this.CreateOkButton.Location = new System.Drawing.Point(286, 122);
             this.CreateOkButton.Name = "CreateOkButton";
             this.CreateOkButton.Size = new System.Drawing.Size(75, 23);
             this.CreateOkButton.TabIndex = 16;
@@ -738,6 +740,19 @@
             this.label10.Size = new System.Drawing.Size(58, 15);
             this.label10.TabIndex = 8;
             this.label10.Text = "Audio file";
+            // 
+            // AddSilenceBox
+            // 
+            this.AddSilenceBox.AutoSize = true;
+            this.AddSilenceBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.AddSilenceBox.Checked = true;
+            this.AddSilenceBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.AddSilenceBox.Location = new System.Drawing.Point(6, 102);
+            this.AddSilenceBox.Name = "AddSilenceBox";
+            this.AddSilenceBox.Size = new System.Drawing.Size(143, 19);
+            this.AddSilenceBox.TabIndex = 19;
+            this.AddSilenceBox.Text = "Delay before song (3s)";
+            this.AddSilenceBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -835,5 +850,6 @@
         private Button ExportSoundFoldersButton;
         private Button ExportDatatableButton;
         private CheckBox ExportOpenOnFinished;
+        private CheckBox AddSilenceBox;
     }
 }

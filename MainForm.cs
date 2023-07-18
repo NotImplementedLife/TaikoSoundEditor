@@ -221,7 +221,7 @@ namespace TaikoSoundEditor
             File.WriteAllText("tja.txt", tja.ToString());
 
 
-            var seconds = (int)Math.Ceiling(tja.Headers.Offset + 3);
+            var seconds = AddSilenceBox.Checked ? (int)Math.Ceiling(tja.Headers.Offset + 3) : 0;
             if (seconds < 0) seconds = 0;
             
 
