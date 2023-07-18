@@ -74,6 +74,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.AddSilenceBox = new System.Windows.Forms.CheckBox();
             this.FeedbackBox = new System.Windows.Forms.TextBox();
             this.CreateBackButton = new System.Windows.Forms.Button();
             this.CreateOkButton = new System.Windows.Forms.Button();
@@ -83,7 +84,6 @@
             this.TJASelector = new TaikoSoundEditor.PathSelector();
             this.AudioFileSelector = new TaikoSoundEditor.PathSelector();
             this.label10 = new System.Windows.Forms.Label();
-            this.AddSilenceBox = new System.Windows.Forms.CheckBox();
             this.TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -620,7 +620,7 @@
             this.panel4.Controls.Add(this.groupBox10);
             this.panel4.Location = new System.Drawing.Point(151, 102);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(374, 235);
+            this.panel4.Size = new System.Drawing.Size(374, 292);
             this.panel4.TabIndex = 2;
             // 
             // groupBox10
@@ -639,19 +639,32 @@
             this.groupBox10.Controls.Add(this.label10);
             this.groupBox10.Location = new System.Drawing.Point(3, 3);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(368, 215);
+            this.groupBox10.Size = new System.Drawing.Size(368, 247);
             this.groupBox10.TabIndex = 8;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Create new sound";
             // 
+            // AddSilenceBox
+            // 
+            this.AddSilenceBox.AutoSize = true;
+            this.AddSilenceBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.AddSilenceBox.Checked = true;
+            this.AddSilenceBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.AddSilenceBox.Location = new System.Drawing.Point(6, 102);
+            this.AddSilenceBox.Name = "AddSilenceBox";
+            this.AddSilenceBox.Size = new System.Drawing.Size(143, 19);
+            this.AddSilenceBox.TabIndex = 19;
+            this.AddSilenceBox.Text = "Delay before song (3s)";
+            this.AddSilenceBox.UseVisualStyleBackColor = true;
+            // 
             // FeedbackBox
             // 
-            this.FeedbackBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.FeedbackBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FeedbackBox.Location = new System.Drawing.Point(6, 154);
+            this.FeedbackBox.Location = new System.Drawing.Point(6, 162);
             this.FeedbackBox.Multiline = true;
             this.FeedbackBox.Name = "FeedbackBox";
-            this.FeedbackBox.Size = new System.Drawing.Size(356, 75);
+            this.FeedbackBox.Size = new System.Drawing.Size(356, 78);
             this.FeedbackBox.TabIndex = 18;
             // 
             // CreateBackButton
@@ -740,19 +753,6 @@
             this.label10.Size = new System.Drawing.Size(58, 15);
             this.label10.TabIndex = 8;
             this.label10.Text = "Audio file";
-            // 
-            // AddSilenceBox
-            // 
-            this.AddSilenceBox.AutoSize = true;
-            this.AddSilenceBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.AddSilenceBox.Checked = true;
-            this.AddSilenceBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AddSilenceBox.Location = new System.Drawing.Point(6, 102);
-            this.AddSilenceBox.Name = "AddSilenceBox";
-            this.AddSilenceBox.Size = new System.Drawing.Size(143, 19);
-            this.AddSilenceBox.TabIndex = 19;
-            this.AddSilenceBox.Text = "Delay before song (3s)";
-            this.AddSilenceBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

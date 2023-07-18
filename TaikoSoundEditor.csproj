@@ -6,6 +6,9 @@
     <Nullable>disable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Authors>NotImplementedLife</Authors>
+    <AssemblyVersion>0.3</AssemblyVersion>
+    <Version>0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
