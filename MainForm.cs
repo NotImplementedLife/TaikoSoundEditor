@@ -132,10 +132,15 @@ namespace TaikoSoundEditor
             }
 
             Logger.Info($"Setting LoadedMusicBox DataSource");
-            LoadedMusicBox.DataSource = MusicInfos.Items;            
+
+            LoadedMusicBinding = new BindingSource();
+            LoadedMusicBinding.DataSource = MusicInfos.Items;            
+            LoadedMusicBox.DataSource = LoadedMusicBinding;            
             TabControl.SelectedIndex = 1;
 
-        });                    
+        });
+
+        BindingSource LoadedMusicBinding;
 
         #endregion        
 
@@ -161,8 +166,20 @@ namespace TaikoSoundEditor
         #region Editor
 
         private void GridsShow(MusicInfo item)
-        {
+        {            
             Logger.Info($"Showing properties for MusicInfo: {item}");
+
+            if(item==null)
+            {
+                MusicInfoGrid.SelectedObject = null;
+                MusicAttributesGrid.SelectedObject = null;
+                MusicOrderGrid.SelectedObject = null;
+                WordsGrid.SelectedObject = null;
+                WordSubGrid.SelectedObject = null;
+                WordDetailGrid.SelectedObject = null;
+                return;
+            }
+
             MusicInfoGrid.SelectedObject = item;
             MusicAttributesGrid.SelectedObject = MusicAttributes.GetByUniqueId(item.UniqueId);
             MusicOrderGrid.SelectedObject = MusicOrders.GetByUniqueId(item.UniqueId);
@@ -170,13 +187,18 @@ namespace TaikoSoundEditor
             WordSubGrid.SelectedObject = WordList.GetBySongSub(item.Id);
             WordDetailGrid.SelectedObject = WordList.GetBySongDetail(item.Id);
         }
-        
+
+        private bool indexChanging = false;
 
         private void LoadedMusicBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (indexChanging) return;
+            indexChanging = true;
+            NewSoundsBox.SelectedItem = null;
             var item = LoadedMusicBox.SelectedItem as MusicInfo;
             Logger.Info($"Selection Changed MusicItem: {item}");
-            GridsShow(item);   
+            GridsShow(item);
+            indexChanging = false;
         }
 
         private void EditorTable_Resize(object sender, EventArgs e)
@@ -186,6 +208,9 @@ namespace TaikoSoundEditor
 
         private void NewSoundsBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (indexChanging) return;
+            indexChanging = true;
+            LoadedMusicBox.SelectedItem = null;   
             var item = NewSoundsBox.SelectedItem as NewSongData;
             Logger.Info($"Selection Changed NewSongData: {item}");
             Logger.Info($"Showing properties for NewSongData: {item}");
@@ -195,6 +220,7 @@ namespace TaikoSoundEditor
             WordsGrid.SelectedObject = item?.Word;
             WordSubGrid.SelectedObject = item?.WordSub;
             WordDetailGrid.SelectedObject = item?.WordDetail;
+            indexChanging = false;
         }
 
         #endregion
@@ -303,9 +329,9 @@ namespace TaikoSoundEditor
             ns.MBin = tja_binaries[2];
             ns.NBin = tja_binaries[3];            
 
-            var selectedMusicInfo = LoadedMusicBox.SelectedItem as MusicInfo;
+            var selectedMusicInfo = LoadedMusicBox.SelectedItem as MusicInfo;            
 
-            var mi = selectedMusicInfo.Clone();
+            var mi = (selectedMusicInfo ?? (NewSoundsBox.SelectedItem as NewSongData)?.MusicInfo ?? new MusicInfo()).Clone();
             mi.Id = songName;
             mi.UniqueId = id;
             ns.MusicInfo = mi;
@@ -315,7 +341,7 @@ namespace TaikoSoundEditor
             mo.UniqueId = id;
             ns.MusicOrder = mo;
 
-            var ma = MusicAttributes.GetByUniqueId(selectedMusicInfo.UniqueId).Clone();            
+            var ma = selectedMusicInfo != null ? MusicAttributes.GetByUniqueId(selectedMusicInfo.UniqueId).Clone() : new MusicAttribute();
             ma.Id = songName;
             ma.UniqueId = id;
             ma.New = true;
@@ -624,6 +650,46 @@ namespace TaikoSoundEditor
             if (name.Length == 6)
                 SongNameBox.Text = name;
         }
-                
+
+        private void RemoveSongButton_Click(object sender, EventArgs e) => RunGuard(() =>
+        {
+            Logger.Info("Clicked remove song");
+            if (NewSoundsBox.SelectedItem != null)
+            {
+                Logger.Info("Removing newly added song");
+                AddedMusic.Remove(NewSoundsBox.SelectedItem as NewSongData);
+                Logger.Info("Refreshing list");
+                AddedMusicBinding.ResetBindings(false);
+                return;
+            }
+
+            if (LoadedMusicBox.SelectedItem != null)
+            {
+                Logger.Info("Removing existing song");
+                var mi = LoadedMusicBox.SelectedItem as MusicInfo;
+                var ma = MusicAttributes.GetByUniqueId(mi.UniqueId);
+                var mo = MusicOrders.GetByUniqueId(mi.UniqueId);
+                var w = WordList.GetBySong(mi.Id);
+                var ws = WordList.GetBySongSub(mi.Id);
+                var wd = WordList.GetBySongDetail(mi.Id);
+
+                Logger.Info("Removing music info");
+                MusicInfos.Items.RemoveAll(x => x.UniqueId == mi.UniqueId);
+                Logger.Info("Removing music attribute");
+                MusicAttributes.Items.Remove(ma);
+                Logger.Info("Removing music order");
+                MusicOrders.Items.Remove(mo);
+                Logger.Info("Removing word");
+                WordList.Items.Remove(w);
+                Logger.Info("Removing word sub");
+                WordList.Items.Remove(ws);
+                Logger.Info("Removing word detail");
+                WordList.Items.Remove(wd);
+
+                Logger.Info("Refreshing list");
+                LoadedMusicBinding.ResetBindings(false);
+                return;
+            }
+        });
     }
 }
