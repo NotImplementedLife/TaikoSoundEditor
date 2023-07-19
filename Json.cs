@@ -13,13 +13,14 @@ namespace TaikoSoundEditor
             return JsonSerializer.Deserialize<T>(json);
         }
 
-        public static string Serialize<T>(T item)
+
+        public static string Serialize<T>(T item, bool indented = true)
         {
             Logger.Info($"Serializing {typeof(T)}:\n{item}");
             return JsonSerializer.Serialize(item, new JsonSerializerOptions
             {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
-                WriteIndented = true
+                WriteIndented = indented
             });
         }
 

@@ -470,10 +470,10 @@ namespace TaikoSoundEditor
             wl.Items.AddRange(WordList.Items);
             wl.Items.AddRange(AddedMusic.Select(_ => new List<Word>() { _.Word, _.WordSub, _.WordDetail }).SelectMany(_ => _));
 
-            var jmi = JsonFix(Json.Serialize(mi));
+            var jmi = JsonFix(Json.Serialize(mi, !DatatableSpaces.Checked));
             var jma = JsonFix(Json.Serialize(ma));
             var jmo = JsonFix(Json.Serialize(mo));
-            var jwl = JsonFix(Json.Serialize(wl));
+            var jwl = JsonFix(Json.Serialize(wl, !DatatableSpaces.Checked));
 
             jma = jma.Replace("\"new\": true,", "\"new\":true,");
             jma = jma.Replace("\"new\": false,", "\"new\":false,");
@@ -624,5 +624,6 @@ namespace TaikoSoundEditor
             if (name.Length == 6)
                 SongNameBox.Text = name;
         }
+                
     }
 }

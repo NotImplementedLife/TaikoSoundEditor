@@ -45,6 +45,7 @@
             this.MusicAttributePathSelector = new TaikoSoundEditor.PathSelector();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.DatatableSpaces = new System.Windows.Forms.CheckBox();
             this.ExportOpenOnFinished = new System.Windows.Forms.CheckBox();
             this.ExportAllButton = new System.Windows.Forms.Button();
             this.ExportSoundBanksButton = new System.Windows.Forms.Button();
@@ -299,6 +300,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.DatatableSpaces);
             this.tabPage2.Controls.Add(this.ExportOpenOnFinished);
             this.tabPage2.Controls.Add(this.ExportAllButton);
             this.tabPage2.Controls.Add(this.ExportSoundBanksButton);
@@ -316,11 +318,24 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // DatatableSpaces
+            // 
+            this.DatatableSpaces.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.DatatableSpaces.AutoSize = true;
+            this.DatatableSpaces.Checked = true;
+            this.DatatableSpaces.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DatatableSpaces.Location = new System.Drawing.Point(139, 372);
+            this.DatatableSpaces.Name = "DatatableSpaces";
+            this.DatatableSpaces.Size = new System.Drawing.Size(308, 19);
+            this.DatatableSpaces.TabIndex = 11;
+            this.DatatableSpaces.Text = "Remove spaces in datatable files (musicinfo, wordlist)";
+            this.DatatableSpaces.UseVisualStyleBackColor = true;
+            // 
             // ExportOpenOnFinished
             // 
-            this.ExportOpenOnFinished.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportOpenOnFinished.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ExportOpenOnFinished.AutoSize = true;
-            this.ExportOpenOnFinished.Location = new System.Drawing.Point(318, 425);
+            this.ExportOpenOnFinished.Location = new System.Drawing.Point(139, 395);
             this.ExportOpenOnFinished.Name = "ExportOpenOnFinished";
             this.ExportOpenOnFinished.Size = new System.Drawing.Size(203, 19);
             this.ExportOpenOnFinished.TabIndex = 10;
@@ -851,5 +866,6 @@
         private Button ExportDatatableButton;
         private CheckBox ExportOpenOnFinished;
         private CheckBox AddSilenceBox;
+        private CheckBox DatatableSpaces;
     }
 }
