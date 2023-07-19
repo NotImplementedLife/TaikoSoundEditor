@@ -31,23 +31,30 @@ namespace TaikoSoundEditor
 
 
             Write32(header, 0x4, (uint)idsp.Length);
-            for(int i=0;i<6;i++)
+            for(int i=0;i<songId.Length;i++)
             {
                 header[0xAA + i] = (byte)songId[i];
-                header[0xD4E + i] = (byte)songId[i];
+                header[0x612 + i] = (byte)songId[i];
             }
+
+            for (int i = songId.Length; i < 6; i++)
+            {
+                header[0xAA + i] = 0;
+                header[0x612 + i] = 0;
+            }
+
 
             header[0xB4] = (byte)(uniqueId & 0xFF);
             header[0xB5] = (byte)((uniqueId >> 8) & 0xFF);
 
             Write32(header, 0x4C, (uint)idsp.Length);
-            Write32(header, 0xD64, (uint)idsp.Length);
-            Write32(header, 0xE1C, (uint)idsp.Length);
+            Write32(header, 0x628, (uint)idsp.Length);
+            Write32(header, 0x74C, (uint)idsp.Length);
+            Write32(header, 0x4, (uint)idsp.Length);
 
             uint bb = (uint)(demostart * 1000);
 
-            Write32(header, 0xDDC, bb);
-            Write32(header, 0xDE4, bb);
+            Write32(header, 0x6C4, bb);            
 
             ms.Write(header);
             ms.Write(idsp);

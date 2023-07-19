@@ -235,7 +235,7 @@ namespace TaikoSoundEditor
             Logger.Info($"Song Name (Id) = {songName}");
             Logger.Info($"UniqueId = {id}");
 
-            if (songName==null || songName.Length!=6)
+            if (songName == null || songName.Length == 0 || songName.Length > 6) 
             {
                 WarnWithBox("Invalid song name.");                
                 return;
