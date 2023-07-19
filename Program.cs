@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Globalization;
 
 namespace TaikoSoundEditor
 {
@@ -9,21 +10,19 @@ namespace TaikoSoundEditor
         /// </summary>
         [STAThread]
         static void Main()
-        {
-            /*var tja = new TJA(File.ReadAllLines($@"C:\Users\NotImpLife\Desktop\nus\EXAMPLE .TJA\hoshis\hoshis.tja"));
-            File.WriteAllText("tja.txt", tja.ToString());
-
-            for (int i = 0; i < 4; i++)
+        {    
+            try
             {
-                var c = tja.Courses[i].Converted;
-                Debug.WriteLine(i+" "+c.Notes.Length);
-                //Debug.WriteLine(c.Events.Length);
-            }            
+                int x = 0;
+                int y = 2 / x;
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e);
+            }
 
-            return;*/
-            //File.WriteAllText("tja.txt", tja.ToString());
 
-            
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
             ApplicationConfiguration.Initialize();
             Application.Run(new MainForm());
         }

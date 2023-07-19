@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks.Dataflow;
 using TaikoSoundEditor.Data;
@@ -20,7 +21,13 @@ namespace TaikoSoundEditor
             AddedMusicBinding = new BindingSource();
             AddedMusicBinding.DataSource = AddedMusic;
             NewSoundsBox.DataSource = AddedMusicBinding;
-        }        
+            TabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
+        }
+
+        private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Logger.Info($"Commuted to tab {TabControl.SelectedIndex}");
+        }
 
         private string MusicAttributePath { get; set; }
         private string MusicOrderPath { get; set; }
@@ -38,26 +45,31 @@ namespace TaikoSoundEditor
 
         private void WordListPathSelector_PathChanged(object sender, EventArgs args)
         {
+            Logger.Info($"WordListPathSelector_PathChanged : {WordListPathSelector.Path}");
             WordListPath = WordListPathSelector.Path;
         }
 
         private void MusicInfoPathSelector_PathChanged(object sender, EventArgs args)
         {
+            Logger.Info($"MusicInfoPathSelector_PathChanged : {MusicInfoPathSelector.Path}");
             MusicInfoPath = MusicInfoPathSelector.Path;
         }
 
         private void MusicOrderPathSelector_PathChanged(object sender, EventArgs args)
         {
+            Logger.Info($"MusicOrderPathSelector_PathChanged : {MusicOrderPathSelector.Path}");
             MusicOrderPath = MusicOrderPathSelector.Path;
         }
 
         private void MusicAttributePathSelector_PathChanged(object sender, EventArgs args)
         {
+            Logger.Info($"MusicAttributePathSelector_PathChanged : {MusicAttributePathSelector.Path}");
             MusicAttributePath = MusicAttributePathSelector.Path;
         }
 
         private void DirSelector_PathChanged(object sender, EventArgs args) => RunGuard(() =>
         {
+            Logger.Info($"MusicAttributePathSelector_PathChanged : {DirSelector.Path}");
             var dir = DirSelector.Path;
             var files = new string[] { "music_attribute.bin", "music_order.bin", "musicinfo.bin", "wordlist.bin" };
             var sels = new PathSelector[] { MusicAttributePathSelector, MusicOrderPathSelector, MusicInfoPathSelector, WordListPathSelector };
@@ -77,12 +89,15 @@ namespace TaikoSoundEditor
 
             if (NotFoundFiles.Count > 0)
             {
+                Logger.Warning("The following files could not be found:\n\n" + String.Join("\n", NotFoundFiles));
                 MessageBox.Show("The following files could not be found:\n\n" + String.Join("\n", NotFoundFiles));
             }
         });        
 
         private void OkButton_Click(object sender, EventArgs e) => RunGuard(() =>        
         {
+            Logger.Info($"Clicked 'Looks good' ");
+
             try
             {
                 MusicAttributes = Json.Deserialize<MusicAttributes>(GZ.DecompressString(MusicAttributePath));
@@ -116,7 +131,8 @@ namespace TaikoSoundEditor
                 throw new Exception($"Failed to parse\n{WordListPath}\nReason:\n{ex.InnerException}");
             }
 
-            LoadedMusicBox.DataSource = MusicInfos.Items;
+            Logger.Info($"Setting LoadedMusicBox DataSource");
+            LoadedMusicBox.DataSource = MusicInfos.Items;            
             TabControl.SelectedIndex = 1;
 
         });                    
@@ -139,12 +155,14 @@ namespace TaikoSoundEditor
         public static void Error(Exception e)
         {
             MessageBox.Show(e.Message, "An error has occured");
+            Logger.Error(e);
         }
 
         #region Editor
 
         private void GridsShow(MusicInfo item)
         {
+            Logger.Info($"Showing properties for MusicInfo: {item}");
             MusicInfoGrid.SelectedObject = item;
             MusicAttributesGrid.SelectedObject = MusicAttributes.GetByUniqueId(item.UniqueId);
             MusicOrderGrid.SelectedObject = MusicOrders.GetByUniqueId(item.UniqueId);
@@ -157,6 +175,7 @@ namespace TaikoSoundEditor
         private void LoadedMusicBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var item = LoadedMusicBox.SelectedItem as MusicInfo;
+            Logger.Info($"Selection Changed MusicItem: {item}");
             GridsShow(item);   
         }
 
@@ -167,7 +186,9 @@ namespace TaikoSoundEditor
 
         private void NewSoundsBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var item = NewSoundsBox.SelectedItem as NewSongData;           
+            var item = NewSoundsBox.SelectedItem as NewSongData;
+            Logger.Info($"Selection Changed NewSongData: {item}");
+            Logger.Info($"Showing properties for NewSongData: {item}");
             MusicInfoGrid.SelectedObject = item?.MusicInfo;
             MusicAttributesGrid.SelectedObject = item?.MusicAttribute;
             MusicOrderGrid.SelectedObject = item?.MusicOrder;
@@ -180,6 +201,7 @@ namespace TaikoSoundEditor
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
+            Logger.Info($"Clicked Create Button");
             AudioFileSelector.Path = "";
             TJASelector.Path = "";
             SongNameBox.Text = "(6 characters id...)";
@@ -188,35 +210,50 @@ namespace TaikoSoundEditor
 
         private void CreateBackButton_Click(object sender, EventArgs e)
         {
+            Logger.Info($"Clicked Back Button");
             TabControl.SelectedIndex = 1;
         }
 
         
+        private void WarnWithBox(string message)
+        {
+            Logger.Warning("Displayed: " + message);
+            MessageBox.Show(message);
+        }
 
         private void CreateOkButton_Click(object sender, EventArgs e) => RunGuard(() =>
         {
+            Logger.Info($"Clicked Ok Button");
             FeedbackBox.Clear();
             var audioFilePath = AudioFileSelector.Path;
             var tjaPath = TJASelector.Path;
             var songName = SongNameBox.Text;
             var id = Math.Max(MusicAttributes.GetNewId(), AddedMusic.Count == 0 ? 0 : AddedMusic.Max(_ => _.UniqueId) + 1);
 
-            if(songName==null || songName.Length!=6)
+            Logger.Info($"Audio File = {audioFilePath}");
+            Logger.Info($"TJA File = {tjaPath}");
+            Logger.Info($"Song Name (Id) = {songName}");
+            Logger.Info($"UniqueId = {id}");
+
+            if (songName==null || songName.Length!=6)
             {
-                MessageBox.Show("Invalid song name.");
+                WarnWithBox("Invalid song name.");                
                 return;
             }
 
             if (!MusicAttributes.IsValidSongId(songName) || AddedMusic.Any(m => m.Id == songName))
             {
-                MessageBox.Show("Duplicate song name. Choose another");
+                WarnWithBox("Duplicate song name. Choose another");
                 return;
             }
 
             FeedbackBox.AppendText("Creating temp dir\r\n");
+            
             CreateTmpDir();
 
             FeedbackBox.AppendText("Parsing TJA\r\n");
+
+            Logger.Info("Parsing TJA");
             var tja = new TJA(File.ReadAllLines(tjaPath));
             File.WriteAllText("tja.txt", tja.ToString());
 
@@ -225,9 +262,11 @@ namespace TaikoSoundEditor
             if (seconds < 0) seconds = 0;
             
 
-            FeedbackBox.AppendText("Converting to wav\r\n");
+            FeedbackBox.AppendText("Converting to wav\r\n");            
             WAV.ConvertToWav(audioFilePath, $@".-tmp\{songName}.wav", seconds);
 
+
+            Logger.Info("Adjusting seconds of silence");
             tja.Headers.Offset -= seconds;
             tja.Headers.DemoStart += seconds;
 
@@ -242,7 +281,7 @@ namespace TaikoSoundEditor
                 return l;
             }).ToArray();
 
-
+            Logger.Info("Creating temporary tja");
             var newTja = @$".-tmp\{Path.GetFileName(tjaPath)}";
             File.WriteAllLines(newTja, text);
 
@@ -251,6 +290,7 @@ namespace TaikoSoundEditor
 
             var tja_binaries = TJA.RunTja2Fumen(newTja);
 
+            Logger.Info("Creating new sonud data");
             FeedbackBox.AppendText("Creating sound data\r\n");
             NewSongData ns = new NewSongData();
 
@@ -359,7 +399,7 @@ namespace TaikoSoundEditor
             if (tja.Headers.Genre != null && genres.ContainsKey(tja.Headers.Genre.ToUpper()))
                 mi.GenreNo = genres[tja.Headers.Genre.ToUpper()];
 
-            FeedbackBox.AppendText("Converting to idsp\r\n");
+            FeedbackBox.AppendText("Converting to idsp\r\n");            
             IDSP.WavToIdsp($@".-tmp\{songName}.wav", $@".-tmp\{songName}.idsp");            
 
             var idsp = File.ReadAllBytes($@".-tmp\{songName}.idsp");
@@ -369,6 +409,8 @@ namespace TaikoSoundEditor
 
             ns.Nus3Bank = NUS3Bank.GetNus3Bank(songName, id, idsp, tja.Headers.DemoStart);
 
+
+            Logger.Info("Conversion done");
             FeedbackBox.AppendText("Done\r\n");
 
             AddedMusic.Add(ns);
@@ -383,8 +425,9 @@ namespace TaikoSoundEditor
 
         private void CreateTmpDir()
         {
-            if (!Directory.Exists(".-tmp"))
-                Directory.CreateDirectory(".-tmp");
+            Logger.Info($"Creating .-tmp/");
+            if (!Directory.Exists(".-tmp"))            
+                Directory.CreateDirectory(".-tmp");            
         }
 
         private string JsonFix(string json)
@@ -398,6 +441,7 @@ namespace TaikoSoundEditor
 
         private void ExportDatatable(string path)
         {
+            Logger.Info($"Exporting Datatable to '{path}'");
             var mi = new MusicInfos();
             mi.Items.AddRange(MusicInfos.Items);
             mi.Items.AddRange(AddedMusic.Select(_ => _.MusicInfo));
@@ -447,7 +491,8 @@ namespace TaikoSoundEditor
 
         private void ExportNusBanks(string path)
         {
-            foreach(var ns in AddedMusic)
+            Logger.Info($"Exporting NUS3BaNKS to '{path}'");
+            foreach (var ns in AddedMusic)
             {
                 File.WriteAllBytes(Path.Combine(path, $"song_{ns.Id}.nus3bank"), ns.Nus3Bank);
             }
@@ -455,6 +500,7 @@ namespace TaikoSoundEditor
 
         private void ExportSoundBinaries(string path)
         {
+            Logger.Info($"Exporting Sound .bin's to '{path}'");
             foreach (var ns in AddedMusic)
             {
                 var sdir = Path.Combine(path, ns.Id);
@@ -489,6 +535,7 @@ namespace TaikoSoundEditor
 
         private void ExportDatatableButton_Click(object sender, EventArgs e) => RunGuard(() =>
         {
+            Logger.Info($"Clicked ExportDatatableButton");
             var path = PickPath();
             if (path == null)
             {
@@ -503,6 +550,7 @@ namespace TaikoSoundEditor
 
         private void ExportSoundFoldersButton_Click(object sender, EventArgs e) => RunGuard(() =>
         {
+            Logger.Info($"Clicked ExportSoundFoldersButton");
             var path = PickPath();
             if (path == null)
             {
@@ -517,6 +565,7 @@ namespace TaikoSoundEditor
 
         private void ExportSoundBanksButton_Click(object sender, EventArgs e) => RunGuard(() =>
         {
+            Logger.Info($"Clicked ExportSoundBanksButton");
             var path = PickPath();
             if (path == null)
             {
@@ -531,6 +580,7 @@ namespace TaikoSoundEditor
 
         private string PickPath()
         {
+            Logger.Info($"Picking path dialog");
             var picker = new FolderPicker();
             if (picker.ShowDialog() == true)
                 return picker.ResultPath;
@@ -539,6 +589,7 @@ namespace TaikoSoundEditor
 
         private void ExportAllButton_Click(object sender, EventArgs e) => RunGuard(() =>
         {
+            Logger.Info($"Clicked Export All");
             var path = PickPath();
             if (path == null)
             {

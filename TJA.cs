@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TaikoSoundEditor.Extensions;
+using TaikoSoundEditor.Utils;
 using static TaikoSoundEditor.TJA;
 
 namespace TaikoSoundEditor
@@ -54,7 +55,7 @@ namespace TaikoSoundEditor
         {
             Match match = null;
 
-            Debug.WriteLine(line);            
+            Logger.Info($"Parsing line : {line}");            
 
             if ((match = line.Match("\\/\\/.*")) != null) 
             {               
@@ -65,16 +66,16 @@ namespace TaikoSoundEditor
             {
                 var nameUpper = match.Groups[1].Value.ToUpper();
                 var value = match.Groups[2].Value;
-                Debug.WriteLine($"Match = {nameUpper}, {value}");
+                Logger.Info($"Match = {nameUpper}, {value}");
 
                 if (HEADER_GLOBAL.Contains(nameUpper))
                 {
-                    Debug.WriteLine("Header++");
+                    Logger.Info($"Detected header");
                     return new Line("header", "global", nameUpper, value.Trim());
                 }
                 else if (HEADER_COURSE.Contains(nameUpper))
                 {
-                    Debug.WriteLine("HCourse++");
+                    Logger.Info($"Detected course");
                     return new Line("header", "course", nameUpper, value.Trim());
                 }
             }
@@ -84,19 +85,27 @@ namespace TaikoSoundEditor
                 var value = match.Groups[2].Value ?? "";
 
                 if (COMMAND.Contains(nameUpper))
+                {
+                    Logger.Info($"Detected command");
                     return new Line("command", null, nameUpper, value.Trim());
+                }
+                else
+                    Logger.Warning($"Unknown command : {nameUpper} with value {value.Trim()}");
             }
             else if ((match = line.Match("^(([0-9]|A|B|C|F|G)*,?)$")) != null) 
             {
+                Logger.Info($"Detected command");
                 var data = match.Groups[1].Value;
                 return new Line("data", null, null, data);                
             }
+            Logger.Warning($"Unknown line : {line}");
             return new Line("unknwon", null, null, line);
         }    
         
 
         public Course GetCourse(Header tjaHeaders, Line[] lines)
         {
+            Logger.Info($"Getting course from {lines.Length} lines");
             var headers = new CourseHeader();
 
             var measures = new List<Measure>();
@@ -113,21 +122,25 @@ namespace TaikoSoundEditor
             {
                 if(line.Type=="header")
                 {
+                    Logger.Info($"header {line.Name} {line.Value}");
+
                     if (line.Name == "COURSE")
                         headers.Course = line.Value;
                     else if (line.Name == "LEVEL")
-                        headers.Level = int.Parse(line.Value);
+                        headers.Level = Number.ParseInt(line.Value);
                     else if (line.Name == "BALLOON")
-                        headers.Balloon = new Regex("[^0-9]").Split(line.Value).Where(_ => _ != "").Select(int.Parse).ToArray();
+                        headers.Balloon = new Regex("[^0-9]").Split(line.Value).Where(_ => _ != "").Select(Number.ParseInt).ToArray();
                     else if (line.Name == "SCOREINIT")
-                        headers.ScoreInit = int.Parse(line.Value);
+                        headers.ScoreInit = Number.ParseInt(line.Value);
                     else if (line.Name == "SCOREDIFF")
-                        headers.ScoreDiff = int.Parse(line.Value);
+                        headers.ScoreDiff = Number.ParseInt(line.Value);
                     else if (line.Name == "TTROWBEAT")
-                        headers.TTRowBeat = int.Parse(line.Value);
+                        headers.TTRowBeat = Number.ParseInt(line.Value);
                 }
                 else if(line.Type=="command")
                 {
+                    Logger.Info($"Command {line.Name} {line.Value}");
+
                     if (line.Name == "BRANCHSTART")
                     {
                         if (!flagLevelhold)
@@ -142,8 +155,8 @@ namespace TaikoSoundEditor
                             }
                             else if (values[0] == "p")
                             {
-                                if (values.Length >= 3 && float.Parse(values[2]) <= 100) targetBranch = "M";
-                                else if (values.Length >= 2 && float.Parse(values[1]) <= 100) targetBranch = "E";
+                                if (values.Length >= 3 && Number.ParseFloat(values[2]) <= 100) targetBranch = "M";
+                                else if (values.Length >= 2 && Number.ParseFloat(values[1]) <= 100) targetBranch = "E";
                                 else targetBranch = "N";
                             }
                         }
@@ -166,8 +179,8 @@ namespace TaikoSoundEditor
                                 var matchMeasure = line.Value.Match("(\\d+)\\/(\\d+)");
                                 if (matchMeasure != null)
                                 {
-                                    measureDividend = int.Parse(matchMeasure.Groups[1].Value);
-                                    measureDivisor = int.Parse(matchMeasure.Groups[2].Value);
+                                    measureDividend = Number.ParseInt(matchMeasure.Groups[1].Value);
+                                    measureDivisor = Number.ParseInt(matchMeasure.Groups[2].Value);
                                 }
                             }
                             else if (line.Name == "GOGOSTART")
@@ -175,9 +188,9 @@ namespace TaikoSoundEditor
                             else if (line.Name == "GOGOEND")
                                 measureEvents.Add(new MeasureEvent("gogoEnd", measureData.Length));
                             else if (line.Name == "SCROLL")
-                                measureEvents.Add(new MeasureEvent("scroll", measureData.Length, float.Parse(line.Value)));
+                                measureEvents.Add(new MeasureEvent("scroll", measureData.Length, Number.ParseFloat(line.Value)));
                             else if (line.Name == "BPMCHANGE")
-                                measureEvents.Add(new MeasureEvent("bpm", measureData.Length, float.Parse(line.Value)));
+                                measureEvents.Add(new MeasureEvent("bpm", measureData.Length, Number.ParseFloat(line.Value)));
                             else if (line.Name == "TTBREAK")
                                 measureProperties["ttBreak"] = true;
                             else if (line.Name == "LEVELHOLD")
@@ -189,6 +202,7 @@ namespace TaikoSoundEditor
                 }
                 else if(line.Type=="data" && currentBranch==targetBranch)
                 {
+                    Logger.Info($"Data {line.Value}");
                     var data = line.Value;
                     if (data.EndsWith(","))
                     {
@@ -239,7 +253,9 @@ namespace TaikoSoundEditor
             else if (courseValue == "edit" || courseValue == "ura"|| courseValue == "4")
                 course = 4;
 
-            if(measureData!="" || measureData!=null)
+            Logger.Info($"Course difficulty =  {course}");
+
+            if (measureData!="" || measureData!=null)
             {
                 measures.Add(new Measure(new int[] { measureDividend, measureDivisor }, measureProperties, measureData, measureEvents));
             }
@@ -251,14 +267,15 @@ namespace TaikoSoundEditor
                     measures[measures.Count - 1].Events.Add(ev);
                 }
             }
-            Debug.WriteLine(measures[measures.Count - 1]);
-
-
-            return new Course(course, headers, measures);
+            var c = new Course(course, headers, measures);
+            Logger.Info($"Course created : {c}");
+            return c;
         }
 
         public void Parse(string[] lines)
-        {            
+        {
+            Logger.Info($"Parse start");
+
             var headers = new Header();
             var courses = new Dictionary<int, Course>();
 
@@ -273,6 +290,8 @@ namespace TaikoSoundEditor
 
                 if(parsed.Type=="header" && parsed.Scope=="global")
                 {
+                    Logger.Info($"Header global {parsed.Name} = {parsed.Value}");
+
                     if (parsed.Name == "TITLE")
                         headers.Title = parsed.Value;
                     if (parsed.Name == "TITLEJA")
@@ -280,13 +299,13 @@ namespace TaikoSoundEditor
                     if (parsed.Name == "SUBTITLE")
                         headers.Subtitle = parsed.Value.StartsWith("--") ? parsed.Value.Substring(2) : parsed.Value;
                     if (parsed.Name == "BPM")
-                        headers.Bpm = float.Parse(parsed.Value);
+                        headers.Bpm = Number.ParseFloat(parsed.Value);
                     if (parsed.Name == "WAVE")
                         headers.Wave = parsed.Value;
                     if (parsed.Name == "OFFSET")
-                        headers.Offset = float.Parse(parsed.Value);
+                        headers.Offset = Number.ParseFloat(parsed.Value);
                     if (parsed.Name == "DEMOSTART")
-                        headers.DemoStart = float.Parse(parsed.Value);
+                        headers.DemoStart = Number.ParseFloat(parsed.Value);
                     if (parsed.Name == "GENRE")
                         headers.Genre = parsed.Value;
                 }
@@ -294,7 +313,7 @@ namespace TaikoSoundEditor
                 {
                     if (parsed.Name == "COURSE") 
                     {
-                        Debug.WriteLine($"Course found : {parsed.Value}");
+                        Logger.Info($"Course found : {parsed.Value}");
                         if (courseLines.Count>0)
                         {
                             var course = GetCourse(headers, courseLines.ToArray());
@@ -316,6 +335,8 @@ namespace TaikoSoundEditor
 
             Headers = headers;
             Courses = courses;
+
+            Logger.Info($"Parse end");
         }
 
 
@@ -415,7 +436,9 @@ namespace TaikoSoundEditor
 
         public static List<byte[]> RunTja2Fumen(string sourcePath)
         {
+            Logger.Info("Running tja2fumen");            
             sourcePath = Path.GetFullPath(sourcePath);
+            Logger.Info($"source = {sourcePath}");
 
             var dir = Path.GetDirectoryName(sourcePath);
             var fname = Path.GetFileNameWithoutExtension(sourcePath);

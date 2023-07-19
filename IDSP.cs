@@ -11,11 +11,13 @@ namespace TaikoSoundEditor
     {
         public static void WavToIdsp(string source, string dest)
         {
+            Logger.Info("Converting WAV to IDSP");            
+
             source = Path.GetFullPath(source);
             dest = Path.GetFullPath(dest);
 
-            Debug.WriteLine(source);
-            Debug.WriteLine(dest);
+            Logger.Info($"source = {source}");
+            Logger.Info($"dest = {dest}");
 
             var p = new Process();
             p.StartInfo.FileName = Path.GetFullPath(@"Tools\VGAudio\VGAudioCli.exe");

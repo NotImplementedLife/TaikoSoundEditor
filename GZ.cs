@@ -13,6 +13,8 @@ namespace TaikoSoundEditor
     {
         public static string DecompressString(string gzPath)
         {
+            Logger.Info("GZ Decompressing string");
+
             using FileStream originalFileStream = File.OpenRead(gzPath);
             using GZipStream decompressionStream = new GZipStream(originalFileStream, CompressionMode.Decompress);
             using StreamReader reader = new StreamReader(decompressionStream);
@@ -21,6 +23,8 @@ namespace TaikoSoundEditor
 
         public static byte[] DecompressBytes(string gzPath)
         {
+            Logger.Info("GZ Decompressing bytes");
+
             using FileStream originalFileStream = File.OpenRead(gzPath);
             using GZipStream decompressionStream = new GZipStream(originalFileStream, CompressionMode.Decompress);
             using MemoryStream ms = new MemoryStream();
@@ -30,6 +34,8 @@ namespace TaikoSoundEditor
 
         public static byte[] CompressToBytes(string content)
         {
+            Logger.Info("GZ Compressing bytes");
+
             using var stream = new MemoryStream();
             using var writer = new StreamWriter(stream);
             writer.Write(content);
@@ -44,6 +50,8 @@ namespace TaikoSoundEditor
 
         public static string CompressToFile(string fileName, string content)
         {
+            Logger.Info("GZ Compressing file");
+
             var tmp = "~ztmp";
             if (!Directory.Exists(tmp))
                 Directory.CreateDirectory(tmp);

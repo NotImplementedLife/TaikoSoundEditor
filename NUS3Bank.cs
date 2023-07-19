@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaikoSoundEditor.Properties;
+using static TaikoSoundEditor.TJA;
 
 namespace TaikoSoundEditor
 {
@@ -19,6 +20,11 @@ namespace TaikoSoundEditor
 
         public static byte[] GetNus3Bank(string songId, int uniqueId, byte[] idsp, float demostart)
         {
+            Logger.Info($"Creating NUS3BANK");
+            Logger.Info($"songId = {songId}");
+            Logger.Info($"uniqId = {uniqueId}");
+            Logger.Info($"idsp.len = {idsp.Length}");
+            Logger.Info($"demostart = {demostart}");
             using var ms = new MemoryStream();
 
             var header = Resources.song_ABCDEF_nus3bank.ToArray();
