@@ -121,4 +121,7 @@
   <data name="song_ABCDEF_nus3bank" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\song_ABCDEF_nus3bank.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="song_ABCDEF_nus3bank_old" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\song_ABCDEF_nus3bank_old.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

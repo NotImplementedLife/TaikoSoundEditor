@@ -1,30 +1,12 @@
-using System.Diagnostics;
-using System.Globalization;
-
-namespace TaikoSoundEditor
+﻿namespace TaikoNus3BankTemplateFix
 {
-    internal static class Program
+    internal class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
-        {    
-            try
-            {
-                int x = 0;
-                int y = 2 / x;
-            }
-            catch(Exception e)
-            {
-                Debug.WriteLine(e);
-            }
+        static void Main(string[] args)
+        {
+            
 
 
-            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-            ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
         }
     }
 }

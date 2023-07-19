@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TaikoSoundEditor.Properties {
+namespace TaikoNus3BankTemplateFix.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TaikoSoundEditor.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TaikoSoundEditor.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TaikoNus3BankTemplateFix.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -66,6 +66,16 @@ namespace TaikoSoundEditor.Properties {
         internal static byte[] song_ABCDEF_nus3bank {
             get {
                 object obj = ResourceManager.GetObject("song_ABCDEF_nus3bank", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] song_ABCDEF_nus3bank_old {
+            get {
+                object obj = ResourceManager.GetObject("song_ABCDEF_nus3bank_old", resourceCulture);
                 return ((byte[])(obj));
             }
         }
