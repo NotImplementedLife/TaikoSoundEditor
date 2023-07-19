@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TaikoNus3BankTemplateFix": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\NotImpLife\\Desktop\\nus\\exports\\all9\\nus3banks\\song_abc.nus3bank C:\\Users\\NotImpLife\\Desktop\\nus\\exports\\all9\\nus3banks\\old.nus3bank"
+    }
+  }
+}
