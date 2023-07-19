@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks.Dataflow;
 using TaikoSoundEditor.Data;
@@ -252,10 +253,10 @@ namespace TaikoSoundEditor
             CreateTmpDir();
 
             FeedbackBox.AppendText("Parsing TJA\r\n");
-
+            
             Logger.Info("Parsing TJA");
             var tja = new TJA(File.ReadAllLines(tjaPath));
-            File.WriteAllText("tja.txt", tja.ToString());
+            //File.WriteAllText("tja.txt", tja.ToString());
 
 
             var seconds = AddSilenceBox.Checked ? (int)Math.Ceiling(tja.Headers.Offset + 3) : 0;
