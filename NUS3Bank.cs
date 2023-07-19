@@ -59,6 +59,6 @@ namespace TaikoSoundEditor
             ms.Write(header);
             ms.Write(idsp);
             return ms.ToArray();
-        }
+        }        
     }
 }
