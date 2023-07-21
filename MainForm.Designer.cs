@@ -322,6 +322,7 @@
             // 
             // RemoveSongButton
             // 
+            this.RemoveSongButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.RemoveSongButton.Location = new System.Drawing.Point(220, 343);
             this.RemoveSongButton.Name = "RemoveSongButton";
             this.RemoveSongButton.Size = new System.Drawing.Size(75, 23);

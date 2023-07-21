@@ -31,14 +31,14 @@ namespace TaikoSoundEditor.Data
         [JsonPropertyName("danceFeverBg")] public string DanceFeverBg { get; set; } = "";
         [JsonPropertyName("rendaEffect")] public string RendaEffect { get; set; } = "";
         [JsonPropertyName("fever")] public string Fever { get; set; } = "";
-        [JsonPropertyName("donBg1p1")] public string DonBg1p1 { get; set; }
-        [JsonPropertyName("donBg2p1")] public string DonBg2p1 { get; set; }
-        [JsonPropertyName("dancerDai1")] public string DancerDai1 { get; set; }
-        [JsonPropertyName("dancer1")] public string Dancer1 { get; set; }
-        [JsonPropertyName("danceNormalBg1")] public string DanceNormalBg1 { get; set; }
-        [JsonPropertyName("danceFeverBg1")] public string DanceFeverBg1 { get; set; }
-        [JsonPropertyName("rendaEffect1")] public string RendaEffect1 { get; set; }
-        [JsonPropertyName("fever1")] public string Fever1 { get; set; }
+        [JsonPropertyName("donBg1p1")] public string DonBg1p1 { get; set; } = "";
+        [JsonPropertyName("donBg2p1")] public string DonBg2p1 { get; set; } = "";
+        [JsonPropertyName("dancerDai1")] public string DancerDai1 { get; set; } = "";
+        [JsonPropertyName("dancer1")] public string Dancer1 { get; set; } = "";
+        [JsonPropertyName("danceNormalBg1")] public string DanceNormalBg1 { get; set; } = "";
+        [JsonPropertyName("danceFeverBg1")] public string DanceFeverBg1 { get; set; } = "";
+        [JsonPropertyName("rendaEffect1")] public string RendaEffect1 { get; set; } = "";
+        [JsonPropertyName("fever1")] public string Fever1 { get; set; } = "";
 
         public MusicAttribute Clone()
         {
