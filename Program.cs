@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Globalization;
+using System.Text;
 
 namespace TaikoSoundEditor
 {
@@ -10,18 +11,8 @@ namespace TaikoSoundEditor
         /// </summary>
         [STAThread]
         static void Main()
-        {    
-            try
-            {
-                int x = 0;
-                int y = 2 / x;
-            }
-            catch(Exception e)
-            {
-                Debug.WriteLine(e);
-            }
-
-
+        {                   
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
             ApplicationConfiguration.Initialize();
             Application.Run(new MainForm());

@@ -659,6 +659,18 @@ namespace TaikoSoundEditor
                 Type = type;
                 Beat = beat;
             }
-        }     
+        }
+
+        public static TJA ReadAsDefault(string path)
+        {
+            var lines = File.ReadAllLines(path);
+            return new TJA(lines);
+        }
+
+        public static TJA ReadAsShiftJIS(string path)
+        {
+            var lines = File.ReadAllLines(path, Encoding.GetEncoding("shift_jis"));
+            return new TJA(lines);
+        }
     }
 }
