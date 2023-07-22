@@ -117,6 +117,7 @@ namespace TaikoSoundEditor
             var currentBranch = "N";
             var targetBranch = "N";
             var flagLevelhold = false;
+            bool hasBranches = false;
 
             foreach(var line in lines)
             {
@@ -143,9 +144,9 @@ namespace TaikoSoundEditor
 
                     if (line.Name == "BRANCHSTART")
                     {
+                        hasBranches = true;
                         if (!flagLevelhold)
                         {
-
                             var values = line.Value.Split(',');
                             if (values[0] == "r")
                             {
@@ -267,7 +268,7 @@ namespace TaikoSoundEditor
                     measures[measures.Count - 1].Events.Add(ev);
                 }
             }
-            var c = new Course(course, headers, measures);
+            var c = new Course(course, headers, measures) { HasBranches = hasBranches };
             Logger.Info($"Course created : {c}");
             return c;
         }
@@ -348,6 +349,8 @@ namespace TaikoSoundEditor
             public int CourseN { get; set; }
             public CourseHeader Headers { get; set; }
             public List<Measure> Measures { get; set; }
+
+            public bool HasBranches { get; set; }
 
             public Course(int courseN, CourseHeader headers, List<Measure> measures)
             {
@@ -464,7 +467,7 @@ namespace TaikoSoundEditor
                 File.ReadAllBytes(Path.Combine(dir, fname + "_e.bin")),
                 File.ReadAllBytes(Path.Combine(dir, fname + "_h.bin")),
                 File.ReadAllBytes(Path.Combine(dir, fname + "_m.bin")),
-                File.ReadAllBytes(Path.Combine(dir, fname + "_n.bin"))                
+                File.ReadAllBytes(Path.Combine(dir, fname + "_n.bin"))
 
             };
 
@@ -472,12 +475,35 @@ namespace TaikoSoundEditor
             File.Delete(Path.Combine(dir, fname + "_h.bin"));
             File.Delete(Path.Combine(dir, fname + "_m.bin"));
             File.Delete(Path.Combine(dir, fname + "_n.bin"));
-
+            
             if (File.Exists(Path.Combine(dir, fname + "_x.bin")))
-            {
+            { 
                 result.Add(File.ReadAllBytes(Path.Combine(dir, fname + "_x.bin")));
                 File.Delete(Path.Combine(dir, fname + "_x.bin"));
             }            
+            else
+            {
+                result.Add(new byte[0]);
+            }
+
+            for (int i = 1; i <= 2; i++)
+            {
+                int k = 0;
+                foreach (var d in "ehmnx")
+                {
+                    var path = Path.Combine(dir, $"{fname}_{d}_{i}.bin");
+                    if(File.Exists(path))
+                    {
+                        result.Add(File.ReadAllBytes(path));
+                        File.Delete(path);
+                    }
+                    else
+                    {
+                        result.Add(result[k].ToArray());
+                    }
+                    k++;
+                }                
+            }
 
             return result;
         }

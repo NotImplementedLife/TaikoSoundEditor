@@ -161,6 +161,7 @@ namespace TaikoSoundEditor
         {
             MessageBox.Show(e.Message, "An error has occured");
             Logger.Error(e);
+            throw e;
         }
 
         #region Editor
@@ -311,9 +312,46 @@ namespace TaikoSoundEditor
                 return l;
             }).ToArray();
 
+            var missingCourses = new int[] { 0, 1, 2, 3 }.Where(i => !tja.Courses.Keys.Contains(i)).ToArray();
+            var courseNames = new string[] { "Easy", "Normal", "Hard", "Oni" };
+
+            if (missingCourses.Length > 0)
+            {
+
+                var caption = $"There are missing courses in the TJA file for difficulties: {string.Join(", ", missingCourses.Select(i => courseNames[i]))}.\n" +
+                              $"Do you want to add a placeholder for the missing courses?";
+
+                if (MessageBox.Show(caption, "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    foreach (var difficulty in missingCourses)
+                    {
+                        text = text.Concat(new string[]
+                        {
+                        "",
+                        $"COURSE:{courseNames[difficulty]}",
+                        "LEVEL:1",
+                        "BALLOON:",
+                        "SCOREINIT:",
+                        "SCOREDIFF:",
+                        "#START",
+                        "1",
+                        "#END"
+                        }).ToArray();
+
+                        tja.Courses[difficulty] = new TJA.Course(difficulty, new TJA.CourseHeader(), new List<TJA.Measure>
+                        {
+                            new TJA.Measure(new int[]{1,1}, new Dictionary<string, bool>(), "1", new List<TJA.MeasureEvent>())
+                        });
+                    }
+                }
+            }
+
+
             Logger.Info("Creating temporary tja");
             var newTja = @$".-tmp\{Path.GetFileName(tjaPath)}";
             File.WriteAllLines(newTja, text);
+
+
 
 
             FeedbackBox.AppendText("Running tja2fumen\r\n");
@@ -331,7 +369,18 @@ namespace TaikoSoundEditor
             ns.EBin = tja_binaries[0];
             ns.HBin = tja_binaries[1];
             ns.MBin = tja_binaries[2];
-            ns.NBin = tja_binaries[3];            
+            ns.NBin = tja_binaries[3];
+
+            ns.EBin1 = tja_binaries[5];
+            ns.HBin1 = tja_binaries[6];
+            ns.MBin1 = tja_binaries[7];
+            ns.NBin1 = tja_binaries[8];
+
+            ns.EBin2 = tja_binaries[10];
+            ns.HBin2 = tja_binaries[11];
+            ns.MBin2 = tja_binaries[12];
+            ns.NBin2 = tja_binaries[13];
+
 
             var selectedMusicInfo = LoadedMusicBox.SelectedItem as MusicInfo;            
 
@@ -360,6 +409,11 @@ namespace TaikoSoundEditor
             mi.HardOnpuNum = tja.Courses[2].NotesCount;
             mi.ManiaOnpuNum = tja.Courses[3].NotesCount;
 
+            mi.BranchEasy = tja.Courses[0].HasBranches;
+            mi.BranchNormal = tja.Courses[1].HasBranches;
+            mi.BranchHard = tja.Courses[2].HasBranches;
+            mi.BranchMania = tja.Courses[3].HasBranches;
+
             mi.StarEasy = tja.Courses[0].Headers.Level; 
             mi.StarNormal = tja.Courses[1].Headers.Level; 
             mi.StarHard = tja.Courses[2].Headers.Level; 
@@ -370,8 +424,8 @@ namespace TaikoSoundEditor
                 FeedbackBox.AppendText("URA course detected\r\n");
                 mi.UraOnpuNum = tja.Courses[4].NotesCount;
                 mi.StarUra = tja.Courses[4].Headers.Level;
-                ma.CanPlayUra = true;                
-
+                mi.BranchUra = tja.Courses[4].HasBranches;
+                ma.CanPlayUra = true;
             }
             else
             {
@@ -398,9 +452,11 @@ namespace TaikoSoundEditor
                 mi.ShinutiUraDuet = (mi.ShinutiScoreUraDuet / mi.UraOnpuNum) / 10 * 10;
             }
 
-            if(ma.CanPlayUra)
+            if (ma.CanPlayUra) 
             {
                 ns.XBin = tja_binaries[4];
+                ns.XBin1 = tja_binaries[9];
+                ns.XBin2 = tja_binaries[14];
             }
 
             mi.SongFileName = $"sound/song_{songName}";
@@ -552,21 +608,21 @@ namespace TaikoSoundEditor
                 File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_h.bin"), ns.HBin);                
                 File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_m.bin"), ns.MBin);
 
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_e_1.bin"), ns.EBin);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_n_1.bin"), ns.NBin);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_h_1.bin"), ns.HBin);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_m_1.bin"), ns.MBin);
+                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_e_1.bin"), ns.EBin1);
+                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_n_1.bin"), ns.NBin1);
+                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_h_1.bin"), ns.HBin1);
+                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_m_1.bin"), ns.MBin1);
 
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_e_2.bin"), ns.EBin);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_n_2.bin"), ns.NBin);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_h_2.bin"), ns.HBin);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_m_2.bin"), ns.MBin);
+                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_e_2.bin"), ns.EBin2);
+                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_n_2.bin"), ns.NBin2);
+                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_h_2.bin"), ns.HBin2);
+                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_m_2.bin"), ns.MBin2);
 
                 if(ns.MusicAttribute.CanPlayUra)
                 {
                     File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_x.bin"), ns.XBin);
-                    File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_x_1.bin"), ns.XBin);
-                    File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_x_2.bin"), ns.XBin);
+                    File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_x_1.bin"), ns.XBin1);
+                    File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_x_2.bin"), ns.XBin2);
                 }                
             }
         }
@@ -639,10 +695,10 @@ namespace TaikoSoundEditor
             var dtpath = Path.Combine(path, "datatable");
             if (!Directory.Exists(dtpath)) Directory.CreateDirectory(dtpath);
 
-            var nupath = Path.Combine(path, "nus3banks");
+            var nupath = Path.Combine(path, "sound");
             if (!Directory.Exists(nupath)) Directory.CreateDirectory(nupath);
 
-            var sbpath = Path.Combine(path, "soundsbin");
+            var sbpath = Path.Combine(path, "fumen");
             if (!Directory.Exists(sbpath)) Directory.CreateDirectory(sbpath);
 
             ExportDatatable(dtpath);
