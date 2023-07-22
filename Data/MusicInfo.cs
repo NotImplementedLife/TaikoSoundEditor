@@ -65,6 +65,15 @@ namespace TaikoSoundEditor.Data
 
         public override string ToString() => $"{UniqueId}. {Id}";
 
+
+        [DefaultValue(Genre.Pop)]
+        [JsonIgnore]
+        public Genre Genre
+        {
+            get => (Genre)GenreNo;
+            set => GenreNo = (int)value;
+        }
+
         public MusicInfo Clone()
         {
             var props = GetType().GetProperties();

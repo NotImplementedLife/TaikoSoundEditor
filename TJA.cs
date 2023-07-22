@@ -661,7 +661,7 @@ namespace TaikoSoundEditor
             }
         }
 
-        public static TJA ReadAsDefault(string path)
+        public static TJA ReadAsUTF8(string path)
         {
             var lines = File.ReadAllLines(path);
             return new TJA(lines);
@@ -672,5 +672,16 @@ namespace TaikoSoundEditor
             var lines = File.ReadAllLines(path, Encoding.GetEncoding("shift_jis"));
             return new TJA(lines);
         }
+
+        public static TJA ReadDefault(string path)
+        {
+            var bytes = File.ReadAllBytes(path).Take(3).ToArray();
+            if (bytes[0]==0xEF && bytes[1]==0xBB && bytes[2]==0xBF) // BOM
+            {
+                return ReadAsUTF8(path);
+            }
+            return ReadAsShiftJIS(path);
+        }
+
     }
 }

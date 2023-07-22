@@ -280,7 +280,11 @@ namespace TaikoSoundEditor
             FeedbackBox.AppendText("Parsing TJA\r\n");
 
             Logger.Info("Parsing TJA");
-            var tja = ShiftJisBox.Checked ? TJA.ReadAsShiftJIS(tjaPath) : TJA.ReadAsDefault(tjaPath);
+
+            var tja = TjaEncAuto.Checked ? TJA.ReadDefault(tjaPath)
+                    : TjaEncUTF8.Checked ? TJA.ReadAsUTF8(tjaPath)
+                    : TJA.ReadAsShiftJIS(tjaPath);
+                        
             File.WriteAllText("tja.txt", tja.ToString());
 
 
