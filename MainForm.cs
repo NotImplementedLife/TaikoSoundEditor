@@ -134,7 +134,7 @@ namespace TaikoSoundEditor
             Logger.Info($"Setting LoadedMusicBox DataSource");
 
             LoadedMusicBinding = new BindingSource();
-            LoadedMusicBinding.DataSource = MusicInfos.Items;            
+            LoadedMusicBinding.DataSource = MusicInfos.Items.Where(mi => mi.UniqueId != 0).ToList();
             LoadedMusicBox.DataSource = LoadedMusicBinding;            
             TabControl.SelectedIndex = 1;
 
@@ -146,7 +146,7 @@ namespace TaikoSoundEditor
 
 
         public static void RunGuard(Action action) 
-        {
+        {            
             try
             {
                 action();
@@ -160,8 +160,7 @@ namespace TaikoSoundEditor
         public static void Error(Exception e)
         {
             MessageBox.Show(e.Message, "An error has occured");
-            Logger.Error(e);
-            throw e;
+            Logger.Error(e);            
         }
 
         #region Editor

@@ -55,7 +55,7 @@ namespace TaikoSoundEditor
         {
             Match match = null;
 
-            Logger.Info($"Parsing line : {line}");            
+            Logger.Info($"Parsing line : {line}");
 
             if ((match = line.Match("\\/\\/.*")) != null) 
             {               
@@ -140,7 +140,7 @@ namespace TaikoSoundEditor
                 }
                 else if(line.Type=="command")
                 {
-                    Logger.Info($"Command {line.Name} {line.Value}");
+                    Logger.Info($"Command Name={line.Name} Val={line.Value}");
 
                     if (line.Name == "BRANCHSTART")
                     {
