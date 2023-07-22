@@ -458,9 +458,15 @@ namespace TaikoSoundEditor
 
         private string JsonFix(string json)
         {
+            var specialChars = "!@#$%^&*()_+=`~[]{}<>\\/'";
+            foreach(var c in specialChars)
+            {
+                json = json.Replace($"\\u00{((int)c):X2}", $"{c}");
+            }
+
+
             return json
-                .Replace("\u0022      ", "\\\"")
-                .Replace("\u0026      ", "\\&")
+                .Replace("\\u0022", "\\\"")
                 .Replace("\r\n      ", "\r\n\t\t")
                 .Replace("\r\n      ", "\r\n\t\t")
                 .Replace("{\r\n  \"items\": [", "{\"items\":[")

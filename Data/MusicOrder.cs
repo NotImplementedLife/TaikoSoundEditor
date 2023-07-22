@@ -16,5 +16,13 @@ namespace TaikoSoundEditor.Data
         [ReadOnly(true)]
         [JsonPropertyName("uniqueId")] public int UniqueId { get; set; } = 0;
         [JsonPropertyName("closeDispType")] public int CloseDispType { get; set; } = 0;
+
+                
+        [DefaultValue(Genre.Pop)]
+        [JsonIgnore] public Genre Genre 
+        {
+            get => (Genre)GenreNo;
+            set => GenreNo = (int)value;
+        }
     }
 }
