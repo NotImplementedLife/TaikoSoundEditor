@@ -87,6 +87,7 @@
             this.WordsGB = new System.Windows.Forms.GroupBox();
             this.WordsGrid = new System.Windows.Forms.PropertyGrid();
             this.MusicOrderTab = new System.Windows.Forms.TabPage();
+            this.MusicOrderViewer = new TaikoSoundEditor.Controls.MusicOrderViewer();
             this.RemoveSongButton = new System.Windows.Forms.Button();
             this.DatatableSpaces = new System.Windows.Forms.CheckBox();
             this.ExportOpenOnFinished = new System.Windows.Forms.CheckBox();
@@ -143,6 +144,7 @@
             this.WordDetailGB.SuspendLayout();
             this.WordSubGB.SuspendLayout();
             this.WordsGB.SuspendLayout();
+            this.MusicOrderTab.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -789,6 +791,7 @@
             // 
             // MusicOrderTab
             // 
+            this.MusicOrderTab.Controls.Add(this.MusicOrderViewer);
             this.MusicOrderTab.Location = new System.Drawing.Point(4, 24);
             this.MusicOrderTab.Name = "MusicOrderTab";
             this.MusicOrderTab.Padding = new System.Windows.Forms.Padding(3);
@@ -796,6 +799,17 @@
             this.MusicOrderTab.TabIndex = 2;
             this.MusicOrderTab.Text = "Music Order";
             this.MusicOrderTab.UseVisualStyleBackColor = true;
+            // 
+            // MusicOrderViewer
+            // 
+            this.MusicOrderViewer.CurrentPage = 0;
+            this.MusicOrderViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MusicOrderViewer.ItemsPerCol = 5;
+            this.MusicOrderViewer.ItemsPerRow = 4;
+            this.MusicOrderViewer.Location = new System.Drawing.Point(3, 3);
+            this.MusicOrderViewer.Name = "MusicOrderViewer";
+            this.MusicOrderViewer.Size = new System.Drawing.Size(515, 290);
+            this.MusicOrderViewer.TabIndex = 0;
             // 
             // RemoveSongButton
             // 
@@ -1195,6 +1209,7 @@
             this.WordDetailGB.ResumeLayout(false);
             this.WordSubGB.ResumeLayout(false);
             this.WordsGB.ResumeLayout(false);
+            this.MusicOrderTab.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
@@ -1300,5 +1315,6 @@
         private Label label19;
         private NumericUpDown SimpleStarUraBox;
         private Button LocateInMusicOrderButton;
+        private Controls.MusicOrderViewer MusicOrderViewer;
     }
 }

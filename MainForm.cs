@@ -18,7 +18,7 @@ namespace TaikoSoundEditor
             NewSoundsBox.DataSource = AddedMusicBinding;
             TabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
 
-            SimpleGenreBox.DataSource = Enum.GetValues(typeof(Genre));
+            SimpleGenreBox.DataSource = Enum.GetValues(typeof(Genre));            
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -175,6 +175,11 @@ namespace TaikoSoundEditor
 
         private void SoundViewTab_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(SoundViewTab.SelectedTab==MusicOrderTab)
+            {                                
+                return;
+            }
+
             if (!(SoundViewTab.SelectedTab == SoundViewerExpert || SoundViewTab.SelectedTab == SoundViewerSimple))
                 return;            
 
@@ -235,7 +240,6 @@ namespace TaikoSoundEditor
                 item.MusicInfo.StarUra = (int)SimpleStarUraBox.Value;
                 return;
             }
-
         });
     }
 }

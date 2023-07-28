@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TaikoSoundEditor.Data
 {
-    internal class WordList
+    public class WordList
     {
         [JsonPropertyName("items")]
         public List<Word> Items { get; set; } = new List<Word>();

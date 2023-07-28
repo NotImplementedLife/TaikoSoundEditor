@@ -103,9 +103,18 @@ namespace TaikoSoundEditor
             Logger.Info($"Setting LoadedMusicBox DataSource");
 
             LoadedMusicBinding = new BindingSource();
-            LoadedMusicBinding.DataSource = MusicInfos.Items.Where(mi => mi.UniqueId != 0).ToList();
+            var cleanList = MusicInfos.Items.Where(mi => mi.UniqueId != 0).ToList();
+
+            LoadedMusicBinding.DataSource = cleanList;
             LoadedMusicBox.DataSource = LoadedMusicBinding;
             TabControl.SelectedIndex = 1;
+
+
+            MusicOrderViewer.WordList = WordList;
+            foreach (var musicOrder in MusicOrders.Items)
+            {
+                MusicOrderViewer.AddSong(musicOrder);
+            }
         });        
 
         #endregion                    
