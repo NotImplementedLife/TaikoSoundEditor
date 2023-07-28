@@ -47,6 +47,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.SoundViewTab = new System.Windows.Forms.TabControl();
             this.SoundViewerSimple = new System.Windows.Forms.TabPage();
+            this.LocateInMusicOrderButton = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.label19 = new System.Windows.Forms.Label();
             this.SimpleStarUraBox = new System.Windows.Forms.NumericUpDown();
@@ -59,7 +60,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.SimpleStarEasyBox = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.SimpleIdBox = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.SimpleGenreBox = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -117,7 +118,6 @@
             this.TJASelector = new TaikoSoundEditor.PathSelector();
             this.AudioFileSelector = new TaikoSoundEditor.PathSelector();
             this.label10 = new System.Windows.Forms.Label();
-            this.LocateInMusicOrderButton = new System.Windows.Forms.Button();
             this.TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -376,13 +376,14 @@
             this.SoundViewTab.SelectedIndex = 0;
             this.SoundViewTab.Size = new System.Drawing.Size(529, 324);
             this.SoundViewTab.TabIndex = 13;
+            this.SoundViewTab.SelectedIndexChanged += new System.EventHandler(this.SoundViewTab_SelectedIndexChanged);
             // 
             // SoundViewerSimple
             // 
             this.SoundViewerSimple.Controls.Add(this.LocateInMusicOrderButton);
             this.SoundViewerSimple.Controls.Add(this.groupBox11);
             this.SoundViewerSimple.Controls.Add(this.label14);
-            this.SoundViewerSimple.Controls.Add(this.textBox1);
+            this.SoundViewerSimple.Controls.Add(this.SimpleIdBox);
             this.SoundViewerSimple.Controls.Add(this.label13);
             this.SoundViewerSimple.Controls.Add(this.SimpleGenreBox);
             this.SoundViewerSimple.Controls.Add(this.label12);
@@ -398,6 +399,15 @@
             this.SoundViewerSimple.TabIndex = 1;
             this.SoundViewerSimple.Text = "Simple View";
             this.SoundViewerSimple.UseVisualStyleBackColor = true;
+            // 
+            // LocateInMusicOrderButton
+            // 
+            this.LocateInMusicOrderButton.Location = new System.Drawing.Point(238, 121);
+            this.LocateInMusicOrderButton.Name = "LocateInMusicOrderButton";
+            this.LocateInMusicOrderButton.Size = new System.Drawing.Size(136, 23);
+            this.LocateInMusicOrderButton.TabIndex = 11;
+            this.LocateInMusicOrderButton.Text = "Locate in Music Order";
+            this.LocateInMusicOrderButton.UseVisualStyleBackColor = true;
             // 
             // groupBox11
             // 
@@ -433,6 +443,7 @@
             this.SimpleStarUraBox.Name = "SimpleStarUraBox";
             this.SimpleStarUraBox.Size = new System.Drawing.Size(64, 23);
             this.SimpleStarUraBox.TabIndex = 8;
+            this.SimpleStarUraBox.ValueChanged += new System.EventHandler(this.SimpleBoxChanged);
             // 
             // label17
             // 
@@ -449,6 +460,7 @@
             this.SimpleStarManiaBox.Name = "SimpleStarManiaBox";
             this.SimpleStarManiaBox.Size = new System.Drawing.Size(64, 23);
             this.SimpleStarManiaBox.TabIndex = 6;
+            this.SimpleStarManiaBox.ValueChanged += new System.EventHandler(this.SimpleBoxChanged);
             // 
             // label18
             // 
@@ -465,6 +477,7 @@
             this.SimpleStarHardBox.Name = "SimpleStarHardBox";
             this.SimpleStarHardBox.Size = new System.Drawing.Size(64, 23);
             this.SimpleStarHardBox.TabIndex = 4;
+            this.SimpleStarHardBox.ValueChanged += new System.EventHandler(this.SimpleBoxChanged);
             // 
             // label16
             // 
@@ -481,6 +494,7 @@
             this.SimpleStarNormalBox.Name = "SimpleStarNormalBox";
             this.SimpleStarNormalBox.Size = new System.Drawing.Size(64, 23);
             this.SimpleStarNormalBox.TabIndex = 2;
+            this.SimpleStarNormalBox.ValueChanged += new System.EventHandler(this.SimpleBoxChanged);
             // 
             // label15
             // 
@@ -497,6 +511,7 @@
             this.SimpleStarEasyBox.Name = "SimpleStarEasyBox";
             this.SimpleStarEasyBox.Size = new System.Drawing.Size(64, 23);
             this.SimpleStarEasyBox.TabIndex = 0;
+            this.SimpleStarEasyBox.ValueChanged += new System.EventHandler(this.SimpleBoxChanged);
             // 
             // label14
             // 
@@ -507,13 +522,13 @@
             this.label14.TabIndex = 9;
             this.label14.Text = "Id";
             // 
-            // textBox1
+            // SimpleIdBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(77, 6);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(149, 23);
-            this.textBox1.TabIndex = 8;
+            this.SimpleIdBox.Location = new System.Drawing.Point(77, 6);
+            this.SimpleIdBox.Name = "SimpleIdBox";
+            this.SimpleIdBox.ReadOnly = true;
+            this.SimpleIdBox.Size = new System.Drawing.Size(149, 23);
+            this.SimpleIdBox.TabIndex = 8;
             // 
             // label13
             // 
@@ -531,6 +546,7 @@
             this.SimpleGenreBox.Name = "SimpleGenreBox";
             this.SimpleGenreBox.Size = new System.Drawing.Size(149, 23);
             this.SimpleGenreBox.TabIndex = 6;
+            this.SimpleGenreBox.SelectedIndexChanged += new System.EventHandler(this.SimpleBoxChanged);
             // 
             // label12
             // 
@@ -556,6 +572,7 @@
             this.SimpleDetailBox.Name = "SimpleDetailBox";
             this.SimpleDetailBox.Size = new System.Drawing.Size(149, 23);
             this.SimpleDetailBox.TabIndex = 3;
+            this.SimpleDetailBox.TextChanged += new System.EventHandler(this.SimpleBoxChanged);
             // 
             // SimpleSubtitleBox
             // 
@@ -563,6 +580,7 @@
             this.SimpleSubtitleBox.Name = "SimpleSubtitleBox";
             this.SimpleSubtitleBox.Size = new System.Drawing.Size(149, 23);
             this.SimpleSubtitleBox.TabIndex = 2;
+            this.SimpleSubtitleBox.TextChanged += new System.EventHandler(this.SimpleBoxChanged);
             // 
             // SimpleTitleBox
             // 
@@ -570,6 +588,7 @@
             this.SimpleTitleBox.Name = "SimpleTitleBox";
             this.SimpleTitleBox.Size = new System.Drawing.Size(149, 23);
             this.SimpleTitleBox.TabIndex = 1;
+            this.SimpleTitleBox.TextChanged += new System.EventHandler(this.SimpleBoxChanged);
             // 
             // label4
             // 
@@ -1136,15 +1155,6 @@
             this.label10.TabIndex = 8;
             this.label10.Text = "Audio file";
             // 
-            // LocateInMusicOrderButton
-            // 
-            this.LocateInMusicOrderButton.Location = new System.Drawing.Point(238, 121);
-            this.LocateInMusicOrderButton.Name = "LocateInMusicOrderButton";
-            this.LocateInMusicOrderButton.Size = new System.Drawing.Size(136, 23);
-            this.LocateInMusicOrderButton.TabIndex = 11;
-            this.LocateInMusicOrderButton.Text = "Locate in Music Order";
-            this.LocateInMusicOrderButton.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1276,7 +1286,7 @@
         private ComboBox SimpleGenreBox;
         private Label label13;
         private Label label14;
-        private TextBox textBox1;
+        private TextBox SimpleIdBox;
         private TabPage MusicOrderTab;
         private GroupBox groupBox11;
         private Label label17;

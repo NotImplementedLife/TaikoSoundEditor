@@ -13,11 +13,12 @@ namespace TaikoSoundEditor
             MusicInfoPathSelector.PathChanged += MusicInfoPathSelector_PathChanged;
             WordListPathSelector.PathChanged += WordListPathSelector_PathChanged;
             DirSelector.PathChanged += DirSelector_PathChanged;
-
-            AddedMusicBinding = new BindingSource();
+            
             AddedMusicBinding.DataSource = AddedMusic;
             NewSoundsBox.DataSource = AddedMusicBinding;
             TabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
+
+            SimpleGenreBox.DataSource = Enum.GetValues(typeof(Genre));
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -48,6 +49,20 @@ namespace TaikoSoundEditor
             WordsGrid.SelectedObject = WordList.GetBySong(item.Id);
             WordSubGrid.SelectedObject = WordList.GetBySongSub(item.Id);
             WordDetailGrid.SelectedObject = WordList.GetBySongDetail(item.Id);
+
+            simpleBoxLoading = true;
+            SimpleIdBox.Text = item.Id;
+            SimpleTitleBox.Text = WordList.GetBySong(item.Id).JapaneseText;
+            SimpleSubtitleBox.Text = WordList.GetBySongSub(item.Id).JapaneseText;
+            SimpleDetailBox.Text = WordList.GetBySongDetail(item.Id).JapaneseText;
+            SimpleGenreBox.SelectedItem = MusicOrders.GetByUniqueId(item.UniqueId).Genre;
+            SimpleStarEasyBox.Value = item.StarEasy;
+            SimpleStarNormalBox.Value = item.StarNormal;
+            SimpleStarHardBox.Value = item.StarHard;
+            SimpleStarManiaBox.Value = item.StarMania;
+            SimpleStarUraBox.Value = item.StarUra;
+            SimpleStarUraBox.Enabled = MusicAttributes.GetByUniqueId(item.UniqueId).CanPlayUra;
+            simpleBoxLoading = false;
         }
 
         private void LoadNewSongData(NewSongData item)
@@ -140,6 +155,54 @@ namespace TaikoSoundEditor
                 LoadedMusicBox.SelectedIndex = sel;
                 return;
             }
-        });        
+        });
+
+        private void SoundViewTab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!(SoundViewTab.SelectedTab == SoundViewerExpert || SoundViewTab.SelectedTab == SoundViewerSimple))
+                return;            
+
+            if (LoadedMusicBox.SelectedItem != null)
+            {
+                var item = LoadedMusicBox.SelectedItem as MusicInfo;
+                Logger.Info($"Tab switched, reloading MusicItem: {item}");
+                LoadMusicInfo(item);
+                return;
+            }
+
+            if(NewSoundsBox.SelectedItem!=null)
+            {
+                var item = NewSoundsBox.SelectedItem as NewSongData;
+                Logger.Info($"Tab switched, reloading NewSongData: {item}");
+                LoadNewSongData(item);
+                return;
+            }                       
+        }
+
+        private bool simpleBoxLoading = false;
+        private void SimpleBoxChanged(object sender, EventArgs e) => ExceptionGuard.Run(() =>
+        {
+            if (simpleBoxLoading) return;
+
+            if (LoadedMusicBox.SelectedItem != null)
+            {
+                var item = LoadedMusicBox.SelectedItem as MusicInfo;
+
+                Logger.Info($"Simple Box changed : {(sender as Control).Name} to value {(sender as Control).Text}");
+
+
+                WordList.GetBySong(item.Id).JapaneseText = SimpleTitleBox.Text;
+                WordList.GetBySongSub(item.Id).JapaneseText = SimpleSubtitleBox.Text;
+                WordList.GetBySongDetail(item.Id).JapaneseText = SimpleDetailBox.Text;
+                MusicOrders.GetByUniqueId(item.UniqueId).Genre = (Genre)SimpleGenreBox.SelectedItem;
+                item.StarEasy = (int)SimpleStarEasyBox.Value;
+                item.StarNormal = (int)SimpleStarNormalBox.Value;
+                item.StarHard = (int)SimpleStarHardBox.Value;
+                item.StarMania = (int)SimpleStarManiaBox.Value;
+                item.StarUra = (int)SimpleStarUraBox.Value;
+                return;
+            }
+
+        });
     }
 }

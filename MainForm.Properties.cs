@@ -19,7 +19,7 @@ namespace TaikoSoundEditor
         private WordList WordList;
         private MusicInfos MusicInfos;
         private List<NewSongData> AddedMusic { get; set; } = new List<NewSongData>();
-        private BindingSource AddedMusicBinding { get; set; }
-        private BindingSource LoadedMusicBinding;
+        private BindingSource AddedMusicBinding { get; set; } = new BindingSource();
+        private BindingSource LoadedMusicBinding { get; set; }
     }
 }
