@@ -76,6 +76,22 @@ namespace TaikoSoundEditor
             WordSubGrid.SelectedObject = item?.WordSub;
             WordDetailGrid.SelectedObject = item?.WordDetail;
             indexChanging = false;
+
+            if (item == null) return;
+
+            simpleBoxLoading = true;
+            SimpleIdBox.Text = item.MusicInfo.Id;
+            SimpleTitleBox.Text = item.Word.JapaneseText;
+            SimpleSubtitleBox.Text = item.WordSub.JapaneseText;
+            SimpleDetailBox.Text = item.WordDetail.JapaneseText;
+            SimpleGenreBox.SelectedItem = item.MusicOrder.Genre;
+            SimpleStarEasyBox.Value = item.MusicInfo.StarEasy;
+            SimpleStarNormalBox.Value = item.MusicInfo.StarNormal;
+            SimpleStarHardBox.Value = item.MusicInfo.StarHard;
+            SimpleStarManiaBox.Value = item.MusicInfo.StarMania;
+            SimpleStarUraBox.Value = item.MusicInfo.StarUra;
+            SimpleStarUraBox.Enabled = item.MusicAttribute.CanPlayUra;
+            simpleBoxLoading = false;
         }
 
         private bool indexChanging = false;
@@ -194,12 +210,29 @@ namespace TaikoSoundEditor
                 WordList.GetBySong(item.Id).JapaneseText = SimpleTitleBox.Text;
                 WordList.GetBySongSub(item.Id).JapaneseText = SimpleSubtitleBox.Text;
                 WordList.GetBySongDetail(item.Id).JapaneseText = SimpleDetailBox.Text;
-                MusicOrders.GetByUniqueId(item.UniqueId).Genre = (Genre)SimpleGenreBox.SelectedItem;
+                MusicOrders.GetByUniqueId(item.UniqueId).Genre = (Genre)(SimpleGenreBox.SelectedItem ?? Genre.Pop);
                 item.StarEasy = (int)SimpleStarEasyBox.Value;
                 item.StarNormal = (int)SimpleStarNormalBox.Value;
                 item.StarHard = (int)SimpleStarHardBox.Value;
                 item.StarMania = (int)SimpleStarManiaBox.Value;
                 item.StarUra = (int)SimpleStarUraBox.Value;
+                return;
+            }
+            else if(NewSoundsBox.SelectedItem!=null)
+            {
+                var item = NewSoundsBox.SelectedItem as NewSongData;
+
+                Logger.Info($"Simple Box changed : {(sender as Control).Name} to value {(sender as Control).Text}");
+                
+                item.Word.JapaneseText = SimpleTitleBox.Text;
+                item.WordSub.JapaneseText = SimpleSubtitleBox.Text;
+                item.WordDetail.JapaneseText = SimpleDetailBox.Text;
+                item.MusicOrder.Genre = (Genre)(SimpleGenreBox.SelectedItem ?? Genre.Pop);
+                item.MusicInfo.StarEasy=(int)SimpleStarEasyBox.Value;
+                item.MusicInfo.StarNormal=(int)SimpleStarNormalBox.Value;
+                item.MusicInfo.StarHard=(int)SimpleStarHardBox.Value;
+                item.MusicInfo.StarMania=(int)SimpleStarManiaBox.Value;
+                item.MusicInfo.StarUra = (int)SimpleStarUraBox.Value;
                 return;
             }
 
