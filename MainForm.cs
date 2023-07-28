@@ -92,9 +92,9 @@ namespace TaikoSoundEditor
                 Logger.Warning("The following files could not be found:\n\n" + String.Join("\n", NotFoundFiles));
                 MessageBox.Show("The following files could not be found:\n\n" + String.Join("\n", NotFoundFiles));
             }
-        });        
+        });
 
-        private void OkButton_Click(object sender, EventArgs e) => RunGuard(() =>        
+        private void OkButton_Click(object sender, EventArgs e) => RunGuard(() =>
         {
             Logger.Info($"Clicked 'Looks good' ");
 
@@ -102,7 +102,7 @@ namespace TaikoSoundEditor
             {
                 MusicAttributes = Json.Deserialize<MusicAttributes>(GZ.DecompressString(MusicAttributePath));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Failed to parse\n{MusicAttributePath}\nReason:\n{ex.InnerException}");
             }
@@ -135,9 +135,8 @@ namespace TaikoSoundEditor
 
             LoadedMusicBinding = new BindingSource();
             LoadedMusicBinding.DataSource = MusicInfos.Items.Where(mi => mi.UniqueId != 0).ToList();
-            LoadedMusicBox.DataSource = LoadedMusicBinding;            
+            LoadedMusicBox.DataSource = LoadedMusicBinding;
             TabControl.SelectedIndex = 1;
-
         });
 
         BindingSource LoadedMusicBinding;
@@ -288,7 +287,7 @@ namespace TaikoSoundEditor
             File.WriteAllText("tja.txt", tja.ToString());
 
 
-            var seconds = AddSilenceBox.Checked ? (int)Math.Ceiling(tja.Headers.Offset + 3) : 0;
+            var seconds = AddSilenceBox.Checked ? (int)Math.Ceiling(tja.Headers.Offset + (int)SilenceBox.Value) : 0;
             if (seconds < 0) seconds = 0;
             
 
@@ -759,5 +758,10 @@ namespace TaikoSoundEditor
                 return;
             }
         });
+
+        private void AddSilenceBox_CheckedChanged(object sender, EventArgs e)
+        {
+            SilenceBox.Enabled = AddSilenceBox.Checked;
+        }
     }
 }

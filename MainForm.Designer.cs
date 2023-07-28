@@ -75,11 +75,11 @@
             this.LoadedMusicBox = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.TjaEncShiftJIS = new System.Windows.Forms.RadioButton();
             this.TjaEncUTF8 = new System.Windows.Forms.RadioButton();
             this.TjaEncAuto = new System.Windows.Forms.RadioButton();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.AddSilenceBox = new System.Windows.Forms.CheckBox();
             this.FeedbackBox = new System.Windows.Forms.TextBox();
             this.CreateBackButton = new System.Windows.Forms.Button();
@@ -90,6 +90,8 @@
             this.TJASelector = new TaikoSoundEditor.PathSelector();
             this.AudioFileSelector = new TaikoSoundEditor.PathSelector();
             this.label10 = new System.Windows.Forms.Label();
+            this.SilenceBox = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -110,8 +112,9 @@
             this.groupBox3.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SilenceBox)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControl
@@ -656,6 +659,30 @@
             this.panel4.Size = new System.Drawing.Size(374, 318);
             this.panel4.TabIndex = 2;
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox10.Controls.Add(this.label3);
+            this.groupBox10.Controls.Add(this.SilenceBox);
+            this.groupBox10.Controls.Add(this.groupBox9);
+            this.groupBox10.Controls.Add(this.AddSilenceBox);
+            this.groupBox10.Controls.Add(this.FeedbackBox);
+            this.groupBox10.Controls.Add(this.CreateBackButton);
+            this.groupBox10.Controls.Add(this.CreateOkButton);
+            this.groupBox10.Controls.Add(this.label2);
+            this.groupBox10.Controls.Add(this.SongNameBox);
+            this.groupBox10.Controls.Add(this.label9);
+            this.groupBox10.Controls.Add(this.TJASelector);
+            this.groupBox10.Controls.Add(this.AudioFileSelector);
+            this.groupBox10.Controls.Add(this.label10);
+            this.groupBox10.Location = new System.Drawing.Point(3, 3);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(368, 312);
+            this.groupBox10.TabIndex = 8;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Create new sound";
+            // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.TjaEncShiftJIS);
@@ -702,46 +729,24 @@
             this.TjaEncAuto.Text = "Auto";
             this.TjaEncAuto.UseVisualStyleBackColor = true;
             // 
-            // groupBox10
-            // 
-            this.groupBox10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox10.Controls.Add(this.groupBox9);
-            this.groupBox10.Controls.Add(this.AddSilenceBox);
-            this.groupBox10.Controls.Add(this.FeedbackBox);
-            this.groupBox10.Controls.Add(this.CreateBackButton);
-            this.groupBox10.Controls.Add(this.CreateOkButton);
-            this.groupBox10.Controls.Add(this.label2);
-            this.groupBox10.Controls.Add(this.SongNameBox);
-            this.groupBox10.Controls.Add(this.label9);
-            this.groupBox10.Controls.Add(this.TJASelector);
-            this.groupBox10.Controls.Add(this.AudioFileSelector);
-            this.groupBox10.Controls.Add(this.label10);
-            this.groupBox10.Location = new System.Drawing.Point(3, 3);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(368, 293);
-            this.groupBox10.TabIndex = 8;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Create new sound";
-            // 
             // AddSilenceBox
             // 
             this.AddSilenceBox.AutoSize = true;
-            this.AddSilenceBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.AddSilenceBox.Checked = true;
             this.AddSilenceBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.AddSilenceBox.Location = new System.Drawing.Point(7, 153);
             this.AddSilenceBox.Name = "AddSilenceBox";
-            this.AddSilenceBox.Size = new System.Drawing.Size(143, 19);
+            this.AddSilenceBox.Size = new System.Drawing.Size(121, 19);
             this.AddSilenceBox.TabIndex = 19;
-            this.AddSilenceBox.Text = "Delay before song (3s)";
+            this.AddSilenceBox.Text = "Delay before song";
             this.AddSilenceBox.UseVisualStyleBackColor = true;
+            this.AddSilenceBox.CheckedChanged += new System.EventHandler(this.AddSilenceBox_CheckedChanged);
             // 
             // FeedbackBox
             // 
             this.FeedbackBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.FeedbackBox.Location = new System.Drawing.Point(7, 209);
+            this.FeedbackBox.Location = new System.Drawing.Point(7, 228);
             this.FeedbackBox.Multiline = true;
             this.FeedbackBox.Name = "FeedbackBox";
             this.FeedbackBox.Size = new System.Drawing.Size(356, 78);
@@ -750,7 +755,7 @@
             // CreateBackButton
             // 
             this.CreateBackButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CreateBackButton.Location = new System.Drawing.Point(206, 173);
+            this.CreateBackButton.Location = new System.Drawing.Point(206, 199);
             this.CreateBackButton.Name = "CreateBackButton";
             this.CreateBackButton.Size = new System.Drawing.Size(75, 23);
             this.CreateBackButton.TabIndex = 17;
@@ -761,7 +766,7 @@
             // CreateOkButton
             // 
             this.CreateOkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CreateOkButton.Location = new System.Drawing.Point(287, 173);
+            this.CreateOkButton.Location = new System.Drawing.Point(287, 199);
             this.CreateOkButton.Name = "CreateOkButton";
             this.CreateOkButton.Size = new System.Drawing.Size(75, 23);
             this.CreateOkButton.TabIndex = 16;
@@ -834,6 +839,32 @@
             this.label10.TabIndex = 8;
             this.label10.Text = "Audio file";
             // 
+            // SilenceBox
+            // 
+            this.SilenceBox.Location = new System.Drawing.Point(133, 152);
+            this.SilenceBox.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.SilenceBox.Name = "SilenceBox";
+            this.SilenceBox.Size = new System.Drawing.Size(42, 23);
+            this.SilenceBox.TabIndex = 20;
+            this.SilenceBox.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(181, 154);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 15);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "seconds";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -867,10 +898,11 @@
             this.groupBox3.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SilenceBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -939,5 +971,7 @@
         private RadioButton TjaEncShiftJIS;
         private RadioButton TjaEncUTF8;
         private RadioButton TjaEncAuto;
+        private NumericUpDown SilenceBox;
+        private Label label3;
     }
 }

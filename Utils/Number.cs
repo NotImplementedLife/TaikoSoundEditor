@@ -16,7 +16,7 @@ namespace TaikoSoundEditor.Utils
             }
             catch(FormatException ex)
             {
-                throw new FormatException($"{ex.Message} : {value} to int", ex);
+                throw new FormatException($"{ex.Message} : '{value ?? "<null>"}' to int", ex);
             }
         }
 
