@@ -45,16 +45,30 @@
             this.MusicAttributePathSelector = new TaikoSoundEditor.PathSelector();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.RemoveSongButton = new System.Windows.Forms.Button();
-            this.DatatableSpaces = new System.Windows.Forms.CheckBox();
-            this.ExportOpenOnFinished = new System.Windows.Forms.CheckBox();
-            this.ExportAllButton = new System.Windows.Forms.Button();
-            this.ExportSoundBanksButton = new System.Windows.Forms.Button();
-            this.ExportSoundFoldersButton = new System.Windows.Forms.Button();
-            this.ExportDatatableButton = new System.Windows.Forms.Button();
-            this.CreateButton = new System.Windows.Forms.Button();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.NewSoundsBox = new System.Windows.Forms.ListBox();
+            this.SoundViewTab = new System.Windows.Forms.TabControl();
+            this.SoundViewerSimple = new System.Windows.Forms.TabPage();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.SimpleStarUraBox = new System.Windows.Forms.NumericUpDown();
+            this.label17 = new System.Windows.Forms.Label();
+            this.SimpleStarManiaBox = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
+            this.SimpleStarHardBox = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.SimpleStarNormalBox = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.SimpleStarEasyBox = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.SimpleGenreBox = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.SimpleDetailBox = new System.Windows.Forms.TextBox();
+            this.SimpleSubtitleBox = new System.Windows.Forms.TextBox();
+            this.SimpleTitleBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.SoundViewerExpert = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.EditorTable = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -71,11 +85,24 @@
             this.WordSubGrid = new System.Windows.Forms.PropertyGrid();
             this.WordsGB = new System.Windows.Forms.GroupBox();
             this.WordsGrid = new System.Windows.Forms.PropertyGrid();
+            this.MusicOrderTab = new System.Windows.Forms.TabPage();
+            this.RemoveSongButton = new System.Windows.Forms.Button();
+            this.DatatableSpaces = new System.Windows.Forms.CheckBox();
+            this.ExportOpenOnFinished = new System.Windows.Forms.CheckBox();
+            this.ExportAllButton = new System.Windows.Forms.Button();
+            this.ExportSoundBanksButton = new System.Windows.Forms.Button();
+            this.ExportSoundFoldersButton = new System.Windows.Forms.Button();
+            this.ExportDatatableButton = new System.Windows.Forms.Button();
+            this.CreateButton = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.NewSoundsBox = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.LoadedMusicBox = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.SilenceBox = new System.Windows.Forms.NumericUpDown();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.TjaEncShiftJIS = new System.Windows.Forms.RadioButton();
             this.TjaEncUTF8 = new System.Windows.Forms.RadioButton();
@@ -90,15 +117,22 @@
             this.TJASelector = new TaikoSoundEditor.PathSelector();
             this.AudioFileSelector = new TaikoSoundEditor.PathSelector();
             this.label10 = new System.Windows.Forms.Label();
-            this.SilenceBox = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
+            this.LocateInMusicOrderButton = new System.Windows.Forms.Button();
             this.TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox8.SuspendLayout();
+            this.SoundViewTab.SuspendLayout();
+            this.SoundViewerSimple.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SimpleStarUraBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SimpleStarManiaBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SimpleStarHardBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SimpleStarNormalBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SimpleStarEasyBox)).BeginInit();
+            this.SoundViewerExpert.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.EditorTable.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -109,12 +143,13 @@
             this.WordDetailGB.SuspendLayout();
             this.WordSubGB.SuspendLayout();
             this.WordsGB.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.groupBox10.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SilenceBox)).BeginInit();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControl
@@ -309,6 +344,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.Controls.Add(this.SoundViewTab);
             this.tabPage2.Controls.Add(this.RemoveSongButton);
             this.tabPage2.Controls.Add(this.DatatableSpaces);
             this.tabPage2.Controls.Add(this.ExportOpenOnFinished);
@@ -318,7 +355,6 @@
             this.tabPage2.Controls.Add(this.ExportDatatableButton);
             this.tabPage2.Controls.Add(this.CreateButton);
             this.tabPage2.Controls.Add(this.groupBox8);
-            this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Location = new System.Drawing.Point(4, 5);
             this.tabPage2.Name = "tabPage2";
@@ -326,7 +362,421 @@
             this.tabPage2.Size = new System.Drawing.Size(676, 452);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // SoundViewTab
+            // 
+            this.SoundViewTab.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SoundViewTab.Controls.Add(this.SoundViewerSimple);
+            this.SoundViewTab.Controls.Add(this.SoundViewerExpert);
+            this.SoundViewTab.Controls.Add(this.MusicOrderTab);
+            this.SoundViewTab.Location = new System.Drawing.Point(139, 7);
+            this.SoundViewTab.Name = "SoundViewTab";
+            this.SoundViewTab.SelectedIndex = 0;
+            this.SoundViewTab.Size = new System.Drawing.Size(529, 324);
+            this.SoundViewTab.TabIndex = 13;
+            // 
+            // SoundViewerSimple
+            // 
+            this.SoundViewerSimple.Controls.Add(this.LocateInMusicOrderButton);
+            this.SoundViewerSimple.Controls.Add(this.groupBox11);
+            this.SoundViewerSimple.Controls.Add(this.label14);
+            this.SoundViewerSimple.Controls.Add(this.textBox1);
+            this.SoundViewerSimple.Controls.Add(this.label13);
+            this.SoundViewerSimple.Controls.Add(this.SimpleGenreBox);
+            this.SoundViewerSimple.Controls.Add(this.label12);
+            this.SoundViewerSimple.Controls.Add(this.label11);
+            this.SoundViewerSimple.Controls.Add(this.SimpleDetailBox);
+            this.SoundViewerSimple.Controls.Add(this.SimpleSubtitleBox);
+            this.SoundViewerSimple.Controls.Add(this.SimpleTitleBox);
+            this.SoundViewerSimple.Controls.Add(this.label4);
+            this.SoundViewerSimple.Location = new System.Drawing.Point(4, 24);
+            this.SoundViewerSimple.Name = "SoundViewerSimple";
+            this.SoundViewerSimple.Padding = new System.Windows.Forms.Padding(3);
+            this.SoundViewerSimple.Size = new System.Drawing.Size(521, 296);
+            this.SoundViewerSimple.TabIndex = 1;
+            this.SoundViewerSimple.Text = "Simple View";
+            this.SoundViewerSimple.UseVisualStyleBackColor = true;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.label19);
+            this.groupBox11.Controls.Add(this.SimpleStarUraBox);
+            this.groupBox11.Controls.Add(this.label17);
+            this.groupBox11.Controls.Add(this.SimpleStarManiaBox);
+            this.groupBox11.Controls.Add(this.label18);
+            this.groupBox11.Controls.Add(this.SimpleStarHardBox);
+            this.groupBox11.Controls.Add(this.label16);
+            this.groupBox11.Controls.Add(this.SimpleStarNormalBox);
+            this.groupBox11.Controls.Add(this.label15);
+            this.groupBox11.Controls.Add(this.SimpleStarEasyBox);
+            this.groupBox11.Location = new System.Drawing.Point(232, 6);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(243, 110);
+            this.groupBox11.TabIndex = 10;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Stars";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 82);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(25, 15);
+            this.label19.TabIndex = 9;
+            this.label19.Text = "Ura";
+            // 
+            // SimpleStarUraBox
+            // 
+            this.SimpleStarUraBox.Location = new System.Drawing.Point(42, 80);
+            this.SimpleStarUraBox.Name = "SimpleStarUraBox";
+            this.SimpleStarUraBox.Size = new System.Drawing.Size(64, 23);
+            this.SimpleStarUraBox.TabIndex = 8;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(112, 53);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(40, 15);
+            this.label17.TabIndex = 7;
+            this.label17.Text = "Mania";
+            // 
+            // SimpleStarManiaBox
+            // 
+            this.SimpleStarManiaBox.Location = new System.Drawing.Point(165, 51);
+            this.SimpleStarManiaBox.Name = "SimpleStarManiaBox";
+            this.SimpleStarManiaBox.Size = new System.Drawing.Size(64, 23);
+            this.SimpleStarManiaBox.TabIndex = 6;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 53);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(33, 15);
+            this.label18.TabIndex = 5;
+            this.label18.Text = "Hard";
+            // 
+            // SimpleStarHardBox
+            // 
+            this.SimpleStarHardBox.Location = new System.Drawing.Point(42, 51);
+            this.SimpleStarHardBox.Name = "SimpleStarHardBox";
+            this.SimpleStarHardBox.Size = new System.Drawing.Size(64, 23);
+            this.SimpleStarHardBox.TabIndex = 4;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(112, 24);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(47, 15);
+            this.label16.TabIndex = 3;
+            this.label16.Text = "Normal";
+            // 
+            // SimpleStarNormalBox
+            // 
+            this.SimpleStarNormalBox.Location = new System.Drawing.Point(165, 22);
+            this.SimpleStarNormalBox.Name = "SimpleStarNormalBox";
+            this.SimpleStarNormalBox.Size = new System.Drawing.Size(64, 23);
+            this.SimpleStarNormalBox.TabIndex = 2;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 24);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(30, 15);
+            this.label15.TabIndex = 1;
+            this.label15.Text = "Easy";
+            // 
+            // SimpleStarEasyBox
+            // 
+            this.SimpleStarEasyBox.Location = new System.Drawing.Point(42, 22);
+            this.SimpleStarEasyBox.Name = "SimpleStarEasyBox";
+            this.SimpleStarEasyBox.Size = new System.Drawing.Size(64, 23);
+            this.SimpleStarEasyBox.TabIndex = 0;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(17, 15);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "Id";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(77, 6);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(149, 23);
+            this.textBox1.TabIndex = 8;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 125);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(38, 15);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "Genre";
+            // 
+            // SimpleGenreBox
+            // 
+            this.SimpleGenreBox.FormattingEnabled = true;
+            this.SimpleGenreBox.Location = new System.Drawing.Point(77, 122);
+            this.SimpleGenreBox.Name = "SimpleGenreBox";
+            this.SimpleGenreBox.Size = new System.Drawing.Size(149, 23);
+            this.SimpleGenreBox.TabIndex = 6;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 96);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(37, 15);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Detail";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 67);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(47, 15);
+            this.label11.TabIndex = 4;
+            this.label11.Text = "Subtitle";
+            // 
+            // SimpleDetailBox
+            // 
+            this.SimpleDetailBox.Location = new System.Drawing.Point(77, 93);
+            this.SimpleDetailBox.Name = "SimpleDetailBox";
+            this.SimpleDetailBox.Size = new System.Drawing.Size(149, 23);
+            this.SimpleDetailBox.TabIndex = 3;
+            // 
+            // SimpleSubtitleBox
+            // 
+            this.SimpleSubtitleBox.Location = new System.Drawing.Point(77, 64);
+            this.SimpleSubtitleBox.Name = "SimpleSubtitleBox";
+            this.SimpleSubtitleBox.Size = new System.Drawing.Size(149, 23);
+            this.SimpleSubtitleBox.TabIndex = 2;
+            // 
+            // SimpleTitleBox
+            // 
+            this.SimpleTitleBox.Location = new System.Drawing.Point(77, 35);
+            this.SimpleTitleBox.Name = "SimpleTitleBox";
+            this.SimpleTitleBox.Size = new System.Drawing.Size(149, 23);
+            this.SimpleTitleBox.TabIndex = 1;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 38);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 15);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Title";
+            // 
+            // SoundViewerExpert
+            // 
+            this.SoundViewerExpert.Controls.Add(this.groupBox4);
+            this.SoundViewerExpert.Location = new System.Drawing.Point(4, 24);
+            this.SoundViewerExpert.Name = "SoundViewerExpert";
+            this.SoundViewerExpert.Padding = new System.Windows.Forms.Padding(3);
+            this.SoundViewerExpert.Size = new System.Drawing.Size(521, 296);
+            this.SoundViewerExpert.TabIndex = 0;
+            this.SoundViewerExpert.Text = "Expert View";
+            this.SoundViewerExpert.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.EditorTable);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(3, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(515, 290);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Sound Data";
+            // 
+            // EditorTable
+            // 
+            this.EditorTable.ColumnCount = 3;
+            this.EditorTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            this.EditorTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34F));
+            this.EditorTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
+            this.EditorTable.Controls.Add(this.panel3, 1, 0);
+            this.EditorTable.Controls.Add(this.groupBox5, 0, 0);
+            this.EditorTable.Controls.Add(this.panel2, 2, 0);
+            this.EditorTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EditorTable.Location = new System.Drawing.Point(3, 19);
+            this.EditorTable.Name = "EditorTable";
+            this.EditorTable.RowCount = 1;
+            this.EditorTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.EditorTable.Size = new System.Drawing.Size(509, 268);
+            this.EditorTable.TabIndex = 7;
+            this.EditorTable.Resize += new System.EventHandler(this.EditorTable_Resize);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.groupBox6);
+            this.panel3.Controls.Add(this.groupBox7);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(170, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(167, 262);
+            this.panel3.TabIndex = 5;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.MusicAttributesGrid);
+            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox6.Location = new System.Drawing.Point(0, 0);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(167, 138);
+            this.groupBox6.TabIndex = 5;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Music Attributes";
+            // 
+            // MusicAttributesGrid
+            // 
+            this.MusicAttributesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MusicAttributesGrid.HelpVisible = false;
+            this.MusicAttributesGrid.Location = new System.Drawing.Point(3, 19);
+            this.MusicAttributesGrid.Name = "MusicAttributesGrid";
+            this.MusicAttributesGrid.Size = new System.Drawing.Size(161, 116);
+            this.MusicAttributesGrid.TabIndex = 3;
+            this.MusicAttributesGrid.ToolbarVisible = false;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.MusicOrderGrid);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox7.Location = new System.Drawing.Point(0, 138);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(167, 124);
+            this.groupBox7.TabIndex = 6;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Music Order";
+            // 
+            // MusicOrderGrid
+            // 
+            this.MusicOrderGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MusicOrderGrid.HelpVisible = false;
+            this.MusicOrderGrid.Location = new System.Drawing.Point(3, 19);
+            this.MusicOrderGrid.Name = "MusicOrderGrid";
+            this.MusicOrderGrid.Size = new System.Drawing.Size(161, 102);
+            this.MusicOrderGrid.TabIndex = 3;
+            this.MusicOrderGrid.ToolbarVisible = false;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.MusicInfoGrid);
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox5.Location = new System.Drawing.Point(3, 3);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(161, 262);
+            this.groupBox5.TabIndex = 4;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Music Info";
+            // 
+            // MusicInfoGrid
+            // 
+            this.MusicInfoGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MusicInfoGrid.HelpVisible = false;
+            this.MusicInfoGrid.Location = new System.Drawing.Point(3, 19);
+            this.MusicInfoGrid.Name = "MusicInfoGrid";
+            this.MusicInfoGrid.Size = new System.Drawing.Size(155, 240);
+            this.MusicInfoGrid.TabIndex = 3;
+            this.MusicInfoGrid.ToolbarVisible = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.WordDetailGB);
+            this.panel2.Controls.Add(this.WordSubGB);
+            this.panel2.Controls.Add(this.WordsGB);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(343, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(163, 262);
+            this.panel2.TabIndex = 6;
+            // 
+            // WordDetailGB
+            // 
+            this.WordDetailGB.Controls.Add(this.WordDetailGrid);
+            this.WordDetailGB.Dock = System.Windows.Forms.DockStyle.Top;
+            this.WordDetailGB.Location = new System.Drawing.Point(0, 184);
+            this.WordDetailGB.Name = "WordDetailGB";
+            this.WordDetailGB.Size = new System.Drawing.Size(163, 96);
+            this.WordDetailGB.TabIndex = 8;
+            this.WordDetailGB.TabStop = false;
+            this.WordDetailGB.Text = "Word Detail";
+            // 
+            // WordDetailGrid
+            // 
+            this.WordDetailGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.WordDetailGrid.HelpVisible = false;
+            this.WordDetailGrid.Location = new System.Drawing.Point(3, 19);
+            this.WordDetailGrid.Name = "WordDetailGrid";
+            this.WordDetailGrid.Size = new System.Drawing.Size(157, 74);
+            this.WordDetailGrid.TabIndex = 3;
+            this.WordDetailGrid.ToolbarVisible = false;
+            // 
+            // WordSubGB
+            // 
+            this.WordSubGB.Controls.Add(this.WordSubGrid);
+            this.WordSubGB.Dock = System.Windows.Forms.DockStyle.Top;
+            this.WordSubGB.Location = new System.Drawing.Point(0, 88);
+            this.WordSubGB.Name = "WordSubGB";
+            this.WordSubGB.Size = new System.Drawing.Size(163, 96);
+            this.WordSubGB.TabIndex = 7;
+            this.WordSubGB.TabStop = false;
+            this.WordSubGB.Text = "Word Sub";
+            // 
+            // WordSubGrid
+            // 
+            this.WordSubGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.WordSubGrid.HelpVisible = false;
+            this.WordSubGrid.Location = new System.Drawing.Point(3, 19);
+            this.WordSubGrid.Name = "WordSubGrid";
+            this.WordSubGrid.Size = new System.Drawing.Size(157, 74);
+            this.WordSubGrid.TabIndex = 3;
+            this.WordSubGrid.ToolbarVisible = false;
+            // 
+            // WordsGB
+            // 
+            this.WordsGB.Controls.Add(this.WordsGrid);
+            this.WordsGB.Dock = System.Windows.Forms.DockStyle.Top;
+            this.WordsGB.Location = new System.Drawing.Point(0, 0);
+            this.WordsGB.Name = "WordsGB";
+            this.WordsGB.Size = new System.Drawing.Size(163, 88);
+            this.WordsGB.TabIndex = 6;
+            this.WordsGB.TabStop = false;
+            this.WordsGB.Text = "Words";
+            // 
+            // WordsGrid
+            // 
+            this.WordsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.WordsGrid.HelpVisible = false;
+            this.WordsGrid.Location = new System.Drawing.Point(3, 19);
+            this.WordsGrid.Name = "WordsGrid";
+            this.WordsGrid.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
+            this.WordsGrid.Size = new System.Drawing.Size(157, 66);
+            this.WordsGrid.TabIndex = 3;
+            this.WordsGrid.ToolbarVisible = false;
+            // 
+            // MusicOrderTab
+            // 
+            this.MusicOrderTab.Location = new System.Drawing.Point(4, 24);
+            this.MusicOrderTab.Name = "MusicOrderTab";
+            this.MusicOrderTab.Padding = new System.Windows.Forms.Padding(3);
+            this.MusicOrderTab.Size = new System.Drawing.Size(521, 296);
+            this.MusicOrderTab.TabIndex = 2;
+            this.MusicOrderTab.Text = "Music Order";
+            this.MusicOrderTab.UseVisualStyleBackColor = true;
             // 
             // RemoveSongButton
             // 
@@ -439,185 +889,6 @@
             this.NewSoundsBox.TabIndex = 1;
             this.NewSoundsBox.SelectedIndexChanged += new System.EventHandler(this.NewSoundsBox_SelectedIndexChanged);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.EditorTable);
-            this.groupBox4.Location = new System.Drawing.Point(139, 6);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(531, 331);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Sound Data";
-            // 
-            // EditorTable
-            // 
-            this.EditorTable.ColumnCount = 3;
-            this.EditorTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
-            this.EditorTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34F));
-            this.EditorTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
-            this.EditorTable.Controls.Add(this.panel3, 1, 0);
-            this.EditorTable.Controls.Add(this.groupBox5, 0, 0);
-            this.EditorTable.Controls.Add(this.panel2, 2, 0);
-            this.EditorTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.EditorTable.Location = new System.Drawing.Point(3, 19);
-            this.EditorTable.Name = "EditorTable";
-            this.EditorTable.RowCount = 1;
-            this.EditorTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.EditorTable.Size = new System.Drawing.Size(525, 309);
-            this.EditorTable.TabIndex = 7;
-            this.EditorTable.Resize += new System.EventHandler(this.EditorTable_Resize);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.groupBox6);
-            this.panel3.Controls.Add(this.groupBox7);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(176, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(172, 303);
-            this.panel3.TabIndex = 5;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.MusicAttributesGrid);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(0, 0);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(172, 179);
-            this.groupBox6.TabIndex = 5;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Music Attributes";
-            // 
-            // MusicAttributesGrid
-            // 
-            this.MusicAttributesGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MusicAttributesGrid.HelpVisible = false;
-            this.MusicAttributesGrid.Location = new System.Drawing.Point(3, 19);
-            this.MusicAttributesGrid.Name = "MusicAttributesGrid";
-            this.MusicAttributesGrid.Size = new System.Drawing.Size(166, 157);
-            this.MusicAttributesGrid.TabIndex = 3;
-            this.MusicAttributesGrid.ToolbarVisible = false;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.MusicOrderGrid);
-            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox7.Location = new System.Drawing.Point(0, 179);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(172, 124);
-            this.groupBox7.TabIndex = 6;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Music Order";
-            // 
-            // MusicOrderGrid
-            // 
-            this.MusicOrderGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MusicOrderGrid.HelpVisible = false;
-            this.MusicOrderGrid.Location = new System.Drawing.Point(3, 19);
-            this.MusicOrderGrid.Name = "MusicOrderGrid";
-            this.MusicOrderGrid.Size = new System.Drawing.Size(166, 102);
-            this.MusicOrderGrid.TabIndex = 3;
-            this.MusicOrderGrid.ToolbarVisible = false;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.MusicInfoGrid);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.Location = new System.Drawing.Point(3, 3);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(167, 303);
-            this.groupBox5.TabIndex = 4;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Music Info";
-            // 
-            // MusicInfoGrid
-            // 
-            this.MusicInfoGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MusicInfoGrid.HelpVisible = false;
-            this.MusicInfoGrid.Location = new System.Drawing.Point(3, 19);
-            this.MusicInfoGrid.Name = "MusicInfoGrid";
-            this.MusicInfoGrid.Size = new System.Drawing.Size(161, 281);
-            this.MusicInfoGrid.TabIndex = 3;
-            this.MusicInfoGrid.ToolbarVisible = false;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.WordDetailGB);
-            this.panel2.Controls.Add(this.WordSubGB);
-            this.panel2.Controls.Add(this.WordsGB);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(354, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(168, 303);
-            this.panel2.TabIndex = 6;
-            // 
-            // WordDetailGB
-            // 
-            this.WordDetailGB.Controls.Add(this.WordDetailGrid);
-            this.WordDetailGB.Dock = System.Windows.Forms.DockStyle.Top;
-            this.WordDetailGB.Location = new System.Drawing.Point(0, 184);
-            this.WordDetailGB.Name = "WordDetailGB";
-            this.WordDetailGB.Size = new System.Drawing.Size(168, 96);
-            this.WordDetailGB.TabIndex = 8;
-            this.WordDetailGB.TabStop = false;
-            this.WordDetailGB.Text = "Word Detail";
-            // 
-            // WordDetailGrid
-            // 
-            this.WordDetailGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.WordDetailGrid.HelpVisible = false;
-            this.WordDetailGrid.Location = new System.Drawing.Point(3, 19);
-            this.WordDetailGrid.Name = "WordDetailGrid";
-            this.WordDetailGrid.Size = new System.Drawing.Size(162, 74);
-            this.WordDetailGrid.TabIndex = 3;
-            this.WordDetailGrid.ToolbarVisible = false;
-            // 
-            // WordSubGB
-            // 
-            this.WordSubGB.Controls.Add(this.WordSubGrid);
-            this.WordSubGB.Dock = System.Windows.Forms.DockStyle.Top;
-            this.WordSubGB.Location = new System.Drawing.Point(0, 88);
-            this.WordSubGB.Name = "WordSubGB";
-            this.WordSubGB.Size = new System.Drawing.Size(168, 96);
-            this.WordSubGB.TabIndex = 7;
-            this.WordSubGB.TabStop = false;
-            this.WordSubGB.Text = "Word Sub";
-            // 
-            // WordSubGrid
-            // 
-            this.WordSubGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.WordSubGrid.HelpVisible = false;
-            this.WordSubGrid.Location = new System.Drawing.Point(3, 19);
-            this.WordSubGrid.Name = "WordSubGrid";
-            this.WordSubGrid.Size = new System.Drawing.Size(162, 74);
-            this.WordSubGrid.TabIndex = 3;
-            this.WordSubGrid.ToolbarVisible = false;
-            // 
-            // WordsGB
-            // 
-            this.WordsGB.Controls.Add(this.WordsGrid);
-            this.WordsGB.Dock = System.Windows.Forms.DockStyle.Top;
-            this.WordsGB.Location = new System.Drawing.Point(0, 0);
-            this.WordsGB.Name = "WordsGB";
-            this.WordsGB.Size = new System.Drawing.Size(168, 88);
-            this.WordsGB.TabIndex = 6;
-            this.WordsGB.TabStop = false;
-            this.WordsGB.Text = "Words";
-            // 
-            // WordsGrid
-            // 
-            this.WordsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.WordsGrid.HelpVisible = false;
-            this.WordsGrid.Location = new System.Drawing.Point(3, 19);
-            this.WordsGrid.Name = "WordsGrid";
-            this.WordsGrid.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
-            this.WordsGrid.Size = new System.Drawing.Size(162, 66);
-            this.WordsGrid.TabIndex = 3;
-            this.WordsGrid.ToolbarVisible = false;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.LoadedMusicBox);
@@ -641,6 +912,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.BackColor = System.Drawing.Color.White;
             this.tabPage3.Controls.Add(this.panel4);
             this.tabPage3.Location = new System.Drawing.Point(4, 5);
             this.tabPage3.Name = "tabPage3";
@@ -648,7 +920,6 @@
             this.tabPage3.Size = new System.Drawing.Size(676, 452);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -682,6 +953,32 @@
             this.groupBox10.TabIndex = 8;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Create new sound";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(181, 154);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 15);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "seconds";
+            // 
+            // SilenceBox
+            // 
+            this.SilenceBox.Location = new System.Drawing.Point(133, 152);
+            this.SilenceBox.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.SilenceBox.Name = "SilenceBox";
+            this.SilenceBox.Size = new System.Drawing.Size(42, 23);
+            this.SilenceBox.TabIndex = 20;
+            this.SilenceBox.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
             // groupBox9
             // 
@@ -839,31 +1136,14 @@
             this.label10.TabIndex = 8;
             this.label10.Text = "Audio file";
             // 
-            // SilenceBox
+            // LocateInMusicOrderButton
             // 
-            this.SilenceBox.Location = new System.Drawing.Point(133, 152);
-            this.SilenceBox.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.SilenceBox.Name = "SilenceBox";
-            this.SilenceBox.Size = new System.Drawing.Size(42, 23);
-            this.SilenceBox.TabIndex = 20;
-            this.SilenceBox.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(181, 154);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 15);
-            this.label3.TabIndex = 21;
-            this.label3.Text = "seconds";
+            this.LocateInMusicOrderButton.Location = new System.Drawing.Point(238, 121);
+            this.LocateInMusicOrderButton.Name = "LocateInMusicOrderButton";
+            this.LocateInMusicOrderButton.Size = new System.Drawing.Size(136, 23);
+            this.LocateInMusicOrderButton.TabIndex = 11;
+            this.LocateInMusicOrderButton.Text = "Locate in Music Order";
+            this.LocateInMusicOrderButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -884,7 +1164,17 @@
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
+            this.SoundViewTab.ResumeLayout(false);
+            this.SoundViewerSimple.ResumeLayout(false);
+            this.SoundViewerSimple.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SimpleStarUraBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SimpleStarManiaBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SimpleStarHardBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SimpleStarNormalBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SimpleStarEasyBox)).EndInit();
+            this.SoundViewerExpert.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.EditorTable.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -895,14 +1185,15 @@
             this.WordDetailGB.ResumeLayout(false);
             this.WordSubGB.ResumeLayout(false);
             this.WordsGB.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SilenceBox)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SilenceBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -973,5 +1264,31 @@
         private RadioButton TjaEncAuto;
         private NumericUpDown SilenceBox;
         private Label label3;
+        private TabControl SoundViewTab;
+        private TabPage SoundViewerExpert;
+        private TabPage SoundViewerSimple;
+        private TextBox SimpleSubtitleBox;
+        private TextBox SimpleTitleBox;
+        private Label label4;
+        private TextBox SimpleDetailBox;
+        private Label label12;
+        private Label label11;
+        private ComboBox SimpleGenreBox;
+        private Label label13;
+        private Label label14;
+        private TextBox textBox1;
+        private TabPage MusicOrderTab;
+        private GroupBox groupBox11;
+        private Label label17;
+        private NumericUpDown SimpleStarManiaBox;
+        private Label label18;
+        private NumericUpDown SimpleStarHardBox;
+        private Label label16;
+        private NumericUpDown SimpleStarNormalBox;
+        private Label label15;
+        private NumericUpDown SimpleStarEasyBox;
+        private Label label19;
+        private NumericUpDown SimpleStarUraBox;
+        private Button LocateInMusicOrderButton;
     }
 }
