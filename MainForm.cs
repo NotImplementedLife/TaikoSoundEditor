@@ -237,7 +237,7 @@ namespace TaikoSoundEditor
                 WordList.GetBySong(item.Id).JapaneseText = SimpleTitleBox.Text;
                 WordList.GetBySongSub(item.Id).JapaneseText = SimpleSubtitleBox.Text;
                 WordList.GetBySongDetail(item.Id).JapaneseText = SimpleDetailBox.Text;
-                MusicOrders.GetByUniqueId(item.UniqueId).Genre = (Genre)(SimpleGenreBox.SelectedItem ?? Genre.Pop);
+                MusicOrders.GetByUniqueId(item.UniqueId).Genre = item.Genre = (Genre)(SimpleGenreBox.SelectedItem ?? Genre.Pop);                
                 item.StarEasy = (int)SimpleStarEasyBox.Value;
                 item.StarNormal = (int)SimpleStarNormalBox.Value;
                 item.StarHard = (int)SimpleStarHardBox.Value;
