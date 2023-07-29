@@ -58,13 +58,16 @@
             // 
             // RightButton
             // 
+            this.RightButton.BackColor = System.Drawing.Color.Black;
             this.RightButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.RightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RightButton.ForeColor = System.Drawing.Color.White;
             this.RightButton.Location = new System.Drawing.Point(487, 32);
             this.RightButton.Name = "RightButton";
             this.RightButton.Size = new System.Drawing.Size(20, 265);
             this.RightButton.TabIndex = 1;
             this.RightButton.Text = ">";
-            this.RightButton.UseVisualStyleBackColor = true;
+            this.RightButton.UseVisualStyleBackColor = false;
             this.RightButton.Click += new System.EventHandler(this.RightButton_Click);
             // 
             // ControlsPanel
@@ -190,13 +193,16 @@
             // 
             // LeftButton
             // 
+            this.LeftButton.BackColor = System.Drawing.Color.Black;
             this.LeftButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.LeftButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LeftButton.ForeColor = System.Drawing.Color.White;
             this.LeftButton.Location = new System.Drawing.Point(0, 32);
             this.LeftButton.Name = "LeftButton";
             this.LeftButton.Size = new System.Drawing.Size(20, 265);
             this.LeftButton.TabIndex = 3;
             this.LeftButton.Text = "<";
-            this.LeftButton.UseVisualStyleBackColor = true;
+            this.LeftButton.UseVisualStyleBackColor = false;
             this.LeftButton.Click += new System.EventHandler(this.LeftButton_Click);
             // 
             // MusicOrderViewer

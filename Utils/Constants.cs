@@ -16,6 +16,20 @@ namespace TaikoSoundEditor.Utils
             .OrderBy(_ => ColorRand.Next())
             .ToArray();
 
-        public static Color[] GenreColors = Colors.Where(c => 0.5 <= c.GetBrightness() && c.GetBrightness() < 0.7 && c.GetSaturation() > 0.5).ToArray();
+        public static Color[] GenreColors =
+            new Color[] 
+            {
+                Color.FromArgb(73, 213, 235), // pop
+                Color.FromArgb(254, 144, 210), // anime
+                Color.FromArgb(253, 192, 0), // kids                
+                Color.FromArgb(203, 207, 222), // vocaloid
+                Color.FromArgb(204, 138, 235), // game music
+                Color.FromArgb(255, 112, 40), // Namco Original
+                Color.FromArgb(255, 255, 255), // ??
+                Color.FromArgb(10, 204, 42), // variety
+                Color.FromArgb(222, 213, 35), // classic                
+            }
+            .Concat(Colors.Where(c => 0.5 <= c.GetBrightness() && c.GetBrightness() < 0.7 && c.GetSaturation() > 0.5))
+            .ToArray();    
     }
 }
