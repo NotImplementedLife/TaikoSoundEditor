@@ -18,7 +18,7 @@ namespace TaikoSoundEditor.Controls
 
         internal WordList WordList { get; set; }        
 
-        private List<SongCard> SongCards = new();        
+        public List<SongCard> SongCards { get; } = new();        
 
         public void AddSong(MusicOrder mo)
         {

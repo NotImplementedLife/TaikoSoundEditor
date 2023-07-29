@@ -15,11 +15,12 @@ namespace TaikoSoundEditor
 
             var ma = new MusicAttributes();
             ma.Items.AddRange(MusicAttributes.Items);
-            ma.Items.AddRange(AddedMusic.Select(_ => _.MusicAttribute));
+            //ma.Items.AddRange(AddedMusic.Select(_ => _.MusicAttribute));
 
             var mo = new MusicOrders();
+            mo.Items.AddRange(MusicOrderViewer.SongCards.Select(_ => _.MusicOrder));
 
-            var mbyg = MusicOrders.Items.GroupBy(_ => _.GenreNo).Select(_ => (_.Key, List: _.ToList())).ToDictionary(_ => _.Key, _ => _.List);
+            /*var mbyg = MusicOrders.Items.GroupBy(_ => _.GenreNo).Select(_ => (_.Key, List: _.ToList())).ToDictionary(_ => _.Key, _ => _.List);
 
             foreach (var m in AddedMusic.Select(_ => _.MusicOrder))
             {
@@ -31,11 +32,11 @@ namespace TaikoSoundEditor
             foreach (var key in mbyg.Keys.OrderBy(_ => _))
             {
                 mo.Items.AddRange(mbyg[key]);
-            }
+            }*/
 
             var wl = new WordList();
             wl.Items.AddRange(WordList.Items);
-            wl.Items.AddRange(AddedMusic.Select(_ => new List<Word>() { _.Word, _.WordSub, _.WordDetail }).SelectMany(_ => _));
+            //wl.Items.AddRange(AddedMusic.Select(_ => new List<Word>() { _.Word, _.WordSub, _.WordDetail }).SelectMany(_ => _));
 
             var jmi = JsonFix(Json.Serialize(mi, !DatatableSpaces.Checked));
             var jma = JsonFix(Json.Serialize(ma));
