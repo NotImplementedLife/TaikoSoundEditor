@@ -31,11 +31,15 @@
             this.MusicOrdersPanel = new System.Windows.Forms.Panel();
             this.RightButton = new System.Windows.Forms.Button();
             this.ControlsPanel = new System.Windows.Forms.Panel();
+            this.ListStartButton = new System.Windows.Forms.Button();
+            this.ListEndButton = new System.Windows.Forms.Button();
+            this.Left10Button = new System.Windows.Forms.Button();
+            this.Right10Button = new System.Windows.Forms.Button();
+            this.RemoveButton = new System.Windows.Forms.Button();
             this.PasteButton = new System.Windows.Forms.Button();
             this.CutButton = new System.Windows.Forms.Button();
             this.PageLabel = new System.Windows.Forms.Label();
             this.LeftButton = new System.Windows.Forms.Button();
-            this.RemoveButton = new System.Windows.Forms.Button();
             this.ControlsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,6 +69,10 @@
             // 
             // ControlsPanel
             // 
+            this.ControlsPanel.Controls.Add(this.ListStartButton);
+            this.ControlsPanel.Controls.Add(this.ListEndButton);
+            this.ControlsPanel.Controls.Add(this.Left10Button);
+            this.ControlsPanel.Controls.Add(this.Right10Button);
             this.ControlsPanel.Controls.Add(this.RemoveButton);
             this.ControlsPanel.Controls.Add(this.PasteButton);
             this.ControlsPanel.Controls.Add(this.CutButton);
@@ -74,6 +82,75 @@
             this.ControlsPanel.Name = "ControlsPanel";
             this.ControlsPanel.Size = new System.Drawing.Size(507, 32);
             this.ControlsPanel.TabIndex = 2;
+            // 
+            // ListStartButton
+            // 
+            this.ListStartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListStartButton.BackgroundImage = global::TaikoSoundEditor.Properties.Resources.ic_list_start;
+            this.ListStartButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ListStartButton.FlatAppearance.BorderSize = 0;
+            this.ListStartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ListStartButton.Location = new System.Drawing.Point(390, 3);
+            this.ListStartButton.Name = "ListStartButton";
+            this.ListStartButton.Size = new System.Drawing.Size(24, 24);
+            this.ListStartButton.TabIndex = 7;
+            this.ListStartButton.UseVisualStyleBackColor = true;
+            this.ListStartButton.Click += new System.EventHandler(this.ListStartButton_Click);
+            // 
+            // ListEndButton
+            // 
+            this.ListEndButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListEndButton.BackgroundImage = global::TaikoSoundEditor.Properties.Resources.ic_list_end;
+            this.ListEndButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ListEndButton.FlatAppearance.BorderSize = 0;
+            this.ListEndButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ListEndButton.Location = new System.Drawing.Point(480, 3);
+            this.ListEndButton.Name = "ListEndButton";
+            this.ListEndButton.Size = new System.Drawing.Size(24, 24);
+            this.ListEndButton.TabIndex = 6;
+            this.ListEndButton.UseVisualStyleBackColor = true;
+            this.ListEndButton.Click += new System.EventHandler(this.ListEndButton_Click);
+            // 
+            // Left10Button
+            // 
+            this.Left10Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Left10Button.BackgroundImage = global::TaikoSoundEditor.Properties.Resources.ic_left_10;
+            this.Left10Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Left10Button.FlatAppearance.BorderSize = 0;
+            this.Left10Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Left10Button.Location = new System.Drawing.Point(420, 3);
+            this.Left10Button.Name = "Left10Button";
+            this.Left10Button.Size = new System.Drawing.Size(24, 24);
+            this.Left10Button.TabIndex = 5;
+            this.Left10Button.UseVisualStyleBackColor = true;
+            this.Left10Button.Click += new System.EventHandler(this.Left10Button_Click);
+            // 
+            // Right10Button
+            // 
+            this.Right10Button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Right10Button.BackgroundImage = global::TaikoSoundEditor.Properties.Resources.ic_right_10;
+            this.Right10Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Right10Button.FlatAppearance.BorderSize = 0;
+            this.Right10Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Right10Button.Location = new System.Drawing.Point(450, 3);
+            this.Right10Button.Name = "Right10Button";
+            this.Right10Button.Size = new System.Drawing.Size(24, 24);
+            this.Right10Button.TabIndex = 4;
+            this.Right10Button.UseVisualStyleBackColor = true;
+            this.Right10Button.Click += new System.EventHandler(this.Right10Button_Click);
+            // 
+            // RemoveButton
+            // 
+            this.RemoveButton.BackgroundImage = global::TaikoSoundEditor.Properties.Resources.ic_remove_gs;
+            this.RemoveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.RemoveButton.FlatAppearance.BorderSize = 0;
+            this.RemoveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RemoveButton.Location = new System.Drawing.Point(63, 3);
+            this.RemoveButton.Name = "RemoveButton";
+            this.RemoveButton.Size = new System.Drawing.Size(24, 24);
+            this.RemoveButton.TabIndex = 3;
+            this.RemoveButton.UseVisualStyleBackColor = true;
+            this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
             // 
             // PasteButton
             // 
@@ -122,19 +199,6 @@
             this.LeftButton.UseVisualStyleBackColor = true;
             this.LeftButton.Click += new System.EventHandler(this.LeftButton_Click);
             // 
-            // RemoveButton
-            // 
-            this.RemoveButton.BackgroundImage = global::TaikoSoundEditor.Properties.Resources.ic_remove_gs;
-            this.RemoveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.RemoveButton.FlatAppearance.BorderSize = 0;
-            this.RemoveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RemoveButton.Location = new System.Drawing.Point(63, 3);
-            this.RemoveButton.Name = "RemoveButton";
-            this.RemoveButton.Size = new System.Drawing.Size(24, 24);
-            this.RemoveButton.TabIndex = 3;
-            this.RemoveButton.UseVisualStyleBackColor = true;
-            this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
-            // 
             // MusicOrderViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -161,5 +225,9 @@
         private Button CutButton;
         private Button PasteButton;
         private Button RemoveButton;
+        private Button Left10Button;
+        private Button Right10Button;
+        private Button ListStartButton;
+        private Button ListEndButton;
     }
 }

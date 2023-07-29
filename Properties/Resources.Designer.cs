@@ -83,6 +83,36 @@ namespace TaikoSoundEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ic_left_10 {
+            get {
+                object obj = ResourceManager.GetObject("ic_left_10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ic_list_end {
+            get {
+                object obj = ResourceManager.GetObject("ic_list_end", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ic_list_start {
+            get {
+                object obj = ResourceManager.GetObject("ic_list_start", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ic_paste {
             get {
                 object obj = ResourceManager.GetObject("ic_paste", resourceCulture);
@@ -116,6 +146,16 @@ namespace TaikoSoundEditor.Properties {
         internal static System.Drawing.Bitmap ic_remove_gs {
             get {
                 object obj = ResourceManager.GetObject("ic_remove_gs", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ic_right_10 {
+            get {
+                object obj = ResourceManager.GetObject("ic_right_10", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

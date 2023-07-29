@@ -401,5 +401,29 @@ namespace TaikoSoundEditor.Controls
 
         public delegate void OnSongRemoved(MusicOrderViewer sender, MusicOrder mo);
         public event OnSongRemoved SongRemoved;
+
+        private void ListStartButton_Click(object sender, EventArgs e)
+        {
+            CurrentPage = 0;
+            MusicOrdersPanel.Invalidate();
+        }
+
+        private void ListEndButton_Click(object sender, EventArgs e)
+        {
+            CurrentPage = PagesCount - 1;
+            MusicOrdersPanel.Invalidate();
+        }
+
+        private void Left10Button_Click(object sender, EventArgs e)
+        {
+            CurrentPage -= 10;
+            MusicOrdersPanel.Invalidate();
+        }
+
+        private void Right10Button_Click(object sender, EventArgs e)
+        {
+            CurrentPage += 10;
+            MusicOrdersPanel.Invalidate();
+        }
     }
 }
