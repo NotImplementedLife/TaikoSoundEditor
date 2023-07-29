@@ -283,5 +283,28 @@ namespace TaikoSoundEditor
             }
             throw new InvalidOperationException("Nothing to remove.");
         });
+
+        private void LocateInMusicOrderButton_Click(object sender, EventArgs e)
+        {
+            if (LoadedMusicBox.SelectedItem != null)
+            {
+                var item = LoadedMusicBox.SelectedItem as MusicInfo;
+                var mo = MusicOrders.GetByUniqueId(item.UniqueId);
+                if (MusicOrderViewer.Locate(mo))
+                {
+                    SoundViewTab.SelectedTab = MusicOrderTab;
+                }
+                return;
+            }
+            else if (NewSoundsBox.SelectedItem != null)
+            {
+                var item = NewSoundsBox.SelectedItem as NewSongData;
+                if (MusicOrderViewer.Locate(item.MusicOrder))
+                {
+                    SoundViewTab.SelectedTab = MusicOrderTab;
+                }
+                return;
+            }
+        }
     }
 }

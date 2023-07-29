@@ -410,6 +410,7 @@
             this.LocateInMusicOrderButton.TabIndex = 11;
             this.LocateInMusicOrderButton.Text = "Locate in Music Order";
             this.LocateInMusicOrderButton.UseVisualStyleBackColor = true;
+            this.LocateInMusicOrderButton.Click += new System.EventHandler(this.LocateInMusicOrderButton_Click);
             // 
             // groupBox11
             // 

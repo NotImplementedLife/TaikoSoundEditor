@@ -379,7 +379,7 @@ namespace TaikoSoundEditor.Controls
             if (Selection.Count == 0)
                 return;
 
-            var message = $"Are you sure you want to remove {toRemove.Count} song{(toRemove.Count>0?"s":"")}?";
+            var message = $"Are you sure you want to remove {toRemove.Count} song{(toRemove.Count!=1?"s":"")}?";
 
             if (MessageBox.Show(message, "Remove?", MessageBoxButtons.YesNo) != DialogResult.Yes)
                 return;
@@ -423,6 +423,26 @@ namespace TaikoSoundEditor.Controls
         private void Right10Button_Click(object sender, EventArgs e)
         {
             CurrentPage += 10;
+            MusicOrdersPanel.Invalidate();
+        }
+
+        public bool Locate(MusicOrder mo)
+        {
+            var card = SongCards.Where(c => c.MusicOrder == mo).FirstOrDefault();
+            if (card == null) return false;
+            var index = SongCards.IndexOf(card);
+            Select(index);
+            return true;
+        }
+
+        private void Select(int index)
+        {
+            CurrentPage = index / ItemsPerPage;
+
+            SongCards[index].IsSelected = true;
+            Selection.Add(SongCards[index]);
+
+            CutActive = RemoveActive = true;            
             MusicOrdersPanel.Invalidate();
         }
     }
