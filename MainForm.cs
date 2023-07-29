@@ -129,9 +129,18 @@ namespace TaikoSoundEditor
             if (NewSoundsBox.SelectedItem != null)
             {
                 Logger.Info("Removing newly added song");
-                AddedMusic.Remove(NewSoundsBox.SelectedItem as NewSongData);
+                var ns = NewSoundsBox.SelectedItem as NewSongData;
+                AddedMusic.Remove(ns);
                 Logger.Info("Refreshing list");
                 AddedMusicBinding.ResetBindings(false);
+                MusicOrderViewer.RemoveSong(ns.MusicOrder);
+
+                Logger.Info("Removing from wordlist & music_attributes");
+                WordList.Items.Remove(ns.Word);
+                WordList.Items.Remove(ns.WordDetail);
+                WordList.Items.Remove(ns.WordSub);
+                MusicAttributes.Items.Remove(ns.MusicAttribute);
+
                 return;
             }
 
@@ -171,7 +180,8 @@ namespace TaikoSoundEditor
                 LoadedMusicBox.SelectedIndex = sel;
 
                 Logger.Info("Removing from music orders");
-                MusicOrderViewer.RemoveSong(mo);
+                MusicOrderViewer.RemoveSong(mo);                
+
                 return;
             }
         });

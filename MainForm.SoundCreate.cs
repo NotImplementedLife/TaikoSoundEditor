@@ -295,7 +295,16 @@ namespace TaikoSoundEditor
 
 			TabControl.SelectedIndex = 1;
 			FeedbackBox.Clear();
-		});
+
+			Logger.Info("Adding to music orders");
+
+			WordList.Items.Add(ns.Word);
+			WordList.Items.Add(ns.WordDetail);
+			WordList.Items.Add(ns.WordSub);
+			MusicAttributes.Items.Add(ns.MusicAttribute);			
+
+            MusicOrderViewer.AddSong(mo);
+        });
 
 
 		private static void CreateTmpDir()

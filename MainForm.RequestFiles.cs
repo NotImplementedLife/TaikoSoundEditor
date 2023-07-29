@@ -109,6 +109,21 @@ namespace TaikoSoundEditor
             LoadedMusicBox.DataSource = LoadedMusicBinding;
             TabControl.SelectedIndex = 1;
 
+            WordList.Items.RemoveAll(w =>
+            {
+                var key = w.Key;
+
+                var prefixes = new string[] { "song_sub_", "song_detail_", "song_" };
+
+                for (int i = 0; i < 3; i++)
+                    if (key.StartsWith(prefixes[i]))
+                    {
+                        key = key.Substring(prefixes[i].Length);
+                        break;
+                    }
+                return !MusicInfos.Items.Any(mi => mi.Id == key);
+            });
+
 
             MusicOrderViewer.WordList = WordList;
             foreach (var musicOrder in MusicOrders.Items.Where(_ => MusicInfos.Items.Any(mi => mi.UniqueId == _.UniqueId)))
