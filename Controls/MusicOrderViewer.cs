@@ -187,6 +187,7 @@ namespace TaikoSoundEditor.Controls
         private void MusicOrdersPanel_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left) return;
+            Select();
             var cursor = e.Location;
 
             int itemW = MusicOrdersPanel.Width / ItemsPerRow;
@@ -444,6 +445,28 @@ namespace TaikoSoundEditor.Controls
 
             CutActive = RemoveActive = true;            
             MusicOrdersPanel.Invalidate();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.X) || keyData == (Keys.Control | Keys.C))
+            {
+                //MessageBox.Show("Here?");
+                if(CutActive)
+                {
+                    CutButton_Click(null, null);
+                }
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.V))
+            {
+                if(PasteActive)
+                {
+                    PasteButton_Click(null, null);
+                }
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

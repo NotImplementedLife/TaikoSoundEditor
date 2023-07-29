@@ -254,7 +254,7 @@ namespace TaikoSoundEditor
                 item.Word.JapaneseText = SimpleTitleBox.Text;
                 item.WordSub.JapaneseText = SimpleSubtitleBox.Text;
                 item.WordDetail.JapaneseText = SimpleDetailBox.Text;
-                item.MusicOrder.Genre = (Genre)(SimpleGenreBox.SelectedItem ?? Genre.Pop);
+                item.MusicOrder.Genre = item.MusicInfo.Genre = (Genre)(SimpleGenreBox.SelectedItem ?? Genre.Pop);
                 item.MusicInfo.StarEasy=(int)SimpleStarEasyBox.Value;
                 item.MusicInfo.StarNormal=(int)SimpleStarNormalBox.Value;
                 item.MusicInfo.StarHard=(int)SimpleStarHardBox.Value;
