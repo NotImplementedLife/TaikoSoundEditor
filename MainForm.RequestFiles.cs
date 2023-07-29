@@ -103,7 +103,7 @@ namespace TaikoSoundEditor
             Logger.Info($"Setting LoadedMusicBox DataSource");
 
             LoadedMusicBinding = new BindingSource();
-            var cleanList = MusicInfos.Items.Where(mi => mi.UniqueId != 0).ToList();
+            var cleanList = MusicInfos.Items.Where(mi => mi.UniqueId != 0).OrderBy(_ => _.UniqueId).ToList();
 
             LoadedMusicBinding.DataSource = cleanList;
             LoadedMusicBox.DataSource = LoadedMusicBinding;
@@ -111,11 +111,11 @@ namespace TaikoSoundEditor
 
 
             MusicOrderViewer.WordList = WordList;
-            foreach (var musicOrder in MusicOrders.Items)
+            foreach (var musicOrder in MusicOrders.Items.Where(_ => MusicInfos.Items.Any(mi => mi.UniqueId == _.UniqueId)))
             {
                 MusicOrderViewer.AddSong(musicOrder);
             }
-        });        
+        });
 
         #endregion                    
     }

@@ -169,6 +169,9 @@ namespace TaikoSoundEditor
 
                 LoadedMusicBox.SelectedItem = null;
                 LoadedMusicBox.SelectedIndex = sel;
+
+                Logger.Info("Removing from music orders");
+                MusicOrderViewer.RemoveSong(mo);
                 return;
             }
         });
@@ -176,7 +179,8 @@ namespace TaikoSoundEditor
         private void SoundViewTab_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(SoundViewTab.SelectedTab==MusicOrderTab)
-            {                                
+            {
+                MusicOrderViewer.Invalidate();
                 return;
             }
 
