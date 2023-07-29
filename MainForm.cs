@@ -123,6 +123,57 @@ namespace TaikoSoundEditor
 
         #endregion        
 
+        private void RemoveNewSong(NewSongData ns)
+        {
+            AddedMusic.Remove(ns);
+            Logger.Info("Refreshing list");
+            AddedMusicBinding.ResetBindings(false);
+            MusicOrderViewer.RemoveSong(ns.MusicOrder);
+
+            Logger.Info("Removing from wordlist & music_attributes");
+            WordList.Items.Remove(ns.Word);
+            WordList.Items.Remove(ns.WordDetail);
+            WordList.Items.Remove(ns.WordSub);
+            MusicAttributes.Items.Remove(ns.MusicAttribute);
+        }
+
+        private void RemoveExistingSong(MusicInfo mi)
+        {
+            var ma = MusicAttributes.GetByUniqueId(mi.UniqueId);
+            var mo = MusicOrders.GetByUniqueId(mi.UniqueId);
+            var w = WordList.GetBySong(mi.Id);
+            var ws = WordList.GetBySongSub(mi.Id);
+            var wd = WordList.GetBySongDetail(mi.Id);
+
+            Logger.Info("Removing music info");
+            MusicInfos.Items.RemoveAll(x => x.UniqueId == mi.UniqueId);
+            Logger.Info("Removing music attribute");
+            MusicAttributes.Items.Remove(ma);
+            Logger.Info("Removing music order");
+            MusicOrders.Items.Remove(mo);
+            Logger.Info("Removing word");
+            WordList.Items.Remove(w);
+            Logger.Info("Removing word sub");
+            WordList.Items.Remove(ws);
+            Logger.Info("Removing word detail");
+            WordList.Items.Remove(wd);
+
+            Logger.Info("Refreshing list");
+            LoadedMusicBinding.DataSource = MusicInfos.Items.Where(mi => mi.UniqueId != 0).ToList();
+            LoadedMusicBinding.ResetBindings(false);
+
+            var sel = LoadedMusicBox.SelectedIndex;
+
+            if (sel >= MusicInfos.Items.Count)
+                sel = MusicInfos.Items.Count - 1;
+
+            LoadedMusicBox.SelectedItem = null;
+            LoadedMusicBox.SelectedIndex = sel;
+
+            Logger.Info("Removing from music orders");
+            MusicOrderViewer.RemoveSong(mo);
+        }
+
         private void RemoveSongButton_Click(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
             Logger.Info("Clicked remove song");
@@ -130,17 +181,7 @@ namespace TaikoSoundEditor
             {
                 Logger.Info("Removing newly added song");
                 var ns = NewSoundsBox.SelectedItem as NewSongData;
-                AddedMusic.Remove(ns);
-                Logger.Info("Refreshing list");
-                AddedMusicBinding.ResetBindings(false);
-                MusicOrderViewer.RemoveSong(ns.MusicOrder);
-
-                Logger.Info("Removing from wordlist & music_attributes");
-                WordList.Items.Remove(ns.Word);
-                WordList.Items.Remove(ns.WordDetail);
-                WordList.Items.Remove(ns.WordSub);
-                MusicAttributes.Items.Remove(ns.MusicAttribute);
-
+                RemoveNewSong(ns);
                 return;
             }
 
@@ -148,40 +189,7 @@ namespace TaikoSoundEditor
             {
                 Logger.Info("Removing existing song");
                 var mi = LoadedMusicBox.SelectedItem as MusicInfo;
-                var ma = MusicAttributes.GetByUniqueId(mi.UniqueId);
-                var mo = MusicOrders.GetByUniqueId(mi.UniqueId);
-                var w = WordList.GetBySong(mi.Id);
-                var ws = WordList.GetBySongSub(mi.Id);
-                var wd = WordList.GetBySongDetail(mi.Id);
-
-                Logger.Info("Removing music info");
-                MusicInfos.Items.RemoveAll(x => x.UniqueId == mi.UniqueId);
-                Logger.Info("Removing music attribute");
-                MusicAttributes.Items.Remove(ma);
-                Logger.Info("Removing music order");
-                MusicOrders.Items.Remove(mo);
-                Logger.Info("Removing word");
-                WordList.Items.Remove(w);
-                Logger.Info("Removing word sub");
-                WordList.Items.Remove(ws);
-                Logger.Info("Removing word detail");
-                WordList.Items.Remove(wd);
-
-                Logger.Info("Refreshing list");                
-                LoadedMusicBinding.DataSource = MusicInfos.Items.Where(mi => mi.UniqueId != 0).ToList();
-                LoadedMusicBinding.ResetBindings(false);
-
-                var sel = LoadedMusicBox.SelectedIndex;
-
-                if (sel >= MusicInfos.Items.Count)
-                    sel = MusicInfos.Items.Count - 1;
-
-                LoadedMusicBox.SelectedItem = null;
-                LoadedMusicBox.SelectedIndex = sel;
-
-                Logger.Info("Removing from music orders");
-                MusicOrderViewer.RemoveSong(mo);                
-
+                RemoveExistingSong(mi);
                 return;
             }
         });
@@ -254,6 +262,26 @@ namespace TaikoSoundEditor
                 item.MusicInfo.StarUra = (int)SimpleStarUraBox.Value;
                 return;
             }
+        });
+
+        private void MusicOrderViewer_SongRemoved(Controls.MusicOrderViewer sender, MusicOrder mo) => ExceptionGuard.Run(() =>
+        {
+            var uniqId = mo.UniqueId;
+            var mi = MusicInfos.Items.Where(x => x.UniqueId == uniqId).FirstOrDefault();
+
+            if (mi != null)
+            {
+                RemoveExistingSong(mi);
+                return;
+            }
+
+            var ns = AddedMusic.Where(x => x.UniqueId == uniqId).FirstOrDefault();
+            if (ns != null)
+            {
+                RemoveNewSong(ns);
+                return;
+            }
+            throw new InvalidOperationException("Nothing to remove.");
         });
     }
 }

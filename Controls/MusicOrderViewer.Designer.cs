@@ -35,6 +35,7 @@
             this.CutButton = new System.Windows.Forms.Button();
             this.PageLabel = new System.Windows.Forms.Label();
             this.LeftButton = new System.Windows.Forms.Button();
+            this.RemoveButton = new System.Windows.Forms.Button();
             this.ControlsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +65,7 @@
             // 
             // ControlsPanel
             // 
+            this.ControlsPanel.Controls.Add(this.RemoveButton);
             this.ControlsPanel.Controls.Add(this.PasteButton);
             this.ControlsPanel.Controls.Add(this.CutButton);
             this.ControlsPanel.Controls.Add(this.PageLabel);
@@ -120,6 +122,19 @@
             this.LeftButton.UseVisualStyleBackColor = true;
             this.LeftButton.Click += new System.EventHandler(this.LeftButton_Click);
             // 
+            // RemoveButton
+            // 
+            this.RemoveButton.BackgroundImage = global::TaikoSoundEditor.Properties.Resources.ic_remove_gs;
+            this.RemoveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.RemoveButton.FlatAppearance.BorderSize = 0;
+            this.RemoveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RemoveButton.Location = new System.Drawing.Point(63, 3);
+            this.RemoveButton.Name = "RemoveButton";
+            this.RemoveButton.Size = new System.Drawing.Size(24, 24);
+            this.RemoveButton.TabIndex = 3;
+            this.RemoveButton.UseVisualStyleBackColor = true;
+            this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
+            // 
             // MusicOrderViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -145,5 +160,6 @@
         private Label PageLabel;
         private Button CutButton;
         private Button PasteButton;
+        private Button RemoveButton;
     }
 }

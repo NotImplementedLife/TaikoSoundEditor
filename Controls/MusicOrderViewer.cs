@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using TaikoSoundEditor.Data;
+using TaikoSoundEditor.Extensions;
 using TaikoSoundEditor.Properties;
 
 namespace TaikoSoundEditor.Controls
@@ -33,8 +34,9 @@ namespace TaikoSoundEditor.Controls
             CutSelection.RemoveWhere(c => c.MusicOrder == mo);
 
             PasteActive = CutSelection.Count > 0;
-            CutActive = Selection.Count > 0;
+            CutActive = RemoveActive = Selection.Count > 0;
             if (!PasteActive) PasteMode = false;
+            CurrentPage = CurrentPage;
             Invalidate();
         }
 
@@ -44,7 +46,7 @@ namespace TaikoSoundEditor.Controls
             get => _CurrentPage;
             set
             {
-                _CurrentPage = value;
+                _CurrentPage = value.Clamp(0, PagesCount - 1);
                 PageLabel.Text = $"Page {_CurrentPage + 1} of {PagesCount}";
                 MusicOrdersPanel.Invalidate();
 
@@ -247,7 +249,7 @@ namespace TaikoSoundEditor.Controls
                 CutSelection.Clear();
                 PasteMode = false;
                 PasteActive = false;
-                CutActive = false;
+                CutActive = RemoveActive = false;
                 MusicOrdersPanel.Invalidate();
 
                 return;
@@ -284,7 +286,7 @@ namespace TaikoSoundEditor.Controls
                 MusicOrdersPanel.Invalidate();
             }
 
-            CutActive = Selection.Count > 0;            
+            CutActive = RemoveActive = Selection.Count > 0;
         }
 
         private bool _CutActive = false;
@@ -311,6 +313,19 @@ namespace TaikoSoundEditor.Controls
             }
         }
 
+        private bool _RemoveActive=false;
+
+        public bool RemoveActive
+        {
+            get => _RemoveActive;
+            set
+            {
+                _RemoveActive = value;
+                RemoveButton.BackgroundImage = RemoveActive ? Resources.ic_remove : Resources.ic_remove_gs;
+                RemoveButton.Enabled = RemoveActive;
+            }
+        }
+
         private void CutButton_Click(object sender, EventArgs e)
         {
             PasteMode = false;
@@ -329,7 +344,7 @@ namespace TaikoSoundEditor.Controls
             Selection.Clear();
 
             PasteActive = CutSelection.Count > 0;
-            CutActive= Selection.Count > 0;
+            CutActive = RemoveActive = Selection.Count > 0;
 
             MusicOrdersPanel.Invalidate();
         }
@@ -344,7 +359,8 @@ namespace TaikoSoundEditor.Controls
                 _PasteMode = value;
                 PasteButton.FlatAppearance.BorderSize = _PasteMode ? 1 : 0;
             }
-        }
+        }        
+
 
         private void PasteButton_Click(object sender, EventArgs e)
         {
@@ -353,7 +369,37 @@ namespace TaikoSoundEditor.Controls
             foreach (var card in Selection)
                 card.IsSelected = false;
             Selection.Clear();
+            CutActive = RemoveActive = false;
             MusicOrdersPanel.Invalidate();
         }
+
+        private void RemoveButton_Click(object sender, EventArgs e)
+        {
+            var toRemove = Selection.ToList();
+            if (Selection.Count == 0)
+                return;
+
+            var message = $"Are you sure you want to remove {toRemove.Count} song{(toRemove.Count>0?"s":"")}?";
+
+            if (MessageBox.Show(message, "Remove?", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+
+            foreach(var card in Selection)
+            {
+                SongCards.Remove(card);
+                CutSelection.Remove(card);
+                SongRemoved?.Invoke(this, card.MusicOrder);
+            }
+            Selection.Clear();
+
+            CutActive = RemoveActive = false;
+            PasteActive = CutSelection.Count > 0;
+            if (!PasteActive) PasteMode = false;
+            CurrentPage = CurrentPage;
+            MusicOrdersPanel.Invalidate();
+        }
+
+        public delegate void OnSongRemoved(MusicOrderViewer sender, MusicOrder mo);
+        public event OnSongRemoved SongRemoved;
     }
 }

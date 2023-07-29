@@ -803,13 +803,18 @@
             // MusicOrderViewer
             // 
             this.MusicOrderViewer.CurrentPage = 0;
+            this.MusicOrderViewer.CutActive = false;
             this.MusicOrderViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MusicOrderViewer.ItemsPerCol = 5;
             this.MusicOrderViewer.ItemsPerRow = 4;
             this.MusicOrderViewer.Location = new System.Drawing.Point(3, 3);
             this.MusicOrderViewer.Name = "MusicOrderViewer";
+            this.MusicOrderViewer.PasteActive = false;
+            this.MusicOrderViewer.PasteMode = false;
+            this.MusicOrderViewer.RemoveActive = false;
             this.MusicOrderViewer.Size = new System.Drawing.Size(515, 290);
             this.MusicOrderViewer.TabIndex = 0;
+            this.MusicOrderViewer.SongRemoved += new TaikoSoundEditor.Controls.MusicOrderViewer.OnSongRemoved(this.MusicOrderViewer_SongRemoved);
             // 
             // RemoveSongButton
             // 
