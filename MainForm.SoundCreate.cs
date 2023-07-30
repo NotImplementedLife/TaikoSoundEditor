@@ -188,11 +188,14 @@ namespace TaikoSoundEditor
 			ma.New = true;
 			ns.MusicAttribute = ma;
 
-			ns.Word = new Word { Key = $"song_{songName}", JapaneseText = tja.Headers.Title };
-			ns.WordSub = new Word { Key = $"song_sub_{songName}", JapaneseText = tja.Headers.Subtitle };
-			ns.WordDetail = new Word { Key = $"song_detail_{songName}", JapaneseText = tja.Headers.TitleJa };
+			ns.Word = WordList.GetBySong(songName) ?? new Word { Key = $"song_{songName}" };
+			ns.Word.JapaneseText = tja.Headers.Title;
+            ns.WordSub = WordList.GetBySongSub(songName) ?? new Word { Key = $"song_sub_{songName}" };
+            ns.WordSub.JapaneseText = tja.Headers.Subtitle;
+            ns.WordDetail = WordList.GetBySongDetail(songName) ?? new Word { Key = $"song_detail_{songName}", JapaneseText = tja.Headers.TitleJa };
+            ns.WordDetail.JapaneseText = tja.Headers.TitleJa;
 
-			mi.EasyOnpuNum = tja.Courses[0].NotesCount;
+            mi.EasyOnpuNum = tja.Courses[0].NotesCount;
 			mi.NormalOnpuNum = tja.Courses[1].NotesCount;
 			mi.HardOnpuNum = tja.Courses[2].NotesCount;
 			mi.ManiaOnpuNum = tja.Courses[3].NotesCount;

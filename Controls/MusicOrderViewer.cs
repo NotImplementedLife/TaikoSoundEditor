@@ -448,7 +448,7 @@ namespace TaikoSoundEditor.Controls
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
+        {            
             if (keyData == (Keys.Control | Keys.X) || keyData == (Keys.Control | Keys.C))
             {
                 //MessageBox.Show("Here?");
