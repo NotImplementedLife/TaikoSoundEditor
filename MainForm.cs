@@ -52,10 +52,10 @@ namespace TaikoSoundEditor
 
             simpleBoxLoading = true;
             SimpleIdBox.Text = item.Id;
-            SimpleTitleBox.Text = WordList.GetBySong(item.Id).JapaneseText;
-            SimpleSubtitleBox.Text = WordList.GetBySongSub(item.Id).JapaneseText;
-            SimpleDetailBox.Text = WordList.GetBySongDetail(item.Id).JapaneseText;
-            SimpleGenreBox.SelectedItem = MusicOrders.GetByUniqueId(item.UniqueId).Genre;
+            SimpleTitleBox.Text = WordList.GetBySong(item.Id)?.JapaneseText ?? throw new ArgumentNullException($"Title for '{item.Id}' not found in wordlist");
+            SimpleSubtitleBox.Text = WordList.GetBySongSub(item.Id)?.JapaneseText ?? throw new ArgumentNullException($"Subtitle for '{item.Id}' not found in wordlist");
+            SimpleDetailBox.Text = WordList.GetBySongDetail(item.Id)?.JapaneseText ?? throw new ArgumentNullException($"Detail for '{item.Id}' not found in wordlist");
+            SimpleGenreBox.SelectedItem = MusicOrders.GetByUniqueId(item.UniqueId)?.Genre ?? throw new ArgumentNullException($"Music order entry #{item.UniqueId} could not be found");
             SimpleStarEasyBox.Value = item.StarEasy;
             SimpleStarNormalBox.Value = item.StarNormal;
             SimpleStarHardBox.Value = item.StarHard;
