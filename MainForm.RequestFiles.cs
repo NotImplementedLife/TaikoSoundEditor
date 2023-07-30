@@ -124,6 +124,18 @@ namespace TaikoSoundEditor
                 return !MusicInfos.Items.Any(mi => mi.Id == key);
             });*/
 
+            foreach(var mi in MusicInfos.Items)
+            {
+                var songId = mi.Id;
+
+                if (WordList.GetBySong(songId) != null)
+                    WordList.Items.Add(new Word { Key = $"song_{songId}", JapaneseText="" });
+                if (WordList.GetBySongSub(songId) != null)
+                    WordList.Items.Add(new Word { Key = $"song_sub_{songId}", JapaneseText = "" });
+                if (WordList.GetBySongDetail(songId) != null)
+                    WordList.Items.Add(new Word { Key = $"song_detail_{songId}", JapaneseText = "" });
+            }
+
             MusicOrderViewer.WordList = WordList;
             foreach (var musicOrder in MusicOrders.Items.Where(_ => MusicInfos.Items.Any(mi => mi.UniqueId == _.UniqueId)))
             {
