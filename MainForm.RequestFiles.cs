@@ -104,14 +104,47 @@ namespace TaikoSoundEditor
 
             foreach (var mi in MusicInfos.Items)
             {
+                if (mi.UniqueId == 0) continue;
                 var songId = mi.Id;
 
+                if(MusicAttributes.GetByUniqueId(mi.UniqueId)==null)
+                {
+                    Logger.Info($"Added missing music_attribute entry for {mi.UniqueId}.{songId}");
+
+                    MusicAttributes.Items.Add(new MusicAttribute
+                    {
+                        Id = songId,
+                        UniqueId = mi.UniqueId,
+                        New = false
+                    });
+                }
+
+                if(MusicOrders.GetByUniqueId(mi.UniqueId)==null)
+                {
+                    Logger.Info($"Added missing music_order entry for {mi.UniqueId}.{songId}");
+                    MusicOrders.Items.Add(new MusicOrder
+                    {
+                        Genre = mi.Genre,
+                        Id = songId,
+                        UniqueId = mi.UniqueId
+                    });
+                }
+
                 if (WordList.GetBySong(songId) == null)
+                {
+                    Logger.Info($"Added missing word title entry for {mi.UniqueId}.{songId}");
                     WordList.Items.Add(new Word { Key = $"song_{songId}", JapaneseText = "" });
+                }
                 if (WordList.GetBySongSub(songId) == null)
+                {
+                    Logger.Info($"Added missing word subtitle entry for {mi.UniqueId}.{songId}");
                     WordList.Items.Add(new Word { Key = $"song_sub_{songId}", JapaneseText = "" });
+                }
                 if (WordList.GetBySongDetail(songId) == null)
-                    WordList.Items.Add(new Word { Key = $"song_detail_{songId}", JapaneseText = "" });                
+                {
+                    Logger.Info($"Added missing word detail entry for {mi.UniqueId}.{songId}");
+                    WordList.Items.Add(new Word { Key = $"song_detail_{songId}", JapaneseText = "" });
+                }
             }
 
             Logger.Info($"Setting LoadedMusicBox DataSource");

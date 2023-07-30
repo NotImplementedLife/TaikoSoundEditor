@@ -105,6 +105,7 @@ namespace TaikoSoundEditor
             Logger.Info($"Selection Changed MusicItem: {item}");
             LoadMusicInfo(item);
             indexChanging = false;
+            SoundViewTab.SelectedTab = SoundViewerSimple;
         });
 
         private void EditorTable_Resize(object sender, EventArgs e) => ExceptionGuard.Run(() =>
@@ -119,6 +120,7 @@ namespace TaikoSoundEditor
             LoadedMusicBox.SelectedItem = null;
             var item = NewSoundsBox.SelectedItem as NewSongData;
             LoadNewSongData(item);
+            SoundViewTab.SelectedTab = SoundViewerSimple;
         });
 
         #endregion        
