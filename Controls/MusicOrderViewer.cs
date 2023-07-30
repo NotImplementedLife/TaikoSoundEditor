@@ -3,6 +3,7 @@ using System.Drawing.Drawing2D;
 using TaikoSoundEditor.Data;
 using TaikoSoundEditor.Extensions;
 using TaikoSoundEditor.Properties;
+using TaikoSoundEditor.Utils;
 
 namespace TaikoSoundEditor.Controls
 {
@@ -150,15 +151,15 @@ namespace TaikoSoundEditor.Controls
             }
         }
 
-        private void MusicOrdersPanel_Resize(object sender, EventArgs e)
+        private void MusicOrdersPanel_Resize(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
             MusicOrdersPanel.Invalidate();
-        }
+        });
 
-        private void MusicOrdersPanel_Paint(object sender, PaintEventArgs e)
+        private void MusicOrdersPanel_Paint(object sender, PaintEventArgs e) => ExceptionGuard.Run(() =>
         {
             RefreshMusicOrdersPanel(e.Graphics);
-        }
+        });
 
         private void LeftButton_Click(object sender, EventArgs e)
         {
@@ -170,21 +171,21 @@ namespace TaikoSoundEditor.Controls
             if (CurrentPage < PagesCount - 1) CurrentPage++;
         }
 
-        private void MusicOrdersPanel_MouseMove(object sender, MouseEventArgs e)
+        private void MusicOrdersPanel_MouseMove(object sender, MouseEventArgs e) => ExceptionGuard.Run(() =>
         {
             Invalidate();
-        }
+        });
 
-        private void MusicOrdersPanel_MouseLeave(object sender, EventArgs e)
+        private void MusicOrdersPanel_MouseLeave(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
             Invalidate();
-        }
+        });
 
         public HashSet<SongCard> Selection = new();        
-        public HashSet<SongCard> CutSelection = new();        
+        public HashSet<SongCard> CutSelection = new();
 
 
-        private void MusicOrdersPanel_MouseDown(object sender, MouseEventArgs e)
+        private void MusicOrdersPanel_MouseDown(object sender, MouseEventArgs e) => ExceptionGuard.Run(() =>
         {
             if (e.Button != MouseButtons.Left) return;
             Select();
@@ -208,13 +209,13 @@ namespace TaikoSoundEditor.Controls
 
                 SongCard before = null, after = null;
 
-                for (int i = index; i < SongCards.Count; i++) 
+                for (int i = index; i < SongCards.Count; i++)
                     if (!SongCards[i].IsCut)
                     {
                         before = SongCards[i];
                         break;
                     }
-                for (int i = index - 1; i >= 0; i--) 
+                for (int i = index - 1; i >= 0; i--)
                     if (!SongCards[i].IsCut)
                     {
                         after = SongCards[i];
@@ -234,7 +235,7 @@ namespace TaikoSoundEditor.Controls
                         message = $"Do you want to move the selected songs before {before.Id}?";
                     }
                 }
-                else if(after != null)
+                else if (after != null)
                 {
                     message = $"Do you want to move the selected songs after {after.Id}?";
                 }
@@ -243,7 +244,7 @@ namespace TaikoSoundEditor.Controls
                     return;
 
                 SongCards.RemoveAll(CutSelection.Contains);
-                var ix = after != null ? SongCards.IndexOf(after)+1 : before != null ? SongCards.IndexOf(before) : 0;
+                var ix = after != null ? SongCards.IndexOf(after) + 1 : before != null ? SongCards.IndexOf(before) : 0;
                 SongCards.InsertRange(ix, CutSelection);
 
                 foreach (var c in CutSelection) c.IsCut = false;
@@ -258,11 +259,11 @@ namespace TaikoSoundEditor.Controls
 
             if (index < 0 || index >= SongCards.Count) return;
 
-            var card = SongCards[index];            
+            var card = SongCards[index];
 
             if (Form.ModifierKeys == Keys.Control)
             {
-                if(card.IsSelected)
+                if (card.IsSelected)
                 {
                     card.IsSelected = false;
                     Selection.Remove(card);
@@ -276,7 +277,7 @@ namespace TaikoSoundEditor.Controls
             }
             else
             {
-                foreach(var sel in Selection)
+                foreach (var sel in Selection)
                 {
                     sel.IsSelected = false;
                 }
@@ -288,7 +289,7 @@ namespace TaikoSoundEditor.Controls
             }
 
             CutActive = RemoveActive = Selection.Count > 0;
-        }
+        });
 
         private bool _CutActive = false;
         public bool CutActive
@@ -327,16 +328,16 @@ namespace TaikoSoundEditor.Controls
             }
         }
 
-        private void CutButton_Click(object sender, EventArgs e)
+        private void CutButton_Click(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
             PasteMode = false;
-            foreach(var card in CutSelection)
+            foreach (var card in CutSelection)
             {
                 card.IsCut = false;
             }
             CutSelection.Clear();
 
-            foreach(var card in Selection)
+            foreach (var card in Selection)
             {
                 card.IsCut = true;
                 card.IsSelected = false;
@@ -348,7 +349,7 @@ namespace TaikoSoundEditor.Controls
             CutActive = RemoveActive = Selection.Count > 0;
 
             MusicOrdersPanel.Invalidate();
-        }
+        });
 
         private bool _PasteMode = false;
 
@@ -360,10 +361,10 @@ namespace TaikoSoundEditor.Controls
                 _PasteMode = value;
                 PasteButton.FlatAppearance.BorderSize = _PasteMode ? 1 : 0;
             }
-        }        
+        }
 
 
-        private void PasteButton_Click(object sender, EventArgs e)
+        private void PasteButton_Click(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
             PasteMode = !PasteMode;
 
@@ -372,20 +373,20 @@ namespace TaikoSoundEditor.Controls
             Selection.Clear();
             CutActive = RemoveActive = false;
             MusicOrdersPanel.Invalidate();
-        }
+        });
 
-        private void RemoveButton_Click(object sender, EventArgs e)
+        private void RemoveButton_Click(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
             var toRemove = Selection.ToList();
             if (Selection.Count == 0)
                 return;
 
-            var message = $"Are you sure you want to remove {toRemove.Count} song{(toRemove.Count!=1?"s":"")}?";
+            var message = $"Are you sure you want to remove {toRemove.Count} song{(toRemove.Count != 1 ? "s" : "")}?";
 
             if (MessageBox.Show(message, "Remove?", MessageBoxButtons.YesNo) != DialogResult.Yes)
                 return;
 
-            foreach(var card in Selection)
+            foreach (var card in Selection)
             {
                 SongCards.Remove(card);
                 CutSelection.Remove(card);
@@ -398,7 +399,7 @@ namespace TaikoSoundEditor.Controls
             if (!PasteActive) PasteMode = false;
             CurrentPage = CurrentPage;
             MusicOrdersPanel.Invalidate();
-        }
+        });
 
         public delegate void OnSongRemoved(MusicOrderViewer sender, MusicOrder mo);
         public event OnSongRemoved SongRemoved;

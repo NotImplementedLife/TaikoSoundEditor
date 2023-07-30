@@ -23,7 +23,7 @@ namespace TaikoSoundEditor
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Logger.Info($"Commuted to tab {TabControl.SelectedIndex}");
+            Logger.Info($"Commuted to tab {TabControl.SelectedIndex}.{TabControl.Name}");
         }        
 
         #region Editor
@@ -96,7 +96,7 @@ namespace TaikoSoundEditor
 
         private bool indexChanging = false;
 
-        private void LoadedMusicBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void LoadedMusicBox_SelectedIndexChanged(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
             if (indexChanging) return;
             indexChanging = true;
@@ -105,21 +105,21 @@ namespace TaikoSoundEditor
             Logger.Info($"Selection Changed MusicItem: {item}");
             LoadMusicInfo(item);
             indexChanging = false;
-        }
+        });
 
-        private void EditorTable_Resize(object sender, EventArgs e)
+        private void EditorTable_Resize(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
             WordsGB.Height = WordSubGB.Height = WordDetailGB.Height = EditorTable.Height / 3;
-        }
+        });
 
-        private void NewSoundsBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void NewSoundsBox_SelectedIndexChanged(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
             if (indexChanging) return;
             indexChanging = true;
-            LoadedMusicBox.SelectedItem = null;   
+            LoadedMusicBox.SelectedItem = null;
             var item = NewSoundsBox.SelectedItem as NewSongData;
             LoadNewSongData(item);
-        }
+        });
 
         #endregion        
 
@@ -194,16 +194,16 @@ namespace TaikoSoundEditor
             }
         });
 
-        private void SoundViewTab_SelectedIndexChanged(object sender, EventArgs e)
+        private void SoundViewTab_SelectedIndexChanged(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
-            if(SoundViewTab.SelectedTab==MusicOrderTab)
+            if (SoundViewTab.SelectedTab == MusicOrderTab)
             {
                 MusicOrderViewer.Invalidate();
                 return;
             }
 
             if (!(SoundViewTab.SelectedTab == SoundViewerExpert || SoundViewTab.SelectedTab == SoundViewerSimple))
-                return;            
+                return;
 
             if (LoadedMusicBox.SelectedItem != null)
             {
@@ -213,14 +213,14 @@ namespace TaikoSoundEditor
                 return;
             }
 
-            if(NewSoundsBox.SelectedItem!=null)
+            if (NewSoundsBox.SelectedItem != null)
             {
                 var item = NewSoundsBox.SelectedItem as NewSongData;
                 Logger.Info($"Tab switched, reloading NewSongData: {item}");
                 LoadNewSongData(item);
                 return;
-            }                       
-        }
+            }
+        });
 
         private bool simpleBoxLoading = false;
         private void SimpleBoxChanged(object sender, EventArgs e) => ExceptionGuard.Run(() =>
@@ -284,7 +284,7 @@ namespace TaikoSoundEditor
             throw new InvalidOperationException("Nothing to remove.");
         });
 
-        private void LocateInMusicOrderButton_Click(object sender, EventArgs e)
+        private void LocateInMusicOrderButton_Click(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
             if (LoadedMusicBox.SelectedItem != null)
             {
@@ -305,6 +305,6 @@ namespace TaikoSoundEditor
                 }
                 return;
             }
-        }
+        });
     }
 }
