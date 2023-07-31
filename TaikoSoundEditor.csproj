@@ -160,7 +160,7 @@
     <None Update="Tools\sox\zlib1.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Tools\tja2fumen.exe">
+    <None Update="Tools\tja2fumen-old2.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Tools\VGAudio\idsp\empty.txt">
