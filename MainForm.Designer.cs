@@ -119,6 +119,8 @@
             this.TJASelector = new TaikoSoundEditor.PathSelector();
             this.AudioFileSelector = new TaikoSoundEditor.PathSelector();
             this.label10 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.SearchBox = new System.Windows.Forms.TextBox();
             this.TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -152,6 +154,7 @@
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SilenceBox)).BeginInit();
             this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControl
@@ -931,6 +934,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.SearchBox);
+            this.groupBox3.Controls.Add(this.pictureBox1);
             this.groupBox3.Controls.Add(this.LoadedMusicBox);
             this.groupBox3.Location = new System.Drawing.Point(8, 6);
             this.groupBox3.Name = "groupBox3";
@@ -941,12 +946,14 @@
             // 
             // LoadedMusicBox
             // 
-            this.LoadedMusicBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LoadedMusicBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LoadedMusicBox.FormattingEnabled = true;
             this.LoadedMusicBox.ItemHeight = 15;
-            this.LoadedMusicBox.Location = new System.Drawing.Point(3, 19);
+            this.LoadedMusicBox.Location = new System.Drawing.Point(3, 49);
             this.LoadedMusicBox.Name = "LoadedMusicBox";
-            this.LoadedMusicBox.Size = new System.Drawing.Size(119, 181);
+            this.LoadedMusicBox.Size = new System.Drawing.Size(119, 139);
             this.LoadedMusicBox.TabIndex = 1;
             this.LoadedMusicBox.SelectedIndexChanged += new System.EventHandler(this.LoadedMusicBox_SelectedIndexChanged);
             // 
@@ -1176,6 +1183,26 @@
             this.label10.TabIndex = 8;
             this.label10.Text = "Audio file";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::TaikoSoundEditor.Properties.Resources.ic_search;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 22);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
+            // SearchBox
+            // 
+            this.SearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SearchBox.Location = new System.Drawing.Point(29, 20);
+            this.SearchBox.Name = "SearchBox";
+            this.SearchBox.Size = new System.Drawing.Size(90, 23);
+            this.SearchBox.TabIndex = 3;
+            this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1219,6 +1246,7 @@
             this.MusicOrderTab.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
@@ -1226,6 +1254,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.SilenceBox)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1323,5 +1352,7 @@
         private NumericUpDown SimpleStarUraBox;
         private Button LocateInMusicOrderButton;
         private Controls.MusicOrderViewer MusicOrderViewer;
+        private TextBox SearchBox;
+        private PictureBox pictureBox1;
     }
 }

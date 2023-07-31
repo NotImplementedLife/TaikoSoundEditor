@@ -16,14 +16,16 @@ namespace TaikoSoundEditor.Utils
             }
             catch (Exception ex)
             {
-                Error(ex);
-            }
-        }
+#if DEBUG
+                Logger.Error(ex);
+                if (MessageBox.Show(ex.Message + "\n\nThrow?", "An error occured", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    throw;            
+#else
 
-        public static void Error(Exception e)
-        {
             MessageBox.Show(e.Message, "An error occured");
             Logger.Error(e);
-        }
+#endif
+            }
+        }        
     }
 }

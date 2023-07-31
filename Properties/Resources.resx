@@ -148,6 +148,9 @@
   <data name="ic_right_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ic_right_10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ic_search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="song_ABCDEF_nus3bank" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\song_ABCDEF_nus3bank.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

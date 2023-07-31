@@ -161,8 +161,7 @@ namespace TaikoSoundEditor
             WordList.Items.Remove(wd);
 
             Logger.Info("Refreshing list");
-            LoadedMusicBinding.DataSource = MusicInfos.Items.Where(mi => mi.UniqueId != 0).ToList();
-            LoadedMusicBinding.ResetBindings(false);
+            RefreshExistingSongsListView();                      
 
             var sel = LoadedMusicBox.SelectedIndex;
 
@@ -325,6 +324,31 @@ namespace TaikoSoundEditor
                 return;
             }
 
+        }
+
+        private void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            RefreshExistingSongsListView();
+        }
+
+        private void RefreshExistingSongsListView()
+        {
+            var list = MusicInfos.Items.Where(mi => mi.UniqueId != 0)
+                .Where(mi =>
+                {
+                    if (string.IsNullOrEmpty(SearchBox.Text))
+                        return true;
+                    if (int.TryParse(SearchBox.Text, out int uid) && mi.UniqueId == uid) 
+                    {
+                        return true;
+                    }
+                    return mi.Id.Contains(SearchBox.Text)
+                        || WordList.GetBySong(mi.Id).JapaneseText.Contains(SearchBox.Text)
+                        || WordList.GetBySongSub(mi.Id).JapaneseText.Contains(SearchBox.Text);
+                })
+                .ToList();
+            LoadedMusicBox.DataSource = list;
+            LoadedMusicBinding.ResetBindings(false);
         }
     }
 }
