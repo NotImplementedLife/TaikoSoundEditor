@@ -816,6 +816,7 @@
             this.MusicOrderViewer.Size = new System.Drawing.Size(515, 290);
             this.MusicOrderViewer.TabIndex = 0;
             this.MusicOrderViewer.SongRemoved += new TaikoSoundEditor.Controls.MusicOrderViewer.OnSongRemoved(this.MusicOrderViewer_SongRemoved);
+            this.MusicOrderViewer.SongDoubleClick += new TaikoSoundEditor.Controls.MusicOrderViewer.OnSongDoubleClick(this.MusicOrderViewer_SongDoubleClick);
             // 
             // RemoveSongButton
             // 

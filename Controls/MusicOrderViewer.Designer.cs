@@ -51,6 +51,7 @@
             this.MusicOrdersPanel.Size = new System.Drawing.Size(467, 265);
             this.MusicOrdersPanel.TabIndex = 0;
             this.MusicOrdersPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MusicOrdersPanel_Paint);
+            this.MusicOrdersPanel.DoubleClick += new System.EventHandler(this.MusicOrdersPanel_DoubleClick);
             this.MusicOrdersPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MusicOrdersPanel_MouseDown);
             this.MusicOrdersPanel.MouseLeave += new System.EventHandler(this.MusicOrdersPanel_MouseLeave);
             this.MusicOrdersPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MusicOrdersPanel_MouseMove);

@@ -308,5 +308,23 @@ namespace TaikoSoundEditor
                 return;
             }
         });
+
+        private void MusicOrderViewer_SongDoubleClick(Controls.MusicOrderViewer sender, MusicOrder mo)
+        {
+            var uid = mo.UniqueId;
+            var mi = LoadedMusicBox.Items.Cast<MusicInfo>().Where(_ => _.UniqueId == uid).FirstOrDefault();
+            if(mi!=null)
+            {
+                LoadedMusicBox.SelectedItem = mi;
+                return;
+            }
+            var ns = AddedMusic.Where(_ => _.UniqueId == uid).FirstOrDefault();
+            if (ns != null)
+            {
+                NewSoundsBox.SelectedItem = ns;                
+                return;
+            }
+
+        }
     }
 }

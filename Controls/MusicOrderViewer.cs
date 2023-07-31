@@ -15,7 +15,7 @@ namespace TaikoSoundEditor.Controls
 
 
             typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                .SetValue(MusicOrdersPanel, true);            
+                .SetValue(MusicOrdersPanel, true);                    
         }
 
         internal WordList WordList { get; set; }        
@@ -446,7 +446,10 @@ namespace TaikoSoundEditor.Controls
 
             CutActive = RemoveActive = true;            
             MusicOrdersPanel.Invalidate();
-        }
+        }     
+
+        public delegate void OnSongDoubleClick(MusicOrderViewer sender, MusicOrder mo);
+        public event OnSongDoubleClick SongDoubleClick;
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {            
@@ -468,6 +471,29 @@ namespace TaikoSoundEditor.Controls
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void MusicOrdersPanel_DoubleClick(object sender, EventArgs e)
+        {            
+            var cursor = MusicOrdersPanel.PointToClient(Cursor.Position);
+
+            int itemW = MusicOrdersPanel.Width / ItemsPerRow;
+            int itemH = MusicOrdersPanel.Height / ItemsPerCol;
+
+            int row = cursor.Y / itemH;
+            int col = cursor.X / itemW;
+            //MessageBox.Show($"{row} {col}");            
+
+
+
+            if (row < 0 || row >= ItemsPerCol || col < 0 || col >= ItemsPerRow)
+                return;
+            var index = CurrentPage * ItemsPerPage + row * ItemsPerRow + col;
+
+            //MessageBox.Show($"{index}");
+            if (index < 0 || index > SongCards.Count) return;
+
+            SongDoubleClick?.Invoke(this, SongCards[index].MusicOrder);
         }
     }
 }
