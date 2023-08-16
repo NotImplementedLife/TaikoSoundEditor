@@ -857,14 +857,14 @@
             this.SortByIdToolStripMenuItem,
             this.NoSortToolStripMenuItem});
             this.musicOrderToolStripMenuItem.Name = "musicOrderToolStripMenuItem";
-            this.musicOrderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.musicOrderToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.musicOrderToolStripMenuItem.Text = "Music order";
             // 
             // SortByGenreToolStripMenuItem
             // 
             this.SortByGenreToolStripMenuItem.CheckOnClick = true;
             this.SortByGenreToolStripMenuItem.Name = "SortByGenreToolStripMenuItem";
-            this.SortByGenreToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SortByGenreToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.SortByGenreToolStripMenuItem.Text = "Sort by genre";
             this.SortByGenreToolStripMenuItem.Click += new System.EventHandler(this.MusicOrderSortToolStripMenuItem_Click);
             // 
@@ -872,7 +872,7 @@
             // 
             this.SortByIdToolStripMenuItem.CheckOnClick = true;
             this.SortByIdToolStripMenuItem.Name = "SortByIdToolStripMenuItem";
-            this.SortByIdToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SortByIdToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.SortByIdToolStripMenuItem.Text = "Sort by Id";
             this.SortByIdToolStripMenuItem.Click += new System.EventHandler(this.MusicOrderSortToolStripMenuItem_Click);
             // 
@@ -880,7 +880,7 @@
             // 
             this.NoSortToolStripMenuItem.CheckOnClick = true;
             this.NoSortToolStripMenuItem.Name = "NoSortToolStripMenuItem";
-            this.NoSortToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.NoSortToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.NoSortToolStripMenuItem.Text = "No sort";
             this.NoSortToolStripMenuItem.Click += new System.EventHandler(this.MusicOrderSortToolStripMenuItem_Click);
             // 
@@ -889,6 +889,8 @@
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
             this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
             this.checkForUpdatesToolStripMenuItem.Text = "Check for updates";
+            this.checkForUpdatesToolStripMenuItem.Visible = false;
+            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // RemoveSongButton
             // 

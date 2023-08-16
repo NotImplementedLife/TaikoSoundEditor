@@ -396,6 +396,10 @@ namespace TaikoSoundEditor
             }
         }
 
+        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e) => ExceptionGuard.Run(async () =>
+        {            
+            //var rel = await Updates.GetLatestTja2Fumen();
 
+        });
     }
 }
