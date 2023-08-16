@@ -268,6 +268,9 @@ namespace TaikoSoundEditor
         private void MusicOrderViewer_SongRemoved(Controls.MusicOrderViewer sender, MusicOrder mo) => ExceptionGuard.Run(() =>
         {
             var uniqId = mo.UniqueId;
+            if (MusicOrderViewer.SongExists(uniqId))
+                return;
+
             var mi = MusicInfos.Items.Where(x => x.UniqueId == uniqId).FirstOrDefault();
 
             if (mi != null)

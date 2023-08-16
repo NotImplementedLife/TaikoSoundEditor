@@ -187,108 +187,133 @@ namespace TaikoSoundEditor.Controls
 
         private void MusicOrdersPanel_MouseDown(object sender, MouseEventArgs e) => ExceptionGuard.Run(() =>
         {
-            if (e.Button != MouseButtons.Left) return;
-            Select();
-            var cursor = e.Location;
-
-            int itemW = MusicOrdersPanel.Width / ItemsPerRow;
-            int itemH = MusicOrdersPanel.Height / ItemsPerCol;
-
-            int row = cursor.Y / itemH;
-            int col = cursor.X / itemW;
-            //Debug.WriteLine($"{row} {col}");            
-
-
-            if (row < 0 || row >= ItemsPerCol || col < 0 || col >= ItemsPerRow)
-                return;
-            var index = CurrentPage * ItemsPerPage + row * ItemsPerRow + col;
-
-            if (PasteMode)
+            if (e.Button == MouseButtons.Right)
             {
+                Select();
+                var cursor = e.Location;
+
+                int itemW = MusicOrdersPanel.Width / ItemsPerRow;
+                int itemH = MusicOrdersPanel.Height / ItemsPerCol;
+
+                int row = cursor.Y / itemH;
+                int col = cursor.X / itemW;
+                //Debug.WriteLine($"{row} {col}");            
+
+
+                if (row < 0 || row >= ItemsPerCol || col < 0 || col >= ItemsPerRow)
+                    return;
+                var index = CurrentPage * ItemsPerPage + row * ItemsPerRow + col;
                 if (index < 0 || index > SongCards.Count) return;
 
-                SongCard before = null, after = null;
-
-                for (int i = index; i < SongCards.Count; i++)
-                    if (!SongCards[i].IsCut)
-                    {
-                        before = SongCards[i];
-                        break;
-                    }
-                for (int i = index - 1; i >= 0; i--)
-                    if (!SongCards[i].IsCut)
-                    {
-                        after = SongCards[i];
-                        break;
-                    }
-
-                string message = "Do you want to move the selected songs?";
-
-                if (before != null)
-                {
-                    if (after != null && before != after)
-                    {
-                        message = $"Do you want to move the selected songs before {before.Id} and after {after.Id}?";
-                    }
-                    else
-                    {
-                        message = $"Do you want to move the selected songs before {before.Id}?";
-                    }
-                }
-                else if (after != null)
-                {
-                    message = $"Do you want to move the selected songs after {after.Id}?";
-                }
-
-                if (MessageBox.Show(message, "Move songs?", MessageBoxButtons.YesNo) != DialogResult.Yes)
-                    return;
-
-                SongCards.RemoveAll(CutSelection.Contains);
-                var ix = after != null ? SongCards.IndexOf(after) + 1 : before != null ? SongCards.IndexOf(before) : 0;
-                SongCards.InsertRange(ix, CutSelection);
-
-                foreach (var c in CutSelection) c.IsCut = false;
-                CutSelection.Clear();
-                PasteMode = false;
-                PasteActive = false;
-                CutActive = RemoveActive = false;
-                MusicOrdersPanel.Invalidate();
-
-                return;
-            }
-
-            if (index < 0 || index >= SongCards.Count) return;
-
-            var card = SongCards[index];
-
-            if (Form.ModifierKeys == Keys.Control)
-            {
-                if (card.IsSelected)
-                {
-                    card.IsSelected = false;
-                    Selection.Remove(card);
-                }
-                else
-                {
-                    card.IsSelected = true;
-                    Selection.Add(card);
-                }
-                MusicOrdersPanel.Invalidate();
+                CardToClone = SongCards[index];                
+                GenreCloneMenuStrip.Show(MusicOrdersPanel, cursor);
             }
             else
             {
-                foreach (var sel in Selection)
+
+                if (e.Button != MouseButtons.Left) return;
+                Select();
+                var cursor = e.Location;
+
+                int itemW = MusicOrdersPanel.Width / ItemsPerRow;
+                int itemH = MusicOrdersPanel.Height / ItemsPerCol;
+
+                int row = cursor.Y / itemH;
+                int col = cursor.X / itemW;
+                //Debug.WriteLine($"{row} {col}");            
+
+
+                if (row < 0 || row >= ItemsPerCol || col < 0 || col >= ItemsPerRow)
+                    return;
+                var index = CurrentPage * ItemsPerPage + row * ItemsPerRow + col;
+
+                if (PasteMode)
                 {
-                    sel.IsSelected = false;
+                    if (index < 0 || index > SongCards.Count) return;
+
+                    SongCard before = null, after = null;
+
+                    for (int i = index; i < SongCards.Count; i++)
+                        if (!SongCards[i].IsCut)
+                        {
+                            before = SongCards[i];
+                            break;
+                        }
+                    for (int i = index - 1; i >= 0; i--)
+                        if (!SongCards[i].IsCut)
+                        {
+                            after = SongCards[i];
+                            break;
+                        }
+
+                    string message = "Do you want to move the selected songs?";
+
+                    if (before != null)
+                    {
+                        if (after != null && before != after)
+                        {
+                            message = $"Do you want to move the selected songs before {before.Id} and after {after.Id}?";
+                        }
+                        else
+                        {
+                            message = $"Do you want to move the selected songs before {before.Id}?";
+                        }
+                    }
+                    else if (after != null)
+                    {
+                        message = $"Do you want to move the selected songs after {after.Id}?";
+                    }
+
+                    if (MessageBox.Show(message, "Move songs?", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                        return;
+
+                    SongCards.RemoveAll(CutSelection.Contains);
+                    var ix = after != null ? SongCards.IndexOf(after) + 1 : before != null ? SongCards.IndexOf(before) : 0;
+                    SongCards.InsertRange(ix, CutSelection);
+
+                    foreach (var c in CutSelection) c.IsCut = false;
+                    CutSelection.Clear();
+                    PasteMode = false;
+                    PasteActive = false;
+                    CutActive = RemoveActive = false;
+                    MusicOrdersPanel.Invalidate();
+
+                    return;
                 }
-                Selection.Clear();
 
-                card.IsSelected = true;
-                Selection.Add(card);
-                MusicOrdersPanel.Invalidate();
+                if (index < 0 || index >= SongCards.Count) return;
+
+                var card = SongCards[index];
+
+                if (Form.ModifierKeys == Keys.Control)
+                {
+                    if (card.IsSelected)
+                    {
+                        card.IsSelected = false;
+                        Selection.Remove(card);
+                    }
+                    else
+                    {
+                        card.IsSelected = true;
+                        Selection.Add(card);
+                    }
+                    MusicOrdersPanel.Invalidate();
+                }
+                else
+                {
+                    foreach (var sel in Selection)
+                    {
+                        sel.IsSelected = false;
+                    }
+                    Selection.Clear();
+
+                    card.IsSelected = true;
+                    Selection.Add(card);
+                    MusicOrdersPanel.Invalidate();
+                }
+
+                CutActive = RemoveActive = Selection.Count > 0;
             }
-
-            CutActive = RemoveActive = Selection.Count > 0;
         });
 
         private bool _CutActive = false;
@@ -374,6 +399,8 @@ namespace TaikoSoundEditor.Controls
             CutActive = RemoveActive = false;
             MusicOrdersPanel.Invalidate();
         });
+
+        public bool SongExists(int uniqueId) => SongCards.Any(c => c.MusicOrder.UniqueId == uniqueId);
 
         private void RemoveButton_Click(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
@@ -494,6 +521,19 @@ namespace TaikoSoundEditor.Controls
             if (index < 0 || index > SongCards.Count) return;
 
             SongDoubleClick?.Invoke(this, SongCards[index].MusicOrder);
+        }
+
+        private SongCard CardToClone = null;
+        private void GenreCloneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CardToClone == null) return;
+
+            var genre = (Genre)Enum.Parse(typeof(Genre), (sender as ToolStripMenuItem).Text);
+            //MessageBox.Show(genre.ToString());
+
+            var newMO = new MusicOrder(CardToClone.MusicOrder);
+            newMO.Genre = genre;
+            AddSong(newMO);
         }
     }
 }

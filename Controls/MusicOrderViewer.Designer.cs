@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.MusicOrdersPanel = new System.Windows.Forms.Panel();
             this.RightButton = new System.Windows.Forms.Button();
             this.ControlsPanel = new System.Windows.Forms.Panel();
@@ -40,7 +41,18 @@
             this.CutButton = new System.Windows.Forms.Button();
             this.PageLabel = new System.Windows.Forms.Label();
             this.LeftButton = new System.Windows.Forms.Button();
+            this.GenreCloneMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cloneAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.popToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.animeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kidsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vocaloidToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameMusicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.namcoOriginalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.varietyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.classicalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ControlsPanel.SuspendLayout();
+            this.GenreCloneMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // MusicOrdersPanel
@@ -206,6 +218,84 @@
             this.LeftButton.UseVisualStyleBackColor = false;
             this.LeftButton.Click += new System.EventHandler(this.LeftButton_Click);
             // 
+            // GenreCloneMenuStrip
+            // 
+            this.GenreCloneMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cloneAsToolStripMenuItem});
+            this.GenreCloneMenuStrip.Name = "GenreCloneMenuStrip";
+            this.GenreCloneMenuStrip.Size = new System.Drawing.Size(181, 48);
+            // 
+            // cloneAsToolStripMenuItem
+            // 
+            this.cloneAsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.popToolStripMenuItem,
+            this.animeToolStripMenuItem,
+            this.kidsToolStripMenuItem,
+            this.vocaloidToolStripMenuItem,
+            this.gameMusicToolStripMenuItem,
+            this.namcoOriginalToolStripMenuItem,
+            this.varietyToolStripMenuItem,
+            this.classicalToolStripMenuItem});
+            this.cloneAsToolStripMenuItem.Name = "cloneAsToolStripMenuItem";
+            this.cloneAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cloneAsToolStripMenuItem.Text = "Clone as";
+            // 
+            // popToolStripMenuItem
+            // 
+            this.popToolStripMenuItem.Name = "popToolStripMenuItem";
+            this.popToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.popToolStripMenuItem.Text = "Pop";
+            this.popToolStripMenuItem.Click += new System.EventHandler(this.GenreCloneToolStripMenuItem_Click);
+            // 
+            // animeToolStripMenuItem
+            // 
+            this.animeToolStripMenuItem.Name = "animeToolStripMenuItem";
+            this.animeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.animeToolStripMenuItem.Text = "Anime";
+            this.animeToolStripMenuItem.Click += new System.EventHandler(this.GenreCloneToolStripMenuItem_Click);
+            // 
+            // kidsToolStripMenuItem
+            // 
+            this.kidsToolStripMenuItem.Name = "kidsToolStripMenuItem";
+            this.kidsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kidsToolStripMenuItem.Text = "Kids";
+            this.kidsToolStripMenuItem.Click += new System.EventHandler(this.GenreCloneToolStripMenuItem_Click);
+            // 
+            // vocaloidToolStripMenuItem
+            // 
+            this.vocaloidToolStripMenuItem.Name = "vocaloidToolStripMenuItem";
+            this.vocaloidToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.vocaloidToolStripMenuItem.Text = "Vocaloid";
+            this.vocaloidToolStripMenuItem.Click += new System.EventHandler(this.GenreCloneToolStripMenuItem_Click);
+            // 
+            // gameMusicToolStripMenuItem
+            // 
+            this.gameMusicToolStripMenuItem.Name = "gameMusicToolStripMenuItem";
+            this.gameMusicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gameMusicToolStripMenuItem.Text = "GameMusic";
+            this.gameMusicToolStripMenuItem.Click += new System.EventHandler(this.GenreCloneToolStripMenuItem_Click);
+            // 
+            // namcoOriginalToolStripMenuItem
+            // 
+            this.namcoOriginalToolStripMenuItem.Name = "namcoOriginalToolStripMenuItem";
+            this.namcoOriginalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.namcoOriginalToolStripMenuItem.Text = "NamcoOriginal";
+            this.namcoOriginalToolStripMenuItem.Click += new System.EventHandler(this.GenreCloneToolStripMenuItem_Click);
+            // 
+            // varietyToolStripMenuItem
+            // 
+            this.varietyToolStripMenuItem.Name = "varietyToolStripMenuItem";
+            this.varietyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.varietyToolStripMenuItem.Text = "Variety";
+            this.varietyToolStripMenuItem.Click += new System.EventHandler(this.GenreCloneToolStripMenuItem_Click);
+            // 
+            // classicalToolStripMenuItem
+            // 
+            this.classicalToolStripMenuItem.Name = "classicalToolStripMenuItem";
+            this.classicalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.classicalToolStripMenuItem.Text = "Classical";
+            this.classicalToolStripMenuItem.Click += new System.EventHandler(this.GenreCloneToolStripMenuItem_Click);
+            // 
             // MusicOrderViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -218,6 +308,7 @@
             this.Size = new System.Drawing.Size(507, 297);
             this.ControlsPanel.ResumeLayout(false);
             this.ControlsPanel.PerformLayout();
+            this.GenreCloneMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -236,5 +327,15 @@
         private Button Right10Button;
         private Button ListStartButton;
         private Button ListEndButton;
+        private ContextMenuStrip GenreCloneMenuStrip;
+        private ToolStripMenuItem cloneAsToolStripMenuItem;
+        private ToolStripMenuItem popToolStripMenuItem;
+        private ToolStripMenuItem animeToolStripMenuItem;
+        private ToolStripMenuItem kidsToolStripMenuItem;
+        private ToolStripMenuItem vocaloidToolStripMenuItem;
+        private ToolStripMenuItem gameMusicToolStripMenuItem;
+        private ToolStripMenuItem namcoOriginalToolStripMenuItem;
+        private ToolStripMenuItem varietyToolStripMenuItem;
+        private ToolStripMenuItem classicalToolStripMenuItem;
     }
 }

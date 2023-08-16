@@ -22,8 +22,8 @@ namespace TaikoSoundEditor.Utils
                     throw;            
 #else
 
-            MessageBox.Show(e.Message, "An error occured");
-            Logger.Error(e);
+            MessageBox.Show(ex.Message, "An error occured");
+            Logger.Error(ex);
 #endif
             }
         }        

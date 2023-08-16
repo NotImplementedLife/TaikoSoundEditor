@@ -24,5 +24,14 @@ namespace TaikoSoundEditor.Data
             get => (Genre)GenreNo;
             set => GenreNo = (int)value;
         }
+
+        public MusicOrder() { }
+        public MusicOrder(MusicOrder source)
+        {
+            Genre = source.Genre;
+            Id = source.Id;
+            UniqueId = source.UniqueId;
+            CloseDispType = source.CloseDispType;
+        }
     }
 }
