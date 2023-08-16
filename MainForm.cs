@@ -18,7 +18,11 @@ namespace TaikoSoundEditor
             NewSoundsBox.DataSource = AddedMusicBinding;
             TabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
 
-            SimpleGenreBox.DataSource = Enum.GetValues(typeof(Genre));            
+            SimpleGenreBox.DataSource = Enum.GetValues(typeof(Genre));
+
+
+            LoadPreferences();
+            //SortByGenreToolStripMenuItem.RadioCheck = true;
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -353,5 +357,45 @@ namespace TaikoSoundEditor
             LoadedMusicBox.DataSource = list;
             LoadedMusicBinding.ResetBindings(false);
         }
+
+        private void MusicOrderSortToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SortByGenreToolStripMenuItem.Checked = SortByIdToolStripMenuItem.Checked = NoSortToolStripMenuItem.Checked = false;
+
+            if (sender == SortByGenreToolStripMenuItem) 
+            {
+                SortByGenreToolStripMenuItem.Checked = true;
+                Config.SetMusicOrderSortByGenre();
+            }
+            else if(sender == SortByIdToolStripMenuItem)
+            {
+                SortByIdToolStripMenuItem.Checked = true;
+                Config.SetMusicOrderSortById();
+            }
+            else //if (sender == NoSortToolStripMenuItem)
+            {
+                NoSortToolStripMenuItem.Checked = true;
+                Config.SetMusicOrderNoSort();
+            }
+        }
+
+        private void LoadPreferences()
+        {
+            var musicOrderSort = Config.IniFile.Read(Config.MusicOrderSortProperty);
+            if (musicOrderSort == Config.MusicOrderSortValueGenre)
+            {
+                SortByGenreToolStripMenuItem.PerformClick();
+            }
+            else if (musicOrderSort == Config.MusicOrderSortValueId) 
+            {
+                SortByIdToolStripMenuItem.PerformClick();
+            }
+            else
+            {
+                NoSortToolStripMenuItem.PerformClick();
+            }
+        }
+
+
     }
 }

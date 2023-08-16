@@ -11,9 +11,13 @@ namespace TaikoSoundEditor
         /// </summary>
         [STAThread]
         static void Main()
-        {                   
+        {                               
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
+
+
+
             ApplicationConfiguration.Initialize();
             Application.Run(new MainForm());
         }

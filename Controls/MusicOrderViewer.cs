@@ -24,8 +24,31 @@ namespace TaikoSoundEditor.Controls
 
         public void AddSong(MusicOrder mo)
         {
-            SongCards.Add(new SongCard(WordList, mo));
-            CurrentPage = CurrentPage;                                            
+            var songCard = new SongCard(WordList, mo);
+
+            if (Config.MusicOrderSort == Config.MusicOrderSortValueNone)
+            {
+                SongCards.Add(songCard);
+            }
+            else if (Config.MusicOrderSort == Config.MusicOrderSortValueId) 
+            {
+                SongCards.Add(songCard);
+                SongCards.Sort((c1, c2) => c1.Id.CompareTo(c2.Id));
+            }
+            else if (Config.MusicOrderSort == Config.MusicOrderSortValueGenre)
+            {                
+                var firstInGenre = SongCards.Find(c => c.MusicOrder.Genre == mo.Genre);
+                if (firstInGenre == null)
+                {
+                    SongCards.Add(songCard);
+                }
+                else
+                {
+                    var index = SongCards.IndexOf(firstInGenre);
+                    SongCards.Insert(index, songCard);
+                }
+            }
+            CurrentPage = CurrentPage;
         }
 
         public void RemoveSong(MusicOrder mo)
