@@ -134,7 +134,7 @@ namespace TaikoSoundEditor
             AddedMusic.Remove(ns);
             Logger.Info("Refreshing list");
             AddedMusicBinding.ResetBindings(false);
-            MusicOrderViewer.RemoveSong(ns.MusicOrder);
+            MusicOrderViewer.RemoveAllSongs(ns.MusicOrder.UniqueId);
 
             Logger.Info("Removing from wordlist & music_attributes");
             WordList.Items.Remove(ns.Word);
@@ -176,7 +176,7 @@ namespace TaikoSoundEditor
             LoadedMusicBox.SelectedIndex = sel;
 
             Logger.Info("Removing from music orders");
-            MusicOrderViewer.RemoveSong(mo);
+            MusicOrderViewer.RemoveAllSongs(mo.UniqueId);
         }
 
         private void RemoveSongButton_Click(object sender, EventArgs e) => ExceptionGuard.Run(() =>

@@ -51,6 +51,20 @@ namespace TaikoSoundEditor.Controls
             CurrentPage = CurrentPage;
         }
 
+        public void RemoveAllSongs(int uniqueId)
+        {
+            SongCards.RemoveAll(c => c.MusicOrder.UniqueId == uniqueId);
+            Selection.RemoveWhere(c => c.MusicOrder.UniqueId == uniqueId);
+            CutSelection.RemoveWhere(c => c.MusicOrder.UniqueId == uniqueId);
+
+            PasteActive = CutSelection.Count > 0;
+            CutActive = RemoveActive = Selection.Count > 0;
+            if (!PasteActive) PasteMode = false;
+            CurrentPage = CurrentPage;
+            Invalidate();
+
+        }
+
         public void RemoveSong(MusicOrder mo)
         {
             SongCards.RemoveAll(c => c.MusicOrder == mo);
