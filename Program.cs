@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using TaikoSoundEditor.Data;
+using TaikoSoundEditor.Utils;
 
 namespace TaikoSoundEditor
 {
@@ -15,7 +17,7 @@ namespace TaikoSoundEditor
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 
-
+            SSL.LoadKeys();                       
 
 
             ApplicationConfiguration.Initialize();

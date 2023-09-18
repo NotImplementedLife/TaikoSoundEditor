@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ICSharpCode.SharpZipLib.Tar;
 using System.Diagnostics;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static TaikoSoundEditor.TJA;
 
 namespace TaikoSoundEditor
 {
     internal class GZ
     {
+
+        public static string DecompressBytes(byte[] bytes)
+        {
+            Logger.Info("GZ Decompressing bytes");
+            using MemoryStream ms = new MemoryStream(bytes);
+            using GZipStream decompressionStream = new GZipStream(ms, CompressionMode.Decompress);
+            using StreamReader reader = new StreamReader(decompressionStream);
+            return reader.ReadToEnd();
+        }
+
         public static string DecompressString(string gzPath)
         {
             Logger.Info("GZ Decompressing string");
@@ -61,6 +66,7 @@ namespace TaikoSoundEditor
             File.WriteAllText(fn, content);
 
             fileName = Path.GetFullPath(fileName);            
+            
 
             var p = new Process();
             p.StartInfo.FileName = Path.GetFullPath(@"Tools\7z\7za.exe");

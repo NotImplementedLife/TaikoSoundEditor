@@ -20,6 +20,9 @@ namespace TaikoSoundEditor
 
             SimpleGenreBox.DataSource = Enum.GetValues(typeof(Genre));
 
+            DatatableKeyBox.Text = Config.IniFile.Read("DatatableKey");
+            FumenKeyBox.Text = Config.IniFile.Read("FumenKey");
+
 
             LoadPreferences();
             //SortByGenreToolStripMenuItem.RadioCheck = true;
@@ -401,5 +404,15 @@ namespace TaikoSoundEditor
             //var rel = await Updates.GetLatestTja2Fumen();
 
         });
+
+        private void DatatableKeyBox_TextChanged(object sender, EventArgs e)
+        {
+            Config.IniFile.Write("DatatableKey", DatatableKeyBox.Text);
+        }
+
+        private void FumenKeyBox_TextChanged(object sender, EventArgs e)
+        {
+            Config.IniFile.Write("FumenKey", FumenKeyBox.Text);
+        }
     }
 }

@@ -18,6 +18,8 @@ namespace TaikoSoundEditor.Utils
             return ini;
         }
 
+        public static readonly DatatableIO DatatableIO = new DatatableIO();
+
         public static readonly IniFile IniFile = CreateIniFile();
 
         public static void SetMusicOrderSortById() => IniFile.Write(MusicOrderSortProperty, MusicOrderSortValueId);

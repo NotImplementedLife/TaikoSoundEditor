@@ -31,6 +31,11 @@
             this.TabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.FumenKeyBox = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.DatatableKeyBox = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.OkButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.DirSelector = new TaikoSoundEditor.PathSelector();
@@ -128,9 +133,11 @@
             this.TJASelector = new TaikoSoundEditor.PathSelector();
             this.AudioFileSelector = new TaikoSoundEditor.PathSelector();
             this.label10 = new System.Windows.Forms.Label();
+            this.UseEncryptionBox = new System.Windows.Forms.CheckBox();
             this.TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -194,18 +201,73 @@
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.groupBox12);
             this.panel1.Controls.Add(this.OkButton);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(151, 62);
+            this.panel1.Location = new System.Drawing.Point(146, 56);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(374, 229);
+            this.panel1.Size = new System.Drawing.Size(374, 344);
             this.panel1.TabIndex = 1;
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox12.Controls.Add(this.UseEncryptionBox);
+            this.groupBox12.Controls.Add(this.FumenKeyBox);
+            this.groupBox12.Controls.Add(this.label21);
+            this.groupBox12.Controls.Add(this.DatatableKeyBox);
+            this.groupBox12.Controls.Add(this.label20);
+            this.groupBox12.Location = new System.Drawing.Point(3, 204);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(368, 108);
+            this.groupBox12.TabIndex = 12;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "AES keys";
+            // 
+            // FumenKeyBox
+            // 
+            this.FumenKeyBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FumenKeyBox.Location = new System.Drawing.Point(68, 52);
+            this.FumenKeyBox.Name = "FumenKeyBox";
+            this.FumenKeyBox.Size = new System.Drawing.Size(294, 23);
+            this.FumenKeyBox.TabIndex = 13;
+            this.FumenKeyBox.TextChanged += new System.EventHandler(this.FumenKeyBox_TextChanged);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(6, 55);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(44, 15);
+            this.label21.TabIndex = 12;
+            this.label21.Text = "Fumen";
+            // 
+            // DatatableKeyBox
+            // 
+            this.DatatableKeyBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DatatableKeyBox.Location = new System.Drawing.Point(68, 23);
+            this.DatatableKeyBox.Name = "DatatableKeyBox";
+            this.DatatableKeyBox.Size = new System.Drawing.Size(294, 23);
+            this.DatatableKeyBox.TabIndex = 11;
+            this.DatatableKeyBox.TextChanged += new System.EventHandler(this.DatatableKeyBox_TextChanged);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 26);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(57, 15);
+            this.label20.TabIndex = 10;
+            this.label20.Text = "Datatable";
             // 
             // OkButton
             // 
             this.OkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OkButton.Location = new System.Drawing.Point(262, 203);
+            this.OkButton.Location = new System.Drawing.Point(262, 318);
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(109, 23);
             this.OkButton.TabIndex = 10;
@@ -1274,6 +1336,16 @@
             this.label10.TabIndex = 8;
             this.label10.Text = "Audio file";
             // 
+            // UseEncryptionBox
+            // 
+            this.UseEncryptionBox.AutoSize = true;
+            this.UseEncryptionBox.Location = new System.Drawing.Point(68, 83);
+            this.UseEncryptionBox.Name = "UseEncryptionBox";
+            this.UseEncryptionBox.Size = new System.Drawing.Size(105, 19);
+            this.UseEncryptionBox.TabIndex = 14;
+            this.UseEncryptionBox.Text = "Use Encryption";
+            this.UseEncryptionBox.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1288,6 +1360,8 @@
             this.TabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1435,5 +1509,11 @@
         private ToolStripMenuItem SortByIdToolStripMenuItem;
         private ToolStripMenuItem NoSortToolStripMenuItem;
         private ToolStripMenuItem checkForUpdatesToolStripMenuItem;
+        private GroupBox groupBox12;
+        private Label label20;
+        private TextBox FumenKeyBox;
+        private Label label21;
+        private TextBox DatatableKeyBox;
+        private CheckBox UseEncryptionBox;
     }
 }

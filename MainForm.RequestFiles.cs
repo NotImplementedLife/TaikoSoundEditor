@@ -67,33 +67,35 @@ namespace TaikoSoundEditor
         {
             Logger.Info($"Clicked 'Looks good' ");
 
+            Config.DatatableIO.IsEncrypted = UseEncryptionBox.Checked;
+            
             try
-            {
-                MusicAttributes = Json.Deserialize<MusicAttributes>(GZ.DecompressString(MusicAttributePath));
+            {                
+                MusicAttributes = Config.DatatableIO.Deserialize<MusicAttributes>(MusicAttributePath);                
             }
             catch (Exception ex)
             {
                 throw new Exception($"Failed to parse\n{MusicAttributePath}\nReason:\n{ex.InnerException}");
             }
             try
-            {
-                MusicOrders = Json.Deserialize<MusicOrders>(GZ.DecompressString(MusicOrderPath));
+            {                
+                MusicOrders = Config.DatatableIO.Deserialize<MusicOrders>(MusicOrderPath);
             }
             catch (Exception ex)
             {
                 throw new Exception($"Failed to parse\n{MusicOrderPath}\nReason:\n{ex.InnerException}");
             }
             try
-            {
-                MusicInfos = Json.Deserialize<MusicInfos>(GZ.DecompressString(MusicInfoPath));
+            {                
+                MusicInfos = Config.DatatableIO.Deserialize<MusicInfos>(MusicInfoPath);
             }
             catch (Exception ex)
             {
                 throw new Exception($"Failed to parse\n{MusicInfoPath}\nReason:\n{ex.InnerException}");
             }
             try
-            {
-                WordList = Json.Deserialize<WordList>(GZ.DecompressString(WordListPath));
+            {                
+                WordList = Config.DatatableIO.Deserialize<WordList>(WordListPath);
             }
             catch (Exception ex)
             {
