@@ -1,6 +1,9 @@
-﻿using ICSharpCode.SharpZipLib.Tar;
+﻿using ICSharpCode.SharpZipLib.GZip;
+using ICSharpCode.SharpZipLib.Tar;
 using System.Diagnostics;
 using System.IO.Compression;
+using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TaikoSoundEditor
 {
@@ -56,6 +59,20 @@ namespace TaikoSoundEditor
         public static string CompressToFile(string fileName, string content)
         {
             Logger.Info("GZ Compressing file");
+
+            var uncompressed = Encoding.UTF8.GetBytes(content);
+
+            using (MemoryStream outStream = new MemoryStream()) 
+            {
+                using (GZipOutputStream gzoStream = new GZipOutputStream(outStream))
+                {
+                    gzoStream.SetLevel(5);
+                    gzoStream.Write(uncompressed, 0, uncompressed.Length);
+                }
+                File.WriteAllBytes(fileName, outStream.ToArray());
+            }
+
+            return "";
 
             var tmp = "~ztmp";
             if (!Directory.Exists(tmp))

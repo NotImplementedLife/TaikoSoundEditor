@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,12 @@ namespace TaikoSoundEditor.Utils
         public T Deserialize<T>(string path)
         {
             if (!IsEncrypted)
+            {
+                var str = GZ.DecompressString(path);
+                Debug.WriteLine("----------------------------------------------------------------------");
+                Debug.WriteLine(str);
                 return Json.Deserialize<T>(GZ.DecompressString(path));
+            }
             else
             {
                 var bytes = SSL.DecryptDatatable(File.ReadAllBytes(path));
