@@ -20,41 +20,13 @@ namespace TaikoSoundEditor
             var mo = new MusicOrders();
             mo.Items.AddRange(MusicOrderViewer.SongCards.Select(_ => _.MusicOrder));
 
-            /*var mbyg = MusicOrders.Items.GroupBy(_ => _.GenreNo).Select(_ => (_.Key, List: _.ToList())).ToDictionary(_ => _.Key, _ => _.List);
-
-            foreach (var m in AddedMusic.Select(_ => _.MusicOrder))
-            {
-                if (!mbyg.ContainsKey(m.GenreNo))
-                    mbyg[m.GenreNo] = new List<MusicOrder>();
-                mbyg[m.GenreNo] = mbyg[m.GenreNo].Prepend(m).ToList();
-            }
-
-            foreach (var key in mbyg.Keys.OrderBy(_ => _))
-            {
-                mo.Items.AddRange(mbyg[key]);
-            }*/
-
             var wl = new WordList();
-            wl.Items.AddRange(WordList.Items);
-            //wl.Items.AddRange(AddedMusic.Select(_ => new List<Word>() { _.Word, _.WordSub, _.WordDetail }).SelectMany(_ => _));
+            wl.Items.AddRange(WordList.Items);           
 
-            var jmi = JsonFix(Json.Serialize(mi, !DatatableSpaces.Checked));
-            var jma = JsonFix(Json.Serialize(ma));
-            var jmo = JsonFix(Json.Serialize(mo));
-            var jwl = JsonFix(Json.Serialize(wl, !DatatableSpaces.Checked));
-
-            jma = jma.Replace("\"new\": true,", "\"new\":true,");
-            jma = jma.Replace("\"new\": false,", "\"new\":false,");
-
-            File.WriteAllText(Path.Combine(path, "musicinfo"), jmi);
-            File.WriteAllText(Path.Combine(path, "music_attribute"), jma);
-            File.WriteAllText(Path.Combine(path, "music_order"), jmo);
-            File.WriteAllText(Path.Combine(path, "wordlist"), jwl);
-
-            GZ.CompressToFile(Path.Combine(path, "musicinfo.bin"), jmi);
-            GZ.CompressToFile(Path.Combine(path, "music_attribute.bin"), jma);
-            GZ.CompressToFile(Path.Combine(path, "music_order.bin"), jmo);
-            GZ.CompressToFile(Path.Combine(path, "wordlist.bin"), jwl);
+            Config.DatatableIO.Serialize(Path.Combine(path, "musicinfo.bin"), mi, indented: !DatatableSpaces.Checked);
+            Config.DatatableIO.Serialize(Path.Combine(path, "music_attribute.bin"), ma, fixBools: true);
+            Config.DatatableIO.Serialize(Path.Combine(path, "music_order.bin"), mo);
+            Config.DatatableIO.Serialize(Path.Combine(path, "wordlist.bin"), wl, indented: true);            
         }
 
         private void ExportNusBanks(string path)
@@ -180,24 +152,6 @@ namespace TaikoSoundEditor
             MessageBox.Show("Done");
             if (ExportOpenOnFinished.Checked)
                 Process.Start($"explorer.exe", path);
-        });
-
-        private string JsonFix(string json)
-        {
-            var specialChars = "!@#$%^&*()_+=`~[]{}<>\\/'";
-            foreach (var c in specialChars)
-            {
-                json = json.Replace($"\\u00{((int)c):X2}", $"{c}");
-            }
-
-
-            return json
-                .Replace("\\u0022", "\\\"")
-                .Replace("\r\n      ", "\r\n\t\t")
-                .Replace("\r\n      ", "\r\n\t\t")
-                .Replace("{\r\n  \"items\": [", "{\"items\":[")
-                .Replace("    }", "\t}")
-                .Replace("  ]\r\n}", "\t]\r\n}");
-        }
+        });      
     }
 }
