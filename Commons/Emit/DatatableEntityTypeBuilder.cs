@@ -209,7 +209,7 @@ namespace TaikoSoundEditor.Commons.Emit
             pb.SetGetMethod(mbGetAccessor);
             pb.SetSetMethod(mbSetAccessor);
 
-            if (property.JsonPropertyName != null)
+            if (property.JsonPropertyName != null && property.JsonPropertyName != "") 
                 AddAttribute(pb, typeof(JsonPropertyNameAttribute), property.JsonPropertyName);
             else
                 AddAttribute(pb, typeof(JsonIgnoreAttribute), new object[0]);

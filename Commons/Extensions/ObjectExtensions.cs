@@ -6,7 +6,7 @@ namespace TaikoSoundEditor.Commons.Extensions
     {
         public static string ToStringProperties(this object obj)
         {
-            return "{" + string.Join("; ", obj.GetType().GetProperties().Select(p => $"{p.Name}=`{p?.GetValue(obj) ?? "(null)"}`")) + "}";
+            return obj.GetType() + "{" + string.Join("; ", obj.GetType().GetProperties().Select(p => $"{p.Name}=`{p?.GetValue(obj) ?? "(null)"}`")) + "}";
         }
 
     }

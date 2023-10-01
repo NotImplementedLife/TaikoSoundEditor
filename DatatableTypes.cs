@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using TaikoSoundEditor.Commons.Emit;
+using TaikoSoundEditor.Commons.Extensions;
 using TaikoSoundEditor.Commons.IO;
+using TaikoSoundEditor.Commons.Utils;
 using TaikoSoundEditor.Data;
 
 namespace TaikoSoundEditor
@@ -61,11 +66,31 @@ namespace TaikoSoundEditor
         public static void LoadFromJson(string json)
         {
             var types = DatatableEntityTypeBuilder.LoadTypes(Json.Deserialize<DynamicTypeCollection>(json));
+            var c = Json.Deserialize<DynamicTypeCollection>(json);
+
+            Debug.WriteLine(string.Join("\n", c.Types.Select(t => t.Properties).SelectMany(_ => _).Select(_ => _.ToStringProperties())));
+
             Word = types["Word"];
             MusicOrder = types["MusicOrder"];
             MusicAttribute = types["MusicAttribute"];
             MusicInfo = types["MusicInfo"];
+
+            Logger.Info("Changed datatable types");
+            DescribeType(Word);
+            DescribeType(MusicAttribute);
+            DescribeType(MusicInfo);
+            DescribeType(MusicOrder);
         }        
+
+        private static void DescribeType(Type t)
+        {
+            Logger.Info($"Type {t}");
+
+            foreach(var p in t.GetProperties())
+            {
+                Logger.Info($"    {p.PropertyType} {p.Name} [{string.Join(", ", p.GetCustomAttributes().Select(_ => _.ToStringProperties()))}]");
+            }
+        }
 
 
         public static string ToString(this IMusicInfo mi) => $"{mi.UniqueId}. {mi.Id}";
