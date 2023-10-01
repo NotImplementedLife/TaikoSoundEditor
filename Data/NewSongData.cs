@@ -30,13 +30,13 @@ namespace TaikoSoundEditor.Data
 
         public byte[] Nus3Bank { get; set; }
 
-        public MusicAttribute MusicAttribute { get; set; }
-        public MusicInfo MusicInfo { get; set; }
-        public MusicOrder MusicOrder { get; set; }
+        public IMusicAttribute MusicAttribute { get; set; }
+        public IMusicInfo MusicInfo { get; set; }
+        public IMusicOrder MusicOrder { get; set; }
 
-        public Word Word { get; set; }
-        public Word WordSub { get; set; }
-        public Word WordDetail { get; set; }
+        public IWord Word { get; set; }
+        public IWord WordSub { get; set; }
+        public IWord WordDetail { get; set; }
 
 
         public override string ToString() => $"{UniqueId}. {Id}";

@@ -1,5 +1,10 @@
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows.Forms;
+using TaikoSoundEditor.Commons.Controls;
+using TaikoSoundEditor.Commons.Utils;
 using TaikoSoundEditor.Data;
-using TaikoSoundEditor.Utils;
 
 namespace TaikoSoundEditor
 {
@@ -21,21 +26,20 @@ namespace TaikoSoundEditor
             SimpleGenreBox.DataSource = Enum.GetValues(typeof(Genre));
 
             DatatableKeyBox.Text = Config.IniFile.Read("DatatableKey");
-            FumenKeyBox.Text = Config.IniFile.Read("FumenKey");
+            FumenKeyBox.Text = Config.IniFile.Read("FumenKey");            
 
-
-            LoadPreferences();
+            LoadPreferences();            
             //SortByGenreToolStripMenuItem.RadioCheck = true;
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             Logger.Info($"Commuted to tab {TabControl.SelectedIndex}.{TabControl.Name}");
-        }        
+        }
 
         #region Editor
 
-        private void LoadMusicInfo(MusicInfo item)
+        private void LoadMusicInfo(IMusicInfo item)
         {            
             Logger.Info($"Showing properties for MusicInfo: {item}");
 
@@ -108,7 +112,7 @@ namespace TaikoSoundEditor
             if (indexChanging) return;
             indexChanging = true;
             NewSoundsBox.SelectedItem = null;
-            var item = LoadedMusicBox.SelectedItem as MusicInfo;
+            var item = LoadedMusicBox.SelectedItem as IMusicInfo;
             Logger.Info($"Selection Changed MusicItem: {item}");
             LoadMusicInfo(item);
             indexChanging = false;
@@ -146,7 +150,7 @@ namespace TaikoSoundEditor
             MusicAttributes.Items.Remove(ns.MusicAttribute);
         }
 
-        private void RemoveExistingSong(MusicInfo mi)
+        private void RemoveExistingSong(IMusicInfo mi)
         {
             var ma = MusicAttributes.GetByUniqueId(mi.UniqueId);
             var mo = MusicOrders.GetByUniqueId(mi.UniqueId);
@@ -196,7 +200,7 @@ namespace TaikoSoundEditor
             if (LoadedMusicBox.SelectedItem != null)
             {
                 Logger.Info("Removing existing song");
-                var mi = LoadedMusicBox.SelectedItem as MusicInfo;
+                var mi = LoadedMusicBox.SelectedItem as IMusicInfo;
                 RemoveExistingSong(mi);
                 return;
             }
@@ -215,7 +219,7 @@ namespace TaikoSoundEditor
 
             if (LoadedMusicBox.SelectedItem != null)
             {
-                var item = LoadedMusicBox.SelectedItem as MusicInfo;
+                var item = LoadedMusicBox.SelectedItem as IMusicInfo;
                 Logger.Info($"Tab switched, reloading MusicItem: {item}");
                 LoadMusicInfo(item);
                 return;
@@ -237,7 +241,7 @@ namespace TaikoSoundEditor
 
             if (LoadedMusicBox.SelectedItem != null)
             {
-                var item = LoadedMusicBox.SelectedItem as MusicInfo;
+                var item = LoadedMusicBox.SelectedItem as IMusicInfo;
 
                 Logger.Info($"Simple Box changed : {(sender as Control).Name} to value {(sender as Control).Text}");
 
@@ -272,7 +276,7 @@ namespace TaikoSoundEditor
             }
         });
 
-        private void MusicOrderViewer_SongRemoved(Controls.MusicOrderViewer sender, MusicOrder mo) => ExceptionGuard.Run(() =>
+        private void MusicOrderViewer_SongRemoved(MusicOrderViewer sender, IMusicOrder mo) => ExceptionGuard.Run(() =>
         {
             var uniqId = mo.UniqueId;
             if (MusicOrderViewer.SongExists(uniqId))
@@ -299,7 +303,7 @@ namespace TaikoSoundEditor
         {
             if (LoadedMusicBox.SelectedItem != null)
             {
-                var item = LoadedMusicBox.SelectedItem as MusicInfo;
+                var item = LoadedMusicBox.SelectedItem as IMusicInfo;
                 var mo = MusicOrders.GetByUniqueId(item.UniqueId);
                 if (MusicOrderViewer.Locate(mo))
                 {
@@ -318,10 +322,10 @@ namespace TaikoSoundEditor
             }
         });
 
-        private void MusicOrderViewer_SongDoubleClick(Controls.MusicOrderViewer sender, MusicOrder mo)
+        private void MusicOrderViewer_SongDoubleClick(MusicOrderViewer sender, IMusicOrder mo)
         {
             var uid = mo.UniqueId;
-            var mi = LoadedMusicBox.Items.Cast<MusicInfo>().Where(_ => _.UniqueId == uid).FirstOrDefault();
+            var mi = LoadedMusicBox.Items.Cast<IMusicInfo>().Where(_ => _.UniqueId == uid).FirstOrDefault();
             if(mi!=null)
             {
                 LoadedMusicBox.SelectedItem = mi;
@@ -399,10 +403,9 @@ namespace TaikoSoundEditor
             }
         }
 
-        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e) => ExceptionGuard.Run(async () =>
+        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {            
             //var rel = await Updates.GetLatestTja2Fumen();
-
         });
 
         private void DatatableKeyBox_TextChanged(object sender, EventArgs e)
@@ -414,5 +417,16 @@ namespace TaikoSoundEditor
         {
             Config.IniFile.Write("FumenKey", FumenKeyBox.Text);
         }
+
+        private void LoadedMusicBox_DrawItem(object sender, DrawItemEventArgs e)
+        {            
+            e.DrawBackground();            
+            if (e.Index<0 || e.Index >= LoadedMusicBox.Items.Count)
+                return;
+            var selItem = LoadedMusicBox.Items[e.Index] as IMusicInfo;
+            TextRenderer.DrawText(e.Graphics, $"{selItem.UniqueId}. {selItem.Id}", Font, e.Bounds, e.ForeColor, e.BackColor, TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
+            e.DrawFocusRectangle();
+        }
+        
     }
 }

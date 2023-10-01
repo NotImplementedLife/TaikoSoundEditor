@@ -1,199 +1,267 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1528DE8C-B28F-4C97-9404-13E4AF27D989}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>disable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Authors>NotImplementedLife</Authors>
-    <AssemblyVersion>0.5</AssemblyVersion>
-    <Version>0.5</Version>
+    <RootNamespace>TaikoSoundEditor</RootNamespace>
+    <AssemblyName>TaikoSoundEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
-
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="SharpZipLib" Version="1.4.2" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.4.2.13, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.4.2\lib\netstandard2.0\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.7.0.0\lib\net462\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.7.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=7.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.7.0.3\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
-
   <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
+    <Compile Include="Collections\Collection.cs" />
+    <Compile Include="Collections\MusicAttributes.cs" />
+    <Compile Include="Collections\MusicInfos.cs" />
+    <Compile Include="Collections\MusicOrders.cs" />
+    <Compile Include="Collections\WordList.cs" />
+    <Compile Include="Commons\Controls\FolderPicker.cs" />
+    <Compile Include="Commons\Controls\MusicOrderViewer.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
+    <Compile Include="Commons\Controls\MusicOrderViewer.Designer.cs">
+      <DependentUpon>MusicOrderViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Commons\Controls\PathSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Commons\Controls\PathSelector.Designer.cs">
+      <DependentUpon>PathSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Commons\Controls\SongCard.cs" />
+    <Compile Include="Commons\Emit\DatatableEntityTypeBuilder.cs" />
+    <Compile Include="Commons\Emit\DynamicTypeCollection.cs" />
+    <Compile Include="Commons\Emit\EntityPropertyInfo.cs" />
+    <Compile Include="Commons\Emit\EntityPropertyInfoDTO.cs" />
+    <Compile Include="Commons\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Commons\Extensions\IntExtensions.cs" />
+    <Compile Include="Commons\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Commons\Extensions\StringExtensions.cs" />
+    <Compile Include="Commons\IO\GZ.cs" />
+    <Compile Include="Commons\IO\IDSP.cs" />
+    <Compile Include="Commons\IO\Json.cs" />
+    <Compile Include="Commons\IO\SSL.cs" />
+    <Compile Include="Commons\IO\TJA.cs" />
+    <Compile Include="Commons\IO\WAV.cs" />
+    <Compile Include="Commons\Utils\Config.cs" />
+    <Compile Include="Commons\Utils\Constants.cs" />
+    <Compile Include="Commons\Utils\DatatableIO.cs" />
+    <Compile Include="Commons\Utils\ExceptionGuard.cs" />
+    <Compile Include="Commons\Utils\IniFile.cs" />
+    <Compile Include="Commons\Utils\Logger.cs" />
+    <Compile Include="Commons\Utils\Number.cs" />
+    <Compile Include="Commons\Utils\ProcessArgs.cs" />
+    <Compile Include="Commons\Utils\RecastAttribute.cs" />
+    <Compile Include="Commons\Utils\Types.cs" />
+    <Compile Include="DatatableTypes.cs" />
+    <Compile Include="Data\IMusicAttribute.cs" />
+    <Compile Include="Data\IMusicInfo.cs" />
+    <Compile Include="Data\IMusicOrder.cs" />
+    <Compile Include="Data\IWord.cs" />
+    <Compile Include="Data\NewSongData.cs" />
+    <Compile Include="Genre.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.Exports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Properties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.RequestFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.SoundCreate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NUS3Bank.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Commons\Controls\MusicOrderViewer.resx">
+      <DependentUpon>MusicOrderViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Commons\Controls\PathSelector.resx">
+      <DependentUpon>PathSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="LICENSE" />
+    <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="README.md" />
+    <None Include="Resources\song_ABCDEF_nus3bank.bin" />
+    <None Include="Tools\7z\Far\7-ZipEng.hlf" />
+    <None Include="Tools\7z\Far\7-ZipEng.lng" />
+    <None Include="Tools\7z\Far\7-ZipRus.hlf" />
+    <None Include="Tools\7z\Far\7-ZipRus.lng" />
+    <None Include="Tools\7z\Far\7zToFar.ini" />
+    <None Include="Tools\7z\Far\far7z.reg" />
+    <None Include="Tools\sox\batch-example.bat" />
+    <None Include="Tools\sox\sox.pdf" />
+    <None Include="Tools\sox\soxformat.pdf" />
+    <None Include="Tools\sox\soxi.pdf" />
+    <None Include="Tools\sox\wget.ini" />
+    <None Include="Tools\VGAudio\wav2idsp.bat" />
   </ItemGroup>
-
   <ItemGroup>
-    <None Update="Tools\7z\7za.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\7za.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\7zxa.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\Far\7-ZipEng.hlf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\Far\7-ZipEng.lng">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\Far\7-ZipFar.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\Far\7-ZipFar64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\Far\7-ZipRus.hlf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\Far\7-ZipRus.lng">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\Far\7zToFar.ini">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\Far\far7z.reg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\Far\far7z.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\history.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\License.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\readme.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\x64\7za.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\x64\7za.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\7z\x64\7zxa.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\batch-example.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\ChangeLog.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libflac-8.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libgcc_s_sjlj-1.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libgomp-1.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libid3tag-0.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libogg-0.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libpng16-16.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libsox-3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libssp-0.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libvorbis-0.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libvorbisenc-2.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libvorbisfile-3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libwavpack-1.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\libwinpthread-1.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\LICENSE.GPL.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\README.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\README.win32.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\sox.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\sox.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\soxformat.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\soxi.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\wget.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\wget.ini">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\sox\zlib1.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\tja2fumen.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\VGAudio\idsp\empty.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\VGAudio\VGAudio.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\VGAudio\VGAudio.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\VGAudio\VGAudio.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\VGAudio\VGAudioCli.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\VGAudio\VGAudioCli.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\VGAudio\VGAudioTools.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\VGAudio\VGAudioTools.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\VGAudio\wav2idsp.bat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Tools\VGAudio\wav\empty.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="App.config" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="Properties\PublishProfiles\FolderProfile.pubxml.user" />
+    <None Include="Resources\datatable_def_08_18.txt" />
+    <Content Include="Resources\ic_cut.png" />
+    <Content Include="Resources\ic_cut_gs.png" />
+    <Content Include="Resources\ic_left_10.png" />
+    <Content Include="Resources\ic_list_end.png" />
+    <Content Include="Resources\ic_list_start.png" />
+    <Content Include="Resources\ic_paste.png" />
+    <Content Include="Resources\ic_paste_gs.png" />
+    <Content Include="Resources\ic_remove.png" />
+    <Content Include="Resources\ic_remove_gs.png" />
+    <Content Include="Resources\ic_right_10.png" />
+    <Content Include="Resources\ic_search.png" />
+    <Content Include="Tools\7z\7za.dll" />
+    <Content Include="Tools\7z\7za.exe" />
+    <Content Include="Tools\7z\7zxa.dll" />
+    <Content Include="Tools\7z\Far\7-ZipFar.dll" />
+    <Content Include="Tools\7z\Far\7-ZipFar64.dll" />
+    <Content Include="Tools\7z\Far\far7z.txt" />
+    <Content Include="Tools\7z\history.txt" />
+    <Content Include="Tools\7z\License.txt" />
+    <Content Include="Tools\7z\readme.txt" />
+    <Content Include="Tools\7z\x64\7za.dll" />
+    <Content Include="Tools\7z\x64\7za.exe" />
+    <Content Include="Tools\7z\x64\7zxa.dll" />
+    <Content Include="Tools\sox\ChangeLog.txt" />
+    <Content Include="Tools\sox\libflac-8.dll" />
+    <Content Include="Tools\sox\libgcc_s_sjlj-1.dll" />
+    <Content Include="Tools\sox\libgomp-1.dll" />
+    <Content Include="Tools\sox\libid3tag-0.dll" />
+    <Content Include="Tools\sox\libogg-0.dll" />
+    <Content Include="Tools\sox\libpng16-16.dll" />
+    <Content Include="Tools\sox\libsox-3.dll" />
+    <Content Include="Tools\sox\libssp-0.dll" />
+    <Content Include="Tools\sox\libvorbis-0.dll" />
+    <Content Include="Tools\sox\libvorbisenc-2.dll" />
+    <Content Include="Tools\sox\libvorbisfile-3.dll" />
+    <Content Include="Tools\sox\libwavpack-1.dll" />
+    <Content Include="Tools\sox\libwinpthread-1.dll" />
+    <Content Include="Tools\sox\LICENSE.GPL.txt" />
+    <Content Include="Tools\sox\Lycoris.ogg" />
+    <Content Include="Tools\sox\README.txt" />
+    <Content Include="Tools\sox\README.win32.txt" />
+    <Content Include="Tools\sox\sox.exe" />
+    <Content Include="Tools\sox\wav.wav" />
+    <Content Include="Tools\sox\wav2.wav" />
+    <Content Include="Tools\sox\wget.exe" />
+    <Content Include="Tools\sox\zlib1.dll" />
+    <Content Include="Tools\tja2fumen.exe" />
+    <Content Include="Tools\VGAudio\idsp\empty.txt" />
+    <Content Include="Tools\VGAudio\VGAudio.dll" />
+    <Content Include="Tools\VGAudio\VGAudio.pdb" />
+    <Content Include="Tools\VGAudio\VGAudio.xml" />
+    <Content Include="Tools\VGAudio\VGAudioCli.exe" />
+    <Content Include="Tools\VGAudio\VGAudioCli.pdb" />
+    <Content Include="Tools\VGAudio\VGAudioTools.exe" />
+    <Content Include="Tools\VGAudio\VGAudioTools.pdb" />
+    <Content Include="Tools\VGAudio\wav\empty.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

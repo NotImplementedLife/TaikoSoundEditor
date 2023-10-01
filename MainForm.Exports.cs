@@ -1,6 +1,12 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using TaikoSoundEditor.Collections;
+using TaikoSoundEditor.Commons;
+using TaikoSoundEditor.Commons.Utils;
 using TaikoSoundEditor.Data;
-using TaikoSoundEditor.Utils;
 
 namespace TaikoSoundEditor
 {
@@ -118,7 +124,7 @@ namespace TaikoSoundEditor
                 Process.Start($"explorer.exe", path);
         });
 
-        private string PickPath()
+        private static string PickPath()
         {
             Logger.Info($"Picking path dialog");
             var picker = new FolderPicker();

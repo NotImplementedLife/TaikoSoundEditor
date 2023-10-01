@@ -61,6 +61,30 @@ namespace TaikoSoundEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;types&quot;: [
+        ///    {
+        ///      &quot;name&quot;: &quot;Word&quot;,
+        ///      &quot;properties&quot;: [			 
+        ///        { &quot;name&quot;: &quot;Key&quot;, &quot;type&quot;: &quot;String&quot;, &quot;isReadOnly&quot;: true, &quot;defaultValue&quot;: &quot;song_...&quot; },
+        ///        { &quot;name&quot;: &quot;JapaneseText&quot;, &quot;type&quot;: &quot;String&quot;, &quot;defaultValue&quot;: &quot;text..&quot; },
+        ///        { &quot;name&quot;: &quot;JapaneseFontType&quot;, &quot;type&quot;: &quot;Int32&quot;, &quot;defaultValue&quot;: &quot;0&quot; }
+        ///      ],
+        ///      &quot;interface&quot;: &quot;TaikoSoundEditor.Data.IWord&quot;
+        ///    },
+        ///	
+        ///	{
+        ///      &quot;name&quot;: &quot;MusicOrder&quot;,
+        ///      &quot;properties&quot;: [	  
+        ///		{ &quot;name&quot;: &quot;GenreNo&quot;, &quot;type&quot;: &quot;Int32&quot;, &quot;defaultValue&quot;: [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string datatable_def_08_18 {
+            get {
+                return ResourceManager.GetString("datatable_def_08_18", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ic_cut {

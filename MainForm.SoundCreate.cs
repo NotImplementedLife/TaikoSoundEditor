@@ -1,10 +1,16 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using TaikoSoundEditor.Commons.IO;
+using TaikoSoundEditor.Commons.Utils;
 using TaikoSoundEditor.Data;
-using TaikoSoundEditor.Utils;
 
 namespace TaikoSoundEditor
 {
-    partial class MainForm
+	partial class MainForm
     {
 		private void CreateButton_Click(object sender, EventArgs e)
 		{
@@ -136,7 +142,7 @@ namespace TaikoSoundEditor
 
 
 			Logger.Info("Creating temporary tja");
-			var newTja = @$".-tmp\{Path.GetFileName(tjaPath)}";
+			var newTja = $@".-tmp\{Path.GetFileName(tjaPath)}";
 			File.WriteAllLines(newTja, text);
 
 
@@ -170,29 +176,27 @@ namespace TaikoSoundEditor
 			ns.NBin2 = tja_binaries[13];
 
 
-			var selectedMusicInfo = LoadedMusicBox.SelectedItem as MusicInfo;
+			var selectedMusicInfo = LoadedMusicBox.SelectedItem as IMusicInfo;
 
-			var mi = (selectedMusicInfo ?? (NewSoundsBox.SelectedItem as NewSongData)?.MusicInfo ?? new MusicInfo()).Clone();
+			var mi = (selectedMusicInfo ?? (NewSoundsBox.SelectedItem as NewSongData)?.MusicInfo ?? DatatableTypes.CreateMusicInfo()).Clone();
 			mi.Id = songName;
 			mi.UniqueId = id;
 			ns.MusicInfo = mi;
 
-			var mo = new MusicOrder();
-			mo.Id = songName;
-			mo.UniqueId = id;
+			var mo = DatatableTypes.CreateMusicOrder(Genre.Pop, songName, id);			
 			ns.MusicOrder = mo;
 
-			var ma = selectedMusicInfo != null ? MusicAttributes.GetByUniqueId(selectedMusicInfo.UniqueId).Clone() : new MusicAttribute();
+			var ma = selectedMusicInfo != null ? MusicAttributes.GetByUniqueId(selectedMusicInfo.UniqueId).Clone() : DatatableTypes.CreateMusicAttribute("", 0);
 			ma.Id = songName;
 			ma.UniqueId = id;
 			ma.New = true;
 			ns.MusicAttribute = ma;
 
-			ns.Word = WordList.GetBySong(songName) ?? new Word { Key = $"song_{songName}" };
+			ns.Word = WordList.GetBySong(songName) ?? DatatableTypes.CreateWord($"song_{songName}");
 			ns.Word.JapaneseText = tja.Headers.Title;
-            ns.WordSub = WordList.GetBySongSub(songName) ?? new Word { Key = $"song_sub_{songName}" };
+            ns.WordSub = WordList.GetBySongSub(songName) ?? DatatableTypes.CreateWord($"song_{songName}");
             ns.WordSub.JapaneseText = tja.Headers.Subtitle;
-            ns.WordDetail = WordList.GetBySongDetail(songName) ?? new Word { Key = $"song_detail_{songName}", JapaneseText = tja.Headers.TitleJa };
+			ns.WordDetail = WordList.GetBySongDetail(songName) ?? DatatableTypes.CreateWord($"song_{songName}", tja.Headers.TitleJa);
             ns.WordDetail.JapaneseText = tja.Headers.TitleJa;
 
             mi.EasyOnpuNum = tja.Courses[0].NotesCount;

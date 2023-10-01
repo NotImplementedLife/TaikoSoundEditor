@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
+using TaikoSoundEditor.Collections;
+using TaikoSoundEditor.Commons.Controls;
+using TaikoSoundEditor.Commons.Utils;
 using TaikoSoundEditor.Data;
-using TaikoSoundEditor.Utils;
 
 namespace TaikoSoundEditor
 {
@@ -70,8 +72,8 @@ namespace TaikoSoundEditor
             Config.DatatableIO.IsEncrypted = UseEncryptionBox.Checked;
             
             try
-            {                
-                MusicAttributes = Config.DatatableIO.Deserialize<MusicAttributes>(MusicAttributePath);                
+            {                                
+                MusicAttributes = Config.DatatableIO.DeserializeCollection<MusicAttributes, IMusicAttribute>(MusicAttributePath, DatatableTypes.MusicAttribute);
             }
             catch (Exception ex)
             {
@@ -79,26 +81,28 @@ namespace TaikoSoundEditor
             }
             try
             {                
-                MusicOrders = Config.DatatableIO.Deserialize<MusicOrders>(MusicOrderPath);
+                MusicOrders = Config.DatatableIO.DeserializeCollection<MusicOrders, IMusicOrder>(MusicOrderPath, DatatableTypes.MusicOrder);                
             }
             catch (Exception ex)
             {
+                throw;
                 throw new Exception($"Failed to parse\n{MusicOrderPath}\nReason:\n{ex.InnerException}");
             }
             try
-            {                
-                MusicInfos = Config.DatatableIO.Deserialize<MusicInfos>(MusicInfoPath);
+            {                                
+                MusicInfos = Config.DatatableIO.DeserializeCollection<MusicInfos, IMusicInfo>(MusicInfoPath, DatatableTypes.MusicInfo);
             }
             catch (Exception ex)
             {
                 throw new Exception($"Failed to parse\n{MusicInfoPath}\nReason:\n{ex.InnerException}");
             }
             try
-            {                
-                WordList = Config.DatatableIO.Deserialize<WordList>(WordListPath);
+            {
+                WordList = Config.DatatableIO.DeserializeCollection<WordList, IWord>(WordListPath, DatatableTypes.Word);
             }
             catch (Exception ex)
             {
+                throw;
                 throw new Exception($"Failed to parse\n{WordListPath}\nReason:\n{ex.InnerException}");
             }
 
@@ -113,39 +117,29 @@ namespace TaikoSoundEditor
                 {
                     Logger.Info($"Added missing music_attribute entry for {mi.UniqueId}.{songId}");
 
-                    MusicAttributes.Items.Add(new MusicAttribute
-                    {
-                        Id = songId,
-                        UniqueId = mi.UniqueId,
-                        New = false
-                    });
+                    MusicAttributes.Items.Add(DatatableTypes.CreateMusicAttribute(songId, mi.UniqueId, false));
                 }
 
                 if(MusicOrders.GetByUniqueId(mi.UniqueId)==null)
                 {
                     Logger.Info($"Added missing music_order entry for {mi.UniqueId}.{songId}");
-                    MusicOrders.Items.Add(new MusicOrder
-                    {
-                        Genre = mi.Genre,
-                        Id = songId,
-                        UniqueId = mi.UniqueId
-                    });
+                    MusicOrders.Items.Add(DatatableTypes.CreateMusicOrder(mi.Genre, songId, mi.UniqueId));
                 }
 
                 if (WordList.GetBySong(songId) == null)
                 {
                     Logger.Info($"Added missing word title entry for {mi.UniqueId}.{songId}");
-                    WordList.Items.Add(new Word { Key = $"song_{songId}", JapaneseText = "" });
+                    WordList.Items.Add(DatatableTypes.CreateWord($"song_{songId}", ""));
                 }
                 if (WordList.GetBySongSub(songId) == null)
                 {
                     Logger.Info($"Added missing word subtitle entry for {mi.UniqueId}.{songId}");
-                    WordList.Items.Add(new Word { Key = $"song_sub_{songId}", JapaneseText = "" });
+                    WordList.Items.Add(DatatableTypes.CreateWord($"song_sub_{songId}", ""));                    
                 }
                 if (WordList.GetBySongDetail(songId) == null)
                 {
                     Logger.Info($"Added missing word detail entry for {mi.UniqueId}.{songId}");
-                    WordList.Items.Add(new Word { Key = $"song_detail_{songId}", JapaneseText = "" });
+                    WordList.Items.Add(DatatableTypes.CreateWord($"song_detail_{songId}", ""));                    
                 }
             }
 
