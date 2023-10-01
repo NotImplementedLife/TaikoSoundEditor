@@ -1,0 +1,121 @@
+{
+  "types": [
+    {
+      "name": "Word",
+      "properties": [			 
+        { "name": "Key", "type": "String", "isReadOnly": true, "defaultValue": "song_..." },
+        { "name": "JapaneseText", "type": "String", "defaultValue": "text.." },
+        { "name": "JapaneseFontType", "type": "Int32", "defaultValue": "0" }
+      ],
+      "interface": "TaikoSoundEditor.Data.IWord"
+    },
+	
+	{
+      "name": "MusicOrder",
+      "properties": [	  
+		{ "name": "GenreNo", "type": "Int32", "defaultValue": "0" },
+		{ "name": "Id", "type": "String", "defaultValue": "ABCDEF", "isReadOnly":true },
+		{ "name": "UniqueId", "type": "Int32", "defaultValue": "0", "isReadOnly":true},		
+		{ "name": "CloseDispType", "type": "Int32", "defaultValue": "0" }
+      ],
+      "interface": "TaikoSoundEditor.Data.IMusicOrder"
+    },
+	
+	{
+      "name": "MusicAttribute",
+      "properties": [	  
+		{ "name": "Id", "type": "String", "defaultValue": "ABCDEF", "isReadOnly":true },
+		{ "name": "UniqueId", "type": "Int32", "defaultValue": "0", "isReadOnly":true},		
+		{ "name": "New", "type": "Boolean", "defaultValue": "false"},				
+		{ "name": "DoublePlay", "type": "Boolean", "defaultValue": "false"},		
+		{ "name": "IsNotCopyright", "type": "Boolean", "defaultValue": "true"},		
+		{ "name": "Tag1", "type": "String", "defaultValue": ""},		
+		{ "name": "Tag2", "type": "String", "defaultValue": ""},		
+		{ "name": "Tag3", "type": "String", "defaultValue": ""},		
+		{ "name": "Tag4", "type": "String", "defaultValue": ""},		
+		{ "name": "Tag5", "type": "String", "defaultValue": ""},		
+		{ "name": "Tag6", "type": "String", "defaultValue": ""},		
+		{ "name": "Tag7", "type": "String", "defaultValue": ""},		
+		{ "name": "Tag8", "type": "String", "defaultValue": ""},		
+		{ "name": "Tag9", "type": "String", "defaultValue": ""},		
+		{ "name": "Tag10", "type": "String", "defaultValue": ""},		
+		{ "name": "ensoPartsID1", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ensoPartsID2", "type": "Int32", "defaultValue": "0"},				
+		{ "name": "DonBg1p", "type": "String", "defaultValue": ""},		
+		{ "name": "DonBg2p", "type": "String", "defaultValue": ""},		
+		{ "name": "DancerDai", "type": "String", "defaultValue": ""},		
+		{ "name": "Dancer", "type": "String", "defaultValue": ""},		
+		{ "name": "DanceNormalBg", "type": "String", "defaultValue": ""},		
+		{ "name": "DanceFeverBg", "type": "String", "defaultValue": ""},		
+		{ "name": "RendaEffect", "type": "String", "defaultValue": ""},		
+		{ "name": "Fever", "type": "String", "defaultValue": ""},		
+		{ "name": "DonBg1p1", "type": "String", "defaultValue": ""},		
+		{ "name": "DonBg2p1", "type": "String", "defaultValue": ""},		
+		{ "name": "DancerDai1", "type": "String", "defaultValue": ""},		
+		{ "name": "Dancer1", "type": "String", "defaultValue": ""},		
+		{ "name": "DanceNormalBg1", "type": "String", "defaultValue": ""},		
+		{ "name": "DanceFeverBg1", "type": "String", "defaultValue": ""},		
+		{ "name": "RendaEffect1", "type": "String", "defaultValue": ""},		
+		{ "name": "Fever1", "type": "String", "defaultValue": ""}		
+      ],
+      "interface": "TaikoSoundEditor.Data.IMusicAttribute"
+    },
+	{
+      "name": "MusicInfo",
+      "properties": [	  
+		{ "name": "Id", "type": "String", "defaultValue": "ABCDEF", "isReadOnly":true },
+		{ "name": "UniqueId", "type": "Int32", "defaultValue": "0", "isReadOnly":true},		
+		{ "name": "GenreNo", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "SongFileName", "type": "String", "defaultValue": ""},		
+		{ "name": "Papamama", "type": "Boolean", "defaultValue": "false"},		
+		{ "name": "BranchEasy", "type": "Boolean", "defaultValue": "false"},		
+		{ "name": "BranchNormal", "type": "Boolean", "defaultValue": "false"},		
+		{ "name": "BranchHard", "type": "Boolean", "defaultValue": "false"},		
+		{ "name": "BranchMania", "type": "Boolean", "defaultValue": "false"},		
+		{ "name": "BranchUra", "type": "Boolean", "defaultValue": "false"},		
+		{ "name": "StarEasy", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "StarNormal", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "StarHard", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "StarMania", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "StarUra", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiEasy", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiNormal", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiHard", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiMania", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiUra", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiEasyDuet", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiNormalDuet", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiHardDuet", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiManiaDuet", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiUraDuet", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiScoreEasy", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiScoreNormal", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiScoreHard", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiScoreMania", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiScoreUra", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiScoreEasyDuet", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiScoreNormalDuet", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiScoreHardDuet", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiScoreManiaDuet", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ShinutiScoreUraDuet", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "EasyOnpuNum", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "NormalOnpuNum", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "HardOnpuNum", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "ManiaOnpuNum", "type": "Int32", "defaultValue": "0"},		
+		{ "name": "UraOnpuNum", "type": "Int32", "defaultValue": "0"},				
+		{ "name": "RendaTimeEasy", "type": "Double", "defaultValue": "0"},		
+		{ "name": "RendaTimeNormal", "type": "Double", "defaultValue": "0"},		
+		{ "name": "RendaTimeHard", "type": "Double", "defaultValue": "0"},		
+		{ "name": "RendaTimeMania", "type": "Double", "defaultValue": "0"},		
+		{ "name": "RendaTimeUra", "type": "Double", "defaultValue": "0"},		
+		{ "name": "RendaTimeUra", "type": "Double", "defaultValue": "0"},		
+		{ "name": "FuusenTotalEasy", "type": "Int32", "defaultValue": "0"},				
+		{ "name": "FuusenTotalNormal", "type": "Int32", "defaultValue": "0"},				
+		{ "name": "FuusenTotalHard", "type": "Int32", "defaultValue": "0"},				
+		{ "name": "FuusenTotalMania", "type": "Int32", "defaultValue": "0"},				
+		{ "name": "FuusenTotalUra", "type": "Int32", "defaultValue": "0"}
+	  ],
+	  "interface": "TaikoSoundEditor.Data.IMusicInfo"
+	}	
+  ]
+}

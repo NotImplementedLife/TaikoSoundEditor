@@ -9,7 +9,7 @@ namespace TaikoSoundEditor.Commons.Emit
         public Type Type { get; }
         public string JsonPropertyName { get; }
         public bool IsReadOnly { get; }
-        public object DefaultValue { get; }
+        public object DefaultValue { get; }        
 
         public EntityPropertyInfo(string name, Type type, string jsonPropertyName = null, bool isReadOnly = false, object defaultValue = null)
         {

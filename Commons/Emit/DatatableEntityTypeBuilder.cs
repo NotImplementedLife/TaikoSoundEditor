@@ -211,6 +211,9 @@ namespace TaikoSoundEditor.Commons.Emit
 
             if (property.JsonPropertyName != null)
                 AddAttribute(pb, typeof(JsonPropertyNameAttribute), property.JsonPropertyName);
+            else
+                AddAttribute(pb, typeof(JsonIgnoreAttribute), new object[0]);
+
             if (property.IsReadOnly)
                 AddAttribute(pb, typeof(ReadOnlyAttribute), true);
         }

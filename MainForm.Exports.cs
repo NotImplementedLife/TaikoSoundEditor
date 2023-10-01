@@ -2,9 +2,11 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 using TaikoSoundEditor.Collections;
 using TaikoSoundEditor.Commons;
+using TaikoSoundEditor.Commons.IO;
 using TaikoSoundEditor.Commons.Utils;
 using TaikoSoundEditor.Data;
 
@@ -27,12 +29,12 @@ namespace TaikoSoundEditor
             mo.Items.AddRange(MusicOrderViewer.SongCards.Select(_ => _.MusicOrder));
 
             var wl = new WordList();
-            wl.Items.AddRange(WordList.Items);           
+            wl.Items.AddRange(WordList.Items);
 
-            Config.DatatableIO.Serialize(Path.Combine(path, "musicinfo.bin"), mi, indented: !DatatableSpaces.Checked);
-            Config.DatatableIO.Serialize(Path.Combine(path, "music_attribute.bin"), ma, fixBools: true);
-            Config.DatatableIO.Serialize(Path.Combine(path, "music_order.bin"), mo);
-            Config.DatatableIO.Serialize(Path.Combine(path, "wordlist.bin"), wl, indented: true);            
+            Config.DatatableIO.DynamicSerialize(Path.Combine(path, "musicinfo.bin"), mi.Cast(DatatableTypes.MusicInfo) , indented: !DatatableSpaces.Checked);
+            Config.DatatableIO.DynamicSerialize(Path.Combine(path, "music_attribute.bin"), ma.Cast(DatatableTypes.MusicAttribute), fixBools: true);
+            Config.DatatableIO.DynamicSerialize(Path.Combine(path, "music_order.bin"), mo.Cast(DatatableTypes.MusicOrder));
+            Config.DatatableIO.DynamicSerialize(Path.Combine(path, "wordlist.bin"), wl.Cast(DatatableTypes.Word), indented: true);
         }
 
         private void ExportNusBanks(string path)
@@ -54,26 +56,33 @@ namespace TaikoSoundEditor
                 if (!Directory.Exists(sdir))
                     Directory.CreateDirectory(sdir);
 
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_e.bin"), ns.EBin);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_n.bin"), ns.NBin);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_h.bin"), ns.HBin);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_m.bin"), ns.MBin);
+                void Save(string suffix, byte[] bytes)
+                {
+                    if (UseEncryptionBox.Checked)
+                        bytes = SSL.EncryptFumen(bytes);
+                    File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_{suffix}.bin"), bytes);
+                }
 
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_e_1.bin"), ns.EBin1);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_n_1.bin"), ns.NBin1);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_h_1.bin"), ns.HBin1);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_m_1.bin"), ns.MBin1);
+                Save("e", ns.EBin);
+                Save("n", ns.NBin);
+                Save("h", ns.HBin);
+                Save("m", ns.MBin);
 
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_e_2.bin"), ns.EBin2);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_n_2.bin"), ns.NBin2);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_h_2.bin"), ns.HBin2);
-                File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_m_2.bin"), ns.MBin2);
+                Save("e_1", ns.EBin1);
+                Save("n_1", ns.NBin1);
+                Save("h_1", ns.HBin1);
+                Save("m_1", ns.MBin1);
+
+                Save("e_2", ns.EBin2);
+                Save("n_2", ns.NBin2);
+                Save("h_2", ns.HBin2);
+                Save("m_2", ns.MBin2);               
 
                 if (ns.MusicAttribute.CanPlayUra)
                 {
-                    File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_x.bin"), ns.XBin);
-                    File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_x_1.bin"), ns.XBin1);
-                    File.WriteAllBytes(Path.Combine(sdir, $"{ns.Id}_x_2.bin"), ns.XBin2);
+                    Save("x", ns.XBin);
+                    Save("x_1", ns.XBin1);
+                    Save("x_2", ns.XBin2);                    
                 }
             }
         }

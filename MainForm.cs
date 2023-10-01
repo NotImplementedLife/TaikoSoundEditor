@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TaikoSoundEditor.Commons.Controls;
@@ -28,7 +29,8 @@ namespace TaikoSoundEditor
             DatatableKeyBox.Text = Config.IniFile.Read("DatatableKey");
             FumenKeyBox.Text = Config.IniFile.Read("FumenKey");            
 
-            LoadPreferences();            
+            LoadPreferences();
+            DatatableDef.Path = Config.DatatableDefPath;
             //SortByGenreToolStripMenuItem.RadioCheck = true;
         }
 
@@ -426,7 +428,20 @@ namespace TaikoSoundEditor
             var selItem = LoadedMusicBox.Items[e.Index] as IMusicInfo;
             TextRenderer.DrawText(e.Graphics, $"{selItem.UniqueId}. {selItem.Id}", Font, e.Bounds, e.ForeColor, e.BackColor, TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
             e.DrawFocusRectangle();
+        }       
+        private void DatatableDef_PathChanged(object sender, EventArgs args)
+        {
+            try
+            {
+                var json = File.ReadAllText(DatatableDef.Path);
+                DatatableTypes.LoadFromJson(json);
+                Config.DatatableDefPath = DatatableDef.Path;                        
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
-        
+      
     }
 }

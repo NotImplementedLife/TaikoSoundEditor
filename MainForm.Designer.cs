@@ -34,6 +34,9 @@ namespace TaikoSoundEditor
             this.TabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.DatatableDef = new TaikoSoundEditor.Commons.Controls.PathSelector();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.UseEncryptionBox = new System.Windows.Forms.CheckBox();
             this.FumenKeyBox = new System.Windows.Forms.TextBox();
@@ -140,6 +143,7 @@ namespace TaikoSoundEditor
             this.TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox13.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -204,14 +208,48 @@ namespace TaikoSoundEditor
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.groupBox13);
             this.panel1.Controls.Add(this.groupBox12);
             this.panel1.Controls.Add(this.OkButton);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(125, 49);
+            this.panel1.Location = new System.Drawing.Point(125, 7);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(321, 298);
+            this.panel1.Size = new System.Drawing.Size(321, 376);
             this.panel1.TabIndex = 1;
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.label22);
+            this.groupBox13.Controls.Add(this.DatatableDef);
+            this.groupBox13.Location = new System.Drawing.Point(3, 273);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(315, 75);
+            this.groupBox13.TabIndex = 13;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "Config";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 22);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(71, 13);
+            this.label22.TabIndex = 14;
+            this.label22.Text = "Datatable def";
+            // 
+            // DatatableDef
+            // 
+            this.DatatableDef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DatatableDef.Filter = "JSON files(*.json)|*.json|All files(*.*)|*.*";
+            this.DatatableDef.Location = new System.Drawing.Point(83, 19);
+            this.DatatableDef.Name = "DatatableDef";
+            this.DatatableDef.Path = "";
+            this.DatatableDef.SelectsFolder = false;
+            this.DatatableDef.Size = new System.Drawing.Size(226, 20);
+            this.DatatableDef.TabIndex = 13;
+            this.DatatableDef.PathChanged += new TaikoSoundEditor.Commons.Controls.PathSelector.OnPathChanged(this.DatatableDef_PathChanged);
             // 
             // groupBox12
             // 
@@ -280,7 +318,7 @@ namespace TaikoSoundEditor
             // OkButton
             // 
             this.OkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OkButton.Location = new System.Drawing.Point(225, 276);
+            this.OkButton.Location = new System.Drawing.Point(225, 354);
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(93, 20);
             this.OkButton.TabIndex = 10;
@@ -413,7 +451,7 @@ namespace TaikoSoundEditor
             this.MusicAttributePathSelector.Name = "MusicAttributePathSelector";
             this.MusicAttributePathSelector.Path = "";
             this.MusicAttributePathSelector.SelectsFolder = false;
-            this.MusicAttributePathSelector.Size = new System.Drawing.Size(210, 20);
+            this.MusicAttributePathSelector.Size = new System.Drawing.Size(208, 20);
             this.MusicAttributePathSelector.TabIndex = 9;
             // 
             // label8
@@ -1357,6 +1395,8 @@ namespace TaikoSoundEditor
             this.TabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1512,5 +1552,8 @@ namespace TaikoSoundEditor
         private Label label21;
         private TextBox DatatableKeyBox;
         private CheckBox UseEncryptionBox;
+        private GroupBox groupBox13;
+        private Label label22;
+        private PathSelector DatatableDef;
     }
 }

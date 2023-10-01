@@ -48,6 +48,22 @@ namespace TaikoSoundEditor.Commons.Utils
             }
         }
 
+        public void DynamicSerialize(string path, object item, bool indented = false, bool fixBools = false)
+        {
+            var str = JsonFix(Json.DynamicSerialize(item, indented));
+            if (fixBools)
+            {
+                str = str
+                    .Replace("\"new\": true,", "\"new\":true,")
+                    .Replace("\"new\": false,", "\"new\":false,"); // is this still needed?
+            }
+
+            if (IsEncrypted)
+                File.WriteAllBytes(path, SSL.EncryptDatatable(GZ.CompressToBytes(str)));
+            else
+                File.WriteAllBytes(path, GZ.CompressToBytes(str));
+        }
+
         public void Serialize<T>(string path, T item, bool indented = false, bool fixBools = false)
         {
             var str = JsonFix(Json.Serialize(item, indented));

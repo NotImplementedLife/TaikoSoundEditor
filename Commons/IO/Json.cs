@@ -34,5 +34,16 @@ namespace TaikoSoundEditor.Commons.IO
             });
         }
 
+        public static string DynamicSerialize(object item, bool indented = true)
+        {
+            Logger.Info($"Serializing dynamic {item.GetType()}:\n{item}");
+
+            return JsonSerializer.Serialize(item, item.GetType(), new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                WriteIndented = indented
+            });
+        }
+
     }
 }
