@@ -10,6 +10,5 @@
         NamcoOriginal=5,
         Variety=7,
         Classical=8,
-        Custom=9
     }
 }
