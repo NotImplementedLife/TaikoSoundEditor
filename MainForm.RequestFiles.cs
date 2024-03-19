@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using TaikoSoundEditor.Collections;
 using TaikoSoundEditor.Commons.Controls;
+using TaikoSoundEditor.Commons.IO;
 using TaikoSoundEditor.Commons.Utils;
 using TaikoSoundEditor.Data;
 
@@ -70,7 +71,9 @@ namespace TaikoSoundEditor
             Logger.Info($"Clicked 'Looks good' ");
 
             Config.DatatableIO.IsEncrypted = UseEncryptionBox.Checked;
-            
+
+            SSL.LoadKeys();
+
             try
             {                                
                 MusicAttributes = Config.DatatableIO.DeserializeCollection<MusicAttributes, IMusicAttribute>(MusicAttributePath, DatatableTypes.MusicAttribute);

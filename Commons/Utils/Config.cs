@@ -5,10 +5,7 @@
         private static IniFile CreateIniFile()
         {
             var ini = new IniFile();
-            if(!ini.KeyExists("MusicOrderSort"))
-            {
-                ini.Write(MusicOrderSortProperty, MusicOrderSortValueNone);
-            }
+            if(!ini.KeyExists("MusicOrderSort")) ini.Write(MusicOrderSortProperty, MusicOrderSortValueNone);
             return ini;
         }
 
