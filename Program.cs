@@ -1,17 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Windows.Forms;
 using TaikoSoundEditor.Commons.Emit;
-using TaikoSoundEditor.Commons.Extensions;
-using TaikoSoundEditor.Commons.IO;
 using TaikoSoundEditor.Commons.Utils;
 using TaikoSoundEditor.Data;
 using TaikoSoundEditor.Properties;
@@ -43,8 +38,6 @@ namespace TaikoSoundEditor
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-            SSL.LoadKeys();
-
 
             string json = Resources.datatable_def_08_18;
             try
