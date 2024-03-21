@@ -23,6 +23,30 @@
             set => IniFile.Write(DatatableDefPathProperty, value);
         }
 
+        public static string DatatablesPath
+        {
+            get => IniFile.Read("DatatablePath");
+            set => IniFile.Write("DatatablePath", value);
+        }
+
+        public static string FumenKey
+        {
+            get => IniFile.Read("FumenKey");
+            set => IniFile.Write("FumenKey", value);
+        }
+
+        public static string DatatableKey
+        {
+            get => IniFile.Read("DatatableKey");
+            set => IniFile.Write("DatatableKey", value);
+        }
+
+        public static bool UseEncryption
+        {
+            get => System.Convert.ToBoolean(IniFile.Read("UseEncryption") == "True" ? true : false);
+            set => IniFile.Write("UseEncryption", value.ToString());
+        }
+
         public static string MusicOrderSort => IniFile.Read(MusicOrderSortProperty);
 
         public static string MusicOrderSortProperty = "MusicOrderSort";

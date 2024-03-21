@@ -46,6 +46,8 @@ namespace TaikoSoundEditor
             var files = new string[] { "music_attribute.bin", "music_order.bin", "musicinfo.bin", "wordlist.bin" };
             var sels = new PathSelector[] { MusicAttributePathSelector, MusicOrderPathSelector, MusicInfoPathSelector, WordListPathSelector };
 
+            Config.DatatablesPath = dir;
+
             List<string> NotFoundFiles = new List<string>();
 
             for (int i = 0; i < files.Length; i++)
