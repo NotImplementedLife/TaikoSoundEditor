@@ -446,7 +446,7 @@ namespace TaikoSoundEditor.Commons.IO
 
             var p = new Process();
             p.StartInfo.FileName = Path.GetFullPath(@"Tools\tja2fumen.exe");
-            p.StartInfo.Arguments = sourcePath;
+            p.StartInfo.Arguments = "\"" + sourcePath + "\"";
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardError = true;
             p.StartInfo.RedirectStandardOutput = true;
