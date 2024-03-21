@@ -21,18 +21,6 @@ namespace TaikoSoundEditor
             WordListPathSelector.PathChanged += WordListPathSelector_PathChanged;
             DirSelector.PathChanged += DirSelector_PathChanged;
 
-            UseEncryptionBox.Checked = Config.UseEncryption;
-            UseEncryptionBox_CheckedChanged(null, null); // update state of the key two text boxes
-
-            //If path is set for the datatable folder, update paths for all the files.
-            if (Config.DatatablesPath != "") DirSelector.Path = Config.DatatablesPath;
-            
-
-            DatatableKeyBox.Text = Config.DatatableKey;
-            FumenKeyBox.Text = Config.FumenKey;
-
-            DatatableDef.Path = Config.DatatableDefPath;
-
             //Other stuff
             AddedMusicBinding.DataSource = AddedMusic;
             NewSoundsBox.DataSource = AddedMusicBinding;
@@ -125,7 +113,7 @@ namespace TaikoSoundEditor
             Logger.Info($"Selection Changed MusicItem: {item}");
             LoadMusicInfo(item);
             indexChanging = false;
-            SoundViewTab.SelectedTab = SoundViewerSimple;
+            if (SoundViewTab.SelectedTab == MusicOrderTab) SoundViewTab.SelectedTab = SoundViewerSimple;
         });
 
         private void EditorTable_Resize(object sender, EventArgs e) => ExceptionGuard.Run(() =>
@@ -140,7 +128,7 @@ namespace TaikoSoundEditor
             LoadedMusicBox.SelectedItem = null;
             var item = NewSoundsBox.SelectedItem as NewSongData;
             LoadNewSongData(item);
-            SoundViewTab.SelectedTab = SoundViewerSimple;
+            if(SoundViewTab.SelectedTab == MusicOrderTab) SoundViewTab.SelectedTab = SoundViewerSimple;
         });
 
         #endregion        
@@ -373,7 +361,7 @@ namespace TaikoSoundEditor
 
         private void MusicOrderSortToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SortByGenreToolStripMenuItem.Checked = SortByIdToolStripMenuItem.Checked = NoSortToolStripMenuItem.Checked = false;
+            SortByGenreToolStripMenuItem.Checked = SortByIdToolStripMenuItem.Checked = sortByTitleToolStripMenuItem.Checked = noSortToolStripMenuItem.Checked = false;
 
             if (sender == SortByGenreToolStripMenuItem)
             {
@@ -385,28 +373,39 @@ namespace TaikoSoundEditor
                 SortByIdToolStripMenuItem.Checked = true;
                 Config.SetMusicOrderSortById();
             }
-            else //if (sender == NoSortToolStripMenuItem)
+            else if (sender == sortByTitleToolStripMenuItem)
             {
-                NoSortToolStripMenuItem.Checked = true;
+                sortByTitleToolStripMenuItem.Checked = true;
+                Config.SetMusicOrderSortByTitle();
+            }
+            else  //(sender == noSortToolStripMenuItem)
+            {
+                noSortToolStripMenuItem.Checked = true;
                 Config.SetMusicOrderNoSort();
             }
+
+            MusicOrderViewer.SortSongs();
+            MusicOrderViewer.MusicOrdersPanel_Update();
         }
 
         private void LoadPreferences()
         {
+            UseEncryptionBox.Checked = Config.UseEncryption;
+            UseEncryptionBox_CheckedChanged(null, null); // update state of the key two text boxes
+
+            //If path is set for the datatable folder, update paths for all the files.
+            if (Config.DatatablesPath != "") DirSelector.Path = Config.DatatablesPath;
+
+
+            DatatableKeyBox.Text = Config.DatatableKey;
+            FumenKeyBox.Text = Config.FumenKey;
+
+            DatatableDef.Path = Config.DatatableDefPath;
+
             var musicOrderSort = Config.IniFile.Read(Config.MusicOrderSortProperty);
-            if (musicOrderSort == Config.MusicOrderSortValueGenre)
-            {
-                SortByGenreToolStripMenuItem.PerformClick();
-            }
-            else if (musicOrderSort == Config.MusicOrderSortValueId)
-            {
-                SortByIdToolStripMenuItem.PerformClick();
-            }
-            else
-            {
-                NoSortToolStripMenuItem.PerformClick();
-            }
+            if (musicOrderSort == Config.MusicOrderSortValueGenre) SortByGenreToolStripMenuItem.PerformClick();
+            else if (musicOrderSort == Config.MusicOrderSortValueId) SortByIdToolStripMenuItem.PerformClick();
+            else if (musicOrderSort == Config.MusicOrderSortValueTitle) sortByTitleToolStripMenuItem.PerformClick();
         }
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e) => ExceptionGuard.Run(() =>

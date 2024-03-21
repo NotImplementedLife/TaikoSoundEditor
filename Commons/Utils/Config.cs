@@ -5,7 +5,7 @@
         private static IniFile CreateIniFile()
         {
             var ini = new IniFile();
-            if(!ini.KeyExists("MusicOrderSort")) ini.Write(MusicOrderSortProperty, MusicOrderSortValueNone);
+            if(!ini.KeyExists("MusicOrderSort")) ini.Write(MusicOrderSortProperty, MusicOrderSortValueGenre);
             return ini;
         }
 
@@ -14,8 +14,10 @@
         public static readonly IniFile IniFile = CreateIniFile();
 
         public static void SetMusicOrderSortById() => IniFile.Write(MusicOrderSortProperty, MusicOrderSortValueId);
-        public static void SetMusicOrderNoSort() => IniFile.Write(MusicOrderSortProperty, MusicOrderSortValueNone);
         public static void SetMusicOrderSortByGenre() => IniFile.Write(MusicOrderSortProperty, MusicOrderSortValueGenre);
+        public static void SetMusicOrderSortByTitle() => IniFile.Write(MusicOrderSortProperty, MusicOrderSortValueTitle);
+
+        public static void SetMusicOrderNoSort() => IniFile.Write(MusicOrderSortProperty, MusicOrderSortValueNoSort);
 
         public static string DatatableDefPath
         {
@@ -52,8 +54,9 @@
         public static string MusicOrderSortProperty = "MusicOrderSort";
         public static string DatatableDefPathProperty = "DatatableDef";
 
-        public static string MusicOrderSortValueNone = "None";
         public static string MusicOrderSortValueId = "Id";
-        public static string MusicOrderSortValueGenre = "Genre";        
+        public static string MusicOrderSortValueGenre = "Genre";
+        public static string MusicOrderSortValueTitle = "Title";
+        public static string MusicOrderSortValueNoSort = "None";
     }    
 }

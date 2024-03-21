@@ -11,6 +11,7 @@ using System.Linq;
 using System;
 using TaikoSoundEditor.Collections;
 using System.Text.RegularExpressions;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace TaikoSoundEditor.Commons.Controls
 {
@@ -32,30 +33,19 @@ namespace TaikoSoundEditor.Commons.Controls
         public void AddSong(IMusicOrder mo)
         {
             var songCard = new SongCard(WordList, mo);
-
-            if (Config.MusicOrderSort == Config.MusicOrderSortValueNone)
-            {
-                SongCards.Add(songCard);
-            }
-            else if (Config.MusicOrderSort == Config.MusicOrderSortValueId) 
-            {
-                SongCards.Add(songCard);
-                SongCards.Sort((c1, c2) => c1.MusicOrder.UniqueId.CompareTo(c2.MusicOrder.UniqueId));
-            }
-            else if (Config.MusicOrderSort == Config.MusicOrderSortValueGenre)
-            {                
-                var firstInGenre = SongCards.Find(c => c.MusicOrder.Genre == mo.Genre);
-                if (firstInGenre == null)
-                {
-                    SongCards.Add(songCard);
-                }
-                else
-                {
-                    var index = SongCards.IndexOf(firstInGenre);
-                    SongCards.Insert(index, songCard);
-                }
-            }
+            SongCards.Add(songCard);
             CurrentPage = CurrentPage;
+        }
+
+        public void SortSongs()
+        {
+            if (Config.MusicOrderSort == Config.MusicOrderSortValueId) SongCards.Sort((c1, c2) => c1.MusicOrder.UniqueId.CompareTo(c2.MusicOrder.UniqueId));
+            else if (Config.MusicOrderSort == Config.MusicOrderSortValueTitle) SongCards.Sort((c1, c2) => c1.Title.CompareTo(c2.Title));
+            else if (Config.MusicOrderSort == Config.MusicOrderSortValueGenre) SongCards.Sort((c1, c2) => {
+                var ret = c1.Genre.CompareTo(c2.Genre);
+                if (ret == 0) ret = c1.Title.CompareTo(c2.Title);
+                return ret;
+            });
         }
 
         public void RemoveAllSongs(int uniqueId)
@@ -130,7 +120,7 @@ namespace TaikoSoundEditor.Commons.Controls
         private static int ItemsPadding = 3;
 
         public void RefreshMusicOrdersPanel(Graphics g)
-        {            
+        {
             var cards = SongCards.Skip(CurrentPage * ItemsPerPage).Take(ItemsPerPage).ToArray();
 
             int itemW = MusicOrdersPanel.Width / ItemsPerRow - 2 * ItemsPadding;
@@ -194,6 +184,8 @@ namespace TaikoSoundEditor.Commons.Controls
                 }
             }
         }
+
+        public void MusicOrdersPanel_Update() => MusicOrdersPanel.Invalidate();
 
         private void MusicOrdersPanel_Resize(object sender, EventArgs e) => ExceptionGuard.Run(() =>
         {
@@ -578,6 +570,7 @@ namespace TaikoSoundEditor.Commons.Controls
             var newMO = DatatableTypes.Clone(CardToClone.MusicOrder);
             newMO.Genre = genre;
             AddSong(newMO);
+            SortSongs();
         }
     }
 }

@@ -174,10 +174,8 @@ namespace TaikoSoundEditor
             });*/            
 
             MusicOrderViewer.WordList = WordList;
-            foreach (var musicOrder in MusicOrders.Items.Where(_ => MusicInfos.Items.Any(mi => mi.UniqueId == _.UniqueId)))
-            {
-                MusicOrderViewer.AddSong(musicOrder);
-            }
+            foreach (var musicOrder in MusicOrders.Items.Where(_ => MusicInfos.Items.Any(mi => mi.UniqueId == _.UniqueId))) MusicOrderViewer.AddSong(musicOrder);
+            MusicOrderViewer.SortSongs();
         });
 
         #endregion                    

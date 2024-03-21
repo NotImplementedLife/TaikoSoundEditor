@@ -311,6 +311,7 @@ namespace TaikoSoundEditor
 			MusicAttributes.Items.Add(ns.MusicAttribute);			
 
             MusicOrderViewer.AddSong(mo);
+            MusicOrderViewer.SortSongs();
         });
 
 
