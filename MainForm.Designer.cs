@@ -36,7 +36,6 @@ namespace TaikoSoundEditor
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.DatatableDef = new TaikoSoundEditor.Commons.Controls.PathSelector();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.UseEncryptionBox = new System.Windows.Forms.CheckBox();
             this.FumenKeyBox = new System.Windows.Forms.TextBox();
@@ -45,16 +44,11 @@ namespace TaikoSoundEditor
             this.label20 = new System.Windows.Forms.Label();
             this.OkButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.DirSelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.WordListPathSelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
-            this.MusicInfoPathSelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
-            this.MusicOrderPathSelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
-            this.MusicAttributePathSelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.SoundViewTab = new System.Windows.Forms.TabControl();
@@ -99,7 +93,6 @@ namespace TaikoSoundEditor
             this.WordsGB = new System.Windows.Forms.GroupBox();
             this.WordsGrid = new System.Windows.Forms.PropertyGrid();
             this.MusicOrderTab = new System.Windows.Forms.TabPage();
-            this.MusicOrderViewer = new TaikoSoundEditor.Commons.Controls.MusicOrderViewer();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.preferencesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.musicOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -137,9 +130,16 @@ namespace TaikoSoundEditor
             this.label2 = new System.Windows.Forms.Label();
             this.SongNameBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.DatatableDef = new TaikoSoundEditor.Commons.Controls.PathSelector();
+            this.DirSelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
+            this.WordListPathSelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
+            this.MusicInfoPathSelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
+            this.MusicOrderPathSelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
+            this.MusicAttributePathSelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
+            this.MusicOrderViewer = new TaikoSoundEditor.Commons.Controls.MusicOrderViewer();
             this.TJASelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
             this.AudioFileSelector = new TaikoSoundEditor.Commons.Controls.PathSelector();
-            this.label10 = new System.Windows.Forms.Label();
             this.TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -238,19 +238,6 @@ namespace TaikoSoundEditor
             this.label22.TabIndex = 14;
             this.label22.Text = "Datatable def";
             // 
-            // DatatableDef
-            // 
-            this.DatatableDef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DatatableDef.Filter = "JSON files(*.json)|*.json|All files(*.*)|*.*";
-            this.DatatableDef.Location = new System.Drawing.Point(83, 19);
-            this.DatatableDef.Name = "DatatableDef";
-            this.DatatableDef.Path = "";
-            this.DatatableDef.SelectsFolder = false;
-            this.DatatableDef.Size = new System.Drawing.Size(226, 20);
-            this.DatatableDef.TabIndex = 13;
-            this.DatatableDef.PathChanged += new TaikoSoundEditor.Commons.Controls.PathSelector.OnPathChanged(this.DatatableDef_PathChanged);
-            // 
             // groupBox12
             // 
             this.groupBox12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -276,6 +263,7 @@ namespace TaikoSoundEditor
             this.UseEncryptionBox.TabIndex = 14;
             this.UseEncryptionBox.Text = "Use Encryption";
             this.UseEncryptionBox.UseVisualStyleBackColor = true;
+            this.UseEncryptionBox.CheckedChanged += new System.EventHandler(this.UseEncryptionBox_CheckedChanged);
             // 
             // FumenKeyBox
             // 
@@ -339,18 +327,6 @@ namespace TaikoSoundEditor
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Or specify the game diretory (/datatable)";
             // 
-            // DirSelector
-            // 
-            this.DirSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DirSelector.Filter = "All files(*.*)|*.*";
-            this.DirSelector.Location = new System.Drawing.Point(58, 19);
-            this.DirSelector.Name = "DirSelector";
-            this.DirSelector.Path = "";
-            this.DirSelector.SelectsFolder = true;
-            this.DirSelector.Size = new System.Drawing.Size(251, 20);
-            this.DirSelector.TabIndex = 11;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -405,54 +381,6 @@ namespace TaikoSoundEditor
             this.label7.Size = new System.Drawing.Size(81, 13);
             this.label7.TabIndex = 13;
             this.label7.Text = "music_order.bin";
-            // 
-            // WordListPathSelector
-            // 
-            this.WordListPathSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.WordListPathSelector.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
-            this.WordListPathSelector.Location = new System.Drawing.Point(101, 88);
-            this.WordListPathSelector.Name = "WordListPathSelector";
-            this.WordListPathSelector.Path = "";
-            this.WordListPathSelector.SelectsFolder = false;
-            this.WordListPathSelector.Size = new System.Drawing.Size(208, 20);
-            this.WordListPathSelector.TabIndex = 12;
-            // 
-            // MusicInfoPathSelector
-            // 
-            this.MusicInfoPathSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MusicInfoPathSelector.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
-            this.MusicInfoPathSelector.Location = new System.Drawing.Point(101, 63);
-            this.MusicInfoPathSelector.Name = "MusicInfoPathSelector";
-            this.MusicInfoPathSelector.Path = "";
-            this.MusicInfoPathSelector.SelectsFolder = false;
-            this.MusicInfoPathSelector.Size = new System.Drawing.Size(208, 20);
-            this.MusicInfoPathSelector.TabIndex = 11;
-            // 
-            // MusicOrderPathSelector
-            // 
-            this.MusicOrderPathSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MusicOrderPathSelector.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
-            this.MusicOrderPathSelector.Location = new System.Drawing.Point(101, 38);
-            this.MusicOrderPathSelector.Name = "MusicOrderPathSelector";
-            this.MusicOrderPathSelector.Path = "";
-            this.MusicOrderPathSelector.SelectsFolder = false;
-            this.MusicOrderPathSelector.Size = new System.Drawing.Size(208, 20);
-            this.MusicOrderPathSelector.TabIndex = 10;
-            // 
-            // MusicAttributePathSelector
-            // 
-            this.MusicAttributePathSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.MusicAttributePathSelector.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
-            this.MusicAttributePathSelector.Location = new System.Drawing.Point(101, 13);
-            this.MusicAttributePathSelector.Name = "MusicAttributePathSelector";
-            this.MusicAttributePathSelector.Path = "";
-            this.MusicAttributePathSelector.SelectsFolder = false;
-            this.MusicAttributePathSelector.Size = new System.Drawing.Size(208, 20);
-            this.MusicAttributePathSelector.TabIndex = 9;
             // 
             // label8
             // 
@@ -921,23 +849,6 @@ namespace TaikoSoundEditor
             this.MusicOrderTab.Text = "Music Order";
             this.MusicOrderTab.UseVisualStyleBackColor = true;
             // 
-            // MusicOrderViewer
-            // 
-            this.MusicOrderViewer.CurrentPage = 0;
-            this.MusicOrderViewer.CutActive = false;
-            this.MusicOrderViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MusicOrderViewer.ItemsPerCol = 5;
-            this.MusicOrderViewer.ItemsPerRow = 4;
-            this.MusicOrderViewer.Location = new System.Drawing.Point(3, 3);
-            this.MusicOrderViewer.Name = "MusicOrderViewer";
-            this.MusicOrderViewer.PasteActive = false;
-            this.MusicOrderViewer.PasteMode = false;
-            this.MusicOrderViewer.RemoveActive = false;
-            this.MusicOrderViewer.Size = new System.Drawing.Size(439, 231);
-            this.MusicOrderViewer.TabIndex = 0;
-            this.MusicOrderViewer.SongRemoved += new TaikoSoundEditor.Commons.Controls.MusicOrderViewer.OnSongRemoved(this.MusicOrderViewer_SongRemoved);
-            this.MusicOrderViewer.SongDoubleClick += new TaikoSoundEditor.Commons.Controls.MusicOrderViewer.OnSongDoubleClick(this.MusicOrderViewer_SongDoubleClick);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
@@ -1346,6 +1257,105 @@ namespace TaikoSoundEditor
             this.label9.TabIndex = 13;
             this.label9.Text = "TJA file";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(5, 61);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(50, 13);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Audio file";
+            // 
+            // DatatableDef
+            // 
+            this.DatatableDef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DatatableDef.Filter = "JSON files(*.json)|*.json|All files(*.*)|*.*";
+            this.DatatableDef.Location = new System.Drawing.Point(83, 19);
+            this.DatatableDef.Name = "DatatableDef";
+            this.DatatableDef.Path = "";
+            this.DatatableDef.SelectsFolder = false;
+            this.DatatableDef.Size = new System.Drawing.Size(226, 20);
+            this.DatatableDef.TabIndex = 13;
+            this.DatatableDef.PathChanged += new TaikoSoundEditor.Commons.Controls.PathSelector.OnPathChanged(this.DatatableDef_PathChanged);
+            // 
+            // DirSelector
+            // 
+            this.DirSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DirSelector.Filter = "All files(*.*)|*.*";
+            this.DirSelector.Location = new System.Drawing.Point(58, 19);
+            this.DirSelector.Name = "DirSelector";
+            this.DirSelector.Path = "";
+            this.DirSelector.SelectsFolder = true;
+            this.DirSelector.Size = new System.Drawing.Size(251, 20);
+            this.DirSelector.TabIndex = 11;
+            // 
+            // WordListPathSelector
+            // 
+            this.WordListPathSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.WordListPathSelector.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
+            this.WordListPathSelector.Location = new System.Drawing.Point(101, 88);
+            this.WordListPathSelector.Name = "WordListPathSelector";
+            this.WordListPathSelector.Path = "";
+            this.WordListPathSelector.SelectsFolder = false;
+            this.WordListPathSelector.Size = new System.Drawing.Size(208, 20);
+            this.WordListPathSelector.TabIndex = 12;
+            // 
+            // MusicInfoPathSelector
+            // 
+            this.MusicInfoPathSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MusicInfoPathSelector.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
+            this.MusicInfoPathSelector.Location = new System.Drawing.Point(101, 63);
+            this.MusicInfoPathSelector.Name = "MusicInfoPathSelector";
+            this.MusicInfoPathSelector.Path = "";
+            this.MusicInfoPathSelector.SelectsFolder = false;
+            this.MusicInfoPathSelector.Size = new System.Drawing.Size(208, 20);
+            this.MusicInfoPathSelector.TabIndex = 11;
+            // 
+            // MusicOrderPathSelector
+            // 
+            this.MusicOrderPathSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MusicOrderPathSelector.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
+            this.MusicOrderPathSelector.Location = new System.Drawing.Point(101, 38);
+            this.MusicOrderPathSelector.Name = "MusicOrderPathSelector";
+            this.MusicOrderPathSelector.Path = "";
+            this.MusicOrderPathSelector.SelectsFolder = false;
+            this.MusicOrderPathSelector.Size = new System.Drawing.Size(208, 20);
+            this.MusicOrderPathSelector.TabIndex = 10;
+            // 
+            // MusicAttributePathSelector
+            // 
+            this.MusicAttributePathSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MusicAttributePathSelector.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
+            this.MusicAttributePathSelector.Location = new System.Drawing.Point(101, 13);
+            this.MusicAttributePathSelector.Name = "MusicAttributePathSelector";
+            this.MusicAttributePathSelector.Path = "";
+            this.MusicAttributePathSelector.SelectsFolder = false;
+            this.MusicAttributePathSelector.Size = new System.Drawing.Size(208, 20);
+            this.MusicAttributePathSelector.TabIndex = 9;
+            // 
+            // MusicOrderViewer
+            // 
+            this.MusicOrderViewer.CurrentPage = 0;
+            this.MusicOrderViewer.CutActive = false;
+            this.MusicOrderViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MusicOrderViewer.ItemsPerCol = 5;
+            this.MusicOrderViewer.ItemsPerRow = 4;
+            this.MusicOrderViewer.Location = new System.Drawing.Point(3, 3);
+            this.MusicOrderViewer.Name = "MusicOrderViewer";
+            this.MusicOrderViewer.PasteActive = false;
+            this.MusicOrderViewer.PasteMode = false;
+            this.MusicOrderViewer.RemoveActive = false;
+            this.MusicOrderViewer.Size = new System.Drawing.Size(439, 231);
+            this.MusicOrderViewer.TabIndex = 0;
+            this.MusicOrderViewer.SongRemoved += new TaikoSoundEditor.Commons.Controls.MusicOrderViewer.OnSongRemoved(this.MusicOrderViewer_SongRemoved);
+            this.MusicOrderViewer.SongDoubleClick += new TaikoSoundEditor.Commons.Controls.MusicOrderViewer.OnSongDoubleClick(this.MusicOrderViewer_SongDoubleClick);
+            // 
             // TJASelector
             // 
             this.TJASelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1371,15 +1381,6 @@ namespace TaikoSoundEditor
             this.AudioFileSelector.SelectsFolder = false;
             this.AudioFileSelector.Size = new System.Drawing.Size(150, 20);
             this.AudioFileSelector.TabIndex = 9;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(5, 61);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(50, 13);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "Audio file";
             // 
             // MainForm
             // 

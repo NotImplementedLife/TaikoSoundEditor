@@ -24,8 +24,8 @@ namespace TaikoSoundEditor.Commons.IO
 
         public static void LoadKeys()
         {            
-            DatatableKey = GetKeyFromString(Config.IniFile.Read("DatatableKey"));
-            FumenKey = GetKeyFromString(Config.IniFile.Read("FumenKey"));
+            DatatableKey = GetKeyFromString(Config.DatatableKey);
+            FumenKey = GetKeyFromString(Config.FumenKey);
         }
 
         private static byte[] DatatableKey = null;
