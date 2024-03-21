@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System;
 using TaikoSoundEditor.Collections;
+using System.Text.RegularExpressions;
 
 namespace TaikoSoundEditor.Commons.Controls
 {
@@ -39,7 +40,7 @@ namespace TaikoSoundEditor.Commons.Controls
             else if (Config.MusicOrderSort == Config.MusicOrderSortValueId) 
             {
                 SongCards.Add(songCard);
-                SongCards.Sort((c1, c2) => c1.Id.CompareTo(c2.Id));
+                SongCards.Sort((c1, c2) => c1.MusicOrder.UniqueId.CompareTo(c2.MusicOrder.UniqueId));
             }
             else if (Config.MusicOrderSort == Config.MusicOrderSortValueGenre)
             {                

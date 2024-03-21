@@ -11,7 +11,7 @@ namespace TaikoSoundEditor.Commons.Controls
         internal WordList WordList { get; }
         public IMusicOrder MusicOrder { get; }
 
-        public string Id => $"{MusicOrder.UniqueId}.{MusicOrder.Id}";
+        public string Id => $"{MusicOrder.UniqueId}. {MusicOrder.Id}";
         public string Title => WordList.GetBySong(MusicOrder.Id).JapaneseText;
         public string Subtitle => WordList.GetBySongSub(MusicOrder.Id).JapaneseText;
         public string Genre => MusicOrder.Genre.ToString();
