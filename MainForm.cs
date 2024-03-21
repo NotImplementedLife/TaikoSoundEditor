@@ -22,13 +22,11 @@ namespace TaikoSoundEditor
             DirSelector.PathChanged += DirSelector_PathChanged;
 
             UseEncryptionBox.Checked = Config.UseEncryption;
+            UseEncryptionBox_CheckedChanged(null, null); // update state of the key two text boxes
 
             //If path is set for the datatable folder, update paths for all the files.
-            if (Config.DatatablesPath != "")
-            {
-                DirSelector.Path = Config.DatatablesPath;
-                DirSelector_PathChanged(null, null);
-            }
+            if (Config.DatatablesPath != "") DirSelector.Path = Config.DatatablesPath;
+            
 
             DatatableKeyBox.Text = Config.DatatableKey;
             FumenKeyBox.Text = Config.FumenKey;
@@ -444,6 +442,11 @@ namespace TaikoSoundEditor
             }
         }
 
-        private void UseEncryptionBox_CheckedChanged(object sender, EventArgs e) => Config.UseEncryption = UseEncryptionBox.Checked;
+        private void UseEncryptionBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.UseEncryption = UseEncryptionBox.Checked;
+            FumenKeyBox.Enabled = UseEncryptionBox.Checked;
+            DatatableKeyBox.Enabled = UseEncryptionBox.Checked;
+        }
     }
 }

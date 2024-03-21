@@ -56,6 +56,7 @@ namespace TaikoSoundEditor
                 if (!File.Exists(path))
                 {
                     NotFoundFiles.Add(files[i]);
+                    sels[i].Path = "";
                     continue;
                 }
                 sels[i].Path = path;
